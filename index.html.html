@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Module A Revision — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;600;700&family=Overpass+Mono:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1013;
+    --panel:#161B1F;
+    --panel-raised:#1C2227;
+    --border:#262D33;
+    --text:#EDEFEF;
+    --muted:#8A939B;
+    --accent:#4FA69E;
+    --accent-hover:#5FBDB4;
+    --correct:#3E9463;
+    --correct-bg:rgba(62,148,99,0.14);
+    --incorrect:#C1483B;
+    --incorrect-bg:rgba(193,72,59,0.14);
+    --review:#C98A2C;
+    --review-bg:rgba(201,138,44,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Source Sans 3', -apple-system, sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  .app{
+    width:100%;
+    max-width:460px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    padding:16px 16px 28px;
+  }
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:16px;
+  }
+  .title{
+    font-family:'Overpass', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.01em;
+  }
+  .title small{
+    display:block;
+    font-family:'Source Sans 3', sans-serif;
+    font-weight:400;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:2px;
+  }
+  .stats{
+    display:flex;
+    gap:14px;
+  }
+  .stat{
+    text-align:right;
+  }
+  .stat .n{
+    font-family:'Overpass Mono', monospace;
+    font-size:17px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .stat .l{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:3px;
+  }
+  .stat.due .n{ color:var(--review); }
+
+  .progress-track{
+    height:3px;
+    background:var(--border);
+    border-radius:2px;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--accent);
+    transition:width 0.4s ease;
+  }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:20px 18px;
+    margin-bottom:16px;
+  }
+  .card.review-tag{
+    border-left:3px solid var(--review);
+  }
+  .q-meta{
+    font-family:'Overpass Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .q-meta .badge{
+    color:var(--review);
+  }
+  .q-text{
+    font-size:16.5px;
+    line-height:1.5;
+    font-weight:500;
+  }
+
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .option{
+    background:var(--panel-raised);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:13px 14px;
+    display:flex;
+    gap:11px;
+    align-items:flex-start;
+    text-align:left;
+    font-family:inherit;
+    font-size:14.5px;
+    color:var(--text);
+    cursor:pointer;
+    line-height:1.4;
+    transition:border-color 0.15s, background 0.15s;
+  }
+  .option:hover:not(:disabled){
+    border-color:var(--accent);
+  }
+  .option:disabled{
+    cursor:default;
+  }
+  .option .letter{
+    font-family:'Overpass Mono', monospace;
+    font-weight:600;
+    color:var(--muted);
+    flex-shrink:0;
+  }
+  .option.correct{
+    border-color:var(--correct);
+    background:var(--correct-bg);
+  }
+  .option.correct .letter{ color:var(--correct); }
+  .option.incorrect{
+    border-color:var(--incorrect);
+    background:var(--incorrect-bg);
+  }
+  .option.incorrect .letter{ color:var(--incorrect); }
+  .option.dim{
+    opacity:0.45;
+  }
+
+  .feedback{
+    border-radius:6px;
+    padding:15px 16px;
+    margin-bottom:16px;
+    border:1px solid var(--border);
+    animation:rise 0.25s ease;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .feedback.ok{ border-color:var(--correct); }
+  .feedback.no{ border-color:var(--incorrect); }
+  .verdict{
+    font-family:'Overpass', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:8px;
+  }
+  .feedback.ok .verdict{ color:var(--correct); }
+  .feedback.no .verdict{ color:var(--incorrect); }
+  .explanation{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--text);
+    margin-bottom:10px;
+  }
+  .reference{
+    font-family:'Overpass Mono', monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    padding-top:9px;
+    border-top:1px solid var(--border);
+  }
+
+  .next-btn{
+    background:var(--accent);
+    color:#0D1013;
+    border:none;
+    border-radius:6px;
+    padding:14px;
+    font-family:'Overpass', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    width:100%;
+  }
+  .next-btn:hover{ background:var(--accent-hover); }
+
+  .footer-row{
+    margin-top:auto;
+    padding-top:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .link-btn{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:12px;
+    font-family:'Source Sans 3', sans-serif;
+    cursor:pointer;
+    padding:6px 0;
+  }
+  .link-btn:hover{ color:var(--text); }
+
+  .panel-toggle{
+    display:none;
+  }
+  .missed-panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:16px;
+    margin-bottom:16px;
+  }
+  .missed-panel h3{
+    font-family:'Overpass', sans-serif;
+    font-size:13px;
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  .missed-item{
+    font-size:13px;
+    padding:9px 0;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .missed-item:first-child{ border-top:none; }
+  .missed-item .wc{
+    font-family:'Overpass Mono', monospace;
+    color:var(--review);
+    flex-shrink:0;
+    font-size:12px;
+  }
+  .empty-note{
+    font-size:13px;
+    color:var(--muted);
+  }
+  .demo-note{
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:16px;
+    padding:10px 12px;
+    border:1px dashed var(--border);
+    border-radius:6px;
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+// ---------- DEMO QUESTION BANK ----------
+// Placeholder content only — generic railway signalling knowledge, not
+// sourced from any specific reading list. Swap this array out for the
+// real question bank once it's generated from your 25 documents.
+const QUESTIONS = [
+  {
+    id: "q1",
+    topic: "Interlocking",
+    q: "What is the primary purpose of signal interlocking?",
+    options: [
+      "To prevent conflicting or unsafe combinations of signal and point settings from being established",
+      "To reduce the electrical power drawn by the signalling system",
+      "To automatically clean signal lenses on a scheduled basis",
+      "To synchronise passenger information displays with train arrivals"
+    ],
+    correct: 0,
+    explanation: "Interlocking exists to enforce safe sequencing: it physically or logically prevents a signaller from setting routes or signals that would conflict, such as clearing two signals for movements that could collide.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q2",
+    topic: "Aspects",
+    q: "In a UK four-aspect signalling system, what does a single yellow aspect indicate?",
+    options: [
+      "Proceed at maximum line speed",
+      "Stop and do not pass the signal",
+      "Be prepared to stop at the next signal, which is showing a red aspect",
+      "Proceed with caution, expecting the next signal to be double yellow"
+    ],
+    correct: 2,
+    explanation: "A single yellow aspect warns the driver that the next signal ahead is at danger (red), giving one signal section's worth of braking distance to stop.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q3",
+    topic: "Points protection",
+    q: "What is the function of a trap point?",
+    options: [
+      "To increase the speed limit through a junction",
+      "To derail or divert an unauthorised movement away from a protected line",
+      "To provide an additional passing loop for freight trains",
+      "To measure axle load on passing trains"
+    ],
+    correct: 1,
+    explanation: "Trap points are a protective device: if a train passes a signal at danger or runs away, the trap point derails it clear of the protected route rather than allowing a collision.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q4",
+    topic: "Track circuits",
+    q: "What does a track circuit primarily detect?",
+    options: [
+      "The presence of a train or broken rail within a defined section of track",
+      "The gradient of the track over a given section",
+      "The ambient temperature of the rail",
+      "The scheduled timetable adherence of a train"
+    ],
+    correct: 0,
+    explanation: "A track circuit uses the rails themselves as part of an electrical circuit; a train's axles (or a broken rail) short or break the circuit, which the signalling system interprets as occupation.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q5",
+    topic: "Safety principles",
+    q: "What does the 'fail-safe' design principle mean in the context of signalling systems?",
+    options: [
+      "The system is guaranteed never to fail under any circumstance",
+      "On failure, the system reverts to its most restrictive, least permissive state",
+      "The system automatically repairs itself without human intervention",
+      "Failures are logged but do not affect train movements"
+    ],
+    correct: 1,
+    explanation: "Fail-safe design means that when a fault occurs, the system defaults to the safest condition available — typically showing a red (danger) aspect — rather than a permissive one.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q6",
+    topic: "Operations",
+    q: "What does the term 'SPAD' refer to in UK railway operations?",
+    options: [
+      "Signal Placement and Design",
+      "Signal Passed At Danger",
+      "Speed Protection and Detection",
+      "Signaller Performance Assessment Data"
+    ],
+    correct: 1,
+    explanation: "A SPAD occurs when a train passes a signal displaying a stop (danger) aspect without authority, and is treated as a significant safety event requiring investigation.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q7",
+    topic: "Train protection",
+    q: "What is the main function of TPWS (Train Protection & Warning System)?",
+    options: [
+      "To provide onboard entertainment systems for passengers",
+      "To automatically apply the brakes if a train approaches a signal at danger too fast, or passes it without authority",
+      "To manage ticket validation on board",
+      "To control platform screen doors at stations"
+    ],
+    correct: 1,
+    explanation: "TPWS is a train protection overlay that intervenes to apply the brakes automatically in situations such as excessive approach speed to a red signal or a SPAD, reducing the consequences of driver error.",
+    reference: "Demo content — replace with your reading-list reference"
+  },
+  {
+    id: "q8",
+    topic: "Signalling authority",
+    q: "What does a calling-on signal typically authorise?",
+    options: [
+      "Unrestricted movement at full line speed",
+      "A cautious movement into a section that may already be occupied, at low speed and driver's caution",
+      "A train to reverse direction on a running line",
+      "A shunting movement to couple wagons only, never applicable to passenger trains"
+    ],
+    correct: 1,
+    explanation: "A calling-on signal (or subsidiary aspect) permits a train to proceed cautiously, at low speed, into a section that may be occupied — used for example when joining another train or entering a partially occupied platform.",
+    reference: "Demo content — replace with your reading-list reference"
+  }
+];
+
+// ---------- STATE / PERSISTENCE ----------
+const STORAGE_KEY = "irse-moduleA-demo-progress-v1";
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  const fresh = {};
+  QUESTIONS.forEach(q => fresh[q.id] = { wrong:0, correctStreak:0, seen:0 });
+  return fresh;
+}
+function saveProgress(p){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
+}
+
+let progress = loadProgress();
+QUESTIONS.forEach(q => { if(!progress[q.id]) progress[q.id] = { wrong:0, correctStreak:0, seen:0 }; });
+
+let sessionCorrect = 0;
+let sessionSeen = 0;
+let queue = [];
+let currentQ = null;
+let answered = false;
+let showingMissed = false;
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function dueForReview(){
+  return QUESTIONS.filter(q => progress[q.id].wrong > 0 && progress[q.id].correctStreak < 2);
+}
+
+function buildQueue(){
+  const main = shuffle(QUESTIONS.map(q=>q.id));
+  const due = shuffle(dueForReview().map(q=>q.id));
+  const merged = [];
+  let dueIdx = 0;
+  main.forEach((id, i) => {
+    merged.push(id);
+    if((i+1) % 3 === 0 && dueIdx < due.length){
+      merged.push(due[dueIdx]);
+      dueIdx++;
+    }
+  });
+  while(dueIdx < due.length){ merged.push(due[dueIdx]); dueIdx++; }
+  return merged;
+}
+
+function nextQuestion(){
+  if(queue.length === 0) queue = buildQueue();
+  const id = queue.shift();
+  currentQ = QUESTIONS.find(q => q.id === id);
+  answered = false;
+  sessionSeen++;
+  render();
+}
+
+function selectOption(idx){
+  if(answered) return;
+  answered = true;
+  const p = progress[currentQ.id];
+  p.seen++;
+  const isCorrect = idx === currentQ.correct;
+  if(isCorrect){
+    sessionCorrect++;
+    p.correctStreak++;
+  } else {
+    p.wrong++;
+    p.correctStreak = 0;
+  }
+  progress[currentQ.id] = p;
+  saveProgress(progress);
+  render(idx);
+}
+
+function resetProgress(){
+  progress = {};
+  QUESTIONS.forEach(q => progress[q.id] = { wrong:0, correctStreak:0, seen:0 });
+  saveProgress(progress);
+  sessionCorrect = 0;
+  sessionSeen = 0;
+  queue = [];
+  showingMissed = false;
+  nextQuestion();
+}
+
+function toggleMissed(){
+  showingMissed = !showingMissed;
+  render();
+}
+
+// ---------- RENDER ----------
+function render(selectedIdx){
+  const app = document.getElementById('app');
+  const due = dueForReview();
+  const isReviewQ = currentQ && progress[currentQ.id].wrong > 0 && progress[currentQ.id].correctStreak < 2;
+
+  let optionsHtml = '';
+  if(currentQ){
+    optionsHtml = currentQ.options.map((opt, i) => {
+      let cls = 'option';
+      let disabled = '';
+      if(answered){
+        disabled = 'disabled';
+        if(i === currentQ.correct) cls += ' correct';
+        else if(i === selectedIdx) cls += ' incorrect';
+        else cls += ' dim';
+      }
+      const letter = String.fromCharCode(65+i);
+      return `<button class="${cls}" ${disabled} onclick="selectOption(${i})">
+        <span class="letter">${letter}</span><span>${opt}</span>
+      </button>`;
+    }).join('');
+  }
+
+  let feedbackHtml = '';
+  if(answered){
+    const correct = selectedIdx === currentQ.correct;
+    feedbackHtml = `
+      <div class="feedback ${correct ? 'ok' : 'no'}">
+        <div class="verdict">${correct ? 'Correct' : 'Incorrect'}</div>
+        <div class="explanation">${currentQ.explanation}</div>
+        <div class="reference">${currentQ.reference}</div>
+      </div>
+      <button class="next-btn" onclick="nextQuestion()">Next question</button>
+    `;
+  }
+
+  let missedPanelHtml = '';
+  if(showingMissed){
+    if(due.length === 0){
+      missedPanelHtml = `<div class="missed-panel"><h3>Questions due for review</h3><div class="empty-note">Nothing in the review queue right now.</div></div>`;
+    } else {
+      const items = due.map(q => `
+        <div class="missed-item">
+          <span>${q.topic}: ${q.q}</span>
+          <span class="wc">×${progress[q.id].wrong}</span>
+        </div>
+      `).join('');
+      missedPanelHtml = `<div class="missed-panel"><h3>Questions due for review (${due.length})</h3>${items}</div>`;
+    }
+  }
+
+  app.innerHTML = `
+    <header>
+      <div class="title">Module A Revision<small>Practice quiz — demo</small></div>
+      <div class="stats">
+        <div class="stat">
+          <div class="n">${sessionCorrect}/${sessionSeen}</div>
+          <div class="l">this session</div>
+        </div>
+        <div class="stat due">
+          <div class="n">${due.length}</div>
+          <div class="l">due for review</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="demo-note">This is a working prototype with placeholder questions, not real exam content. It shows how selection, feedback, explanations and the review queue behave — the real version would use questions generated from your reading list.</div>
+
+    ${missedPanelHtml}
+
+    ${currentQ ? `
+    <div class="card ${isReviewQ ? 'review-tag' : ''}">
+      <div class="q-meta">
+        <span>${currentQ.topic}</span>
+        ${isReviewQ ? '<span class="badge">due for review</span>' : ''}
+      </div>
+      <div class="q-text">${currentQ.q}</div>
+    </div>
+    <div class="options">${optionsHtml}</div>
+    ${feedbackHtml}
+    ` : ''}
+
+    <div class="footer-row">
+      <button class="link-btn" onclick="toggleMissed()">${showingMissed ? 'Hide review list' : 'View review list'}</button>
+      <button class="link-btn" onclick="resetProgress()">Reset progress</button>
+    </div>
+  `;
+}
+
+nextQuestion();
+</script>
+</body>
+</html>
