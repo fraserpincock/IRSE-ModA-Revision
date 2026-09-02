@@ -1638,7 +1638,7 @@ const REQS_QUESTIONS = [
     reference: "\"Essential supporting safety requirements\" section"
   }
 ];
-REQS_QUESTIONS.forEach(q => { q.category = "Train Control Requirements"; });
+REQS_QUESTIONS.forEach(q => { q.category = "Fundamental Requirements for Train Control"; });
 
 // ---------- BATCH: TRAIN DETECTION ----------
 // Generated from: "Train detection – the basics" (Paul Darlington and David Fenner, IRSE News 261, Dec 2019)
@@ -2677,7 +2677,7 @@ const SAFETY_QUESTIONS = [
     reference: "\"Causes vs hazards\""
   }
 ];
-SAFETY_QUESTIONS.forEach(q => { q.category = "Railway Safety"; });
+SAFETY_QUESTIONS.forEach(q => { q.category = "Intro to Rail Safety"; });
 
 // ---------- BATCH: TRAIN PROTECTION ----------
 // Generated from: "Back to basics: train protection" (David Fenner, IRSE News 268, July/August 2020)
@@ -8720,6 +8720,23 @@ function dueForReview(){
   return filteredQuestions().filter(q => progress[q.id].wrong > 0 && progress[q.id].correctStreak < 2);
 }
 
+// Returns a copy of the question with its options in a random order, so the
+// correct answer isn't always in the same position. Works for both single
+// (correct: number) and multi (correct: array) formats.
+function withShuffledOptions(q){
+  const order = shuffle(q.options.map((_, i) => i)); // random permutation of original indices
+  const newOptions = order.map(origIdx => q.options[origIdx]);
+  let newCorrect;
+  if(Array.isArray(q.correct)){
+    newCorrect = order
+      .map((origIdx, newIdx) => q.correct.includes(origIdx) ? newIdx : -1)
+      .filter(x => x !== -1);
+  } else {
+    newCorrect = order.indexOf(q.correct);
+  }
+  return Object.assign({}, q, { options: newOptions, correct: newCorrect });
+}
+
 function buildQueue(){
   const pool = filteredQuestions();
   const main = shuffle(pool.map(q=>q.id));
@@ -8747,7 +8764,7 @@ function nextQuestion(){
   }
   if(queue.length === 0) queue = buildQueue();
   const id = queue.shift();
-  currentQ = QUESTIONS.find(q => q.id === id);
+  currentQ = withShuffledOptions(QUESTIONS.find(q => q.id === id));
   answered = false;
   selectedSet = new Set();
   sessionSeen++;
