@@ -238,7 +238,8 @@
     margin-top:auto;
     padding-top:22px;
     display:flex;
-    justify-content:space-between;
+    gap:18px;
+    flex-wrap:wrap;
     align-items:center;
   }
   .link-btn{
@@ -296,6 +297,37 @@
     border:1px dashed var(--border);
     border-radius:6px;
   }
+  .filter-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13.5px;
+    padding:8px 0;
+    border-top:1px solid var(--border);
+    cursor:pointer;
+  }
+  .filter-row:first-of-type{ border-top:none; }
+  .filter-row input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    accent-color:var(--accent);
+    flex-shrink:0;
+  }
+  .filter-row .filter-label{
+    flex:1;
+  }
+  .filter-count{
+    font-family:'Overpass Mono', monospace;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .filter-actions{
+    display:flex;
+    gap:16px;
+    padding-top:12px;
+    margin-top:4px;
+    border-top:1px solid var(--border);
+  }
 </style>
 </head>
 <body>
@@ -306,7 +338,7 @@
 // Generated from: "Back to Basics: Telecoms Part 1" (IRSE News #270, Oct 2020)
 // and "Back to Basics: Telecoms Part 2" (IRSE News #271, Nov 2020).
 // Written in original wording — not copied from the source article.
-const QUESTIONS = [
+const TELECOMS_QUESTIONS = [
   {
     id: "tc_p1_01",
     topic: "Operational telecoms",
@@ -1022,8 +1054,42 @@ const QUESTIONS = [
   }
 ];
 
+TELECOMS_QUESTIONS.forEach(q => { q.category = "Telecoms"; });
+
+// Combine all topic batches into one master list. To add a new topic batch
+// later, define its array the same way as TELECOMS_QUESTIONS above, tag it
+// with a category, then add it to the list below, e.g.:
+//   const INTERLOCKING_QUESTIONS = [ ... ];
+//   INTERLOCKING_QUESTIONS.forEach(q => { q.category = "Interlocking"; });
+//   const QUESTIONS = [ ...TELECOMS_QUESTIONS, ...INTERLOCKING_QUESTIONS ];
+const QUESTIONS = [
+  ...TELECOMS_QUESTIONS
+];
+
 // ---------- STATE / PERSISTENCE ----------
 const STORAGE_KEY = "irse-moduleA-progress-v1";
+const FILTER_KEY = "irse-moduleA-filter-v1";
+
+function allCategories(){
+  return [...new Set(QUESTIONS.map(q => q.category))];
+}
+function loadFilter(){
+  try{
+    const raw = localStorage.getItem(FILTER_KEY);
+    if(raw){
+      const arr = JSON.parse(raw);
+      const valid = arr.filter(c => allCategories().includes(c));
+      if(valid.length) return new Set(valid);
+    }
+  }catch(e){}
+  return new Set(allCategories()); // default: everything selected
+}
+function saveFilter(set){
+  try{ localStorage.setItem(FILTER_KEY, JSON.stringify([...set])); }catch(e){}
+}
+function filteredQuestions(){
+  return QUESTIONS.filter(q => selectedCategories.has(q.category));
+}
 
 function loadProgress(){
   try{
@@ -1047,7 +1113,9 @@ let queue = [];
 let currentQ = null;
 let answered = false;
 let showingMissed = false;
+let showingFilter = false;
 let selectedSet = new Set();
+let selectedCategories = loadFilter();
 
 function shuffle(arr){
   const a = arr.slice();
@@ -1059,11 +1127,12 @@ function shuffle(arr){
 }
 
 function dueForReview(){
-  return QUESTIONS.filter(q => progress[q.id].wrong > 0 && progress[q.id].correctStreak < 2);
+  return filteredQuestions().filter(q => progress[q.id].wrong > 0 && progress[q.id].correctStreak < 2);
 }
 
 function buildQueue(){
-  const main = shuffle(QUESTIONS.map(q=>q.id));
+  const pool = filteredQuestions();
+  const main = shuffle(pool.map(q=>q.id));
   const due = shuffle(dueForReview().map(q=>q.id));
   const merged = [];
   let dueIdx = 0;
@@ -1079,6 +1148,13 @@ function buildQueue(){
 }
 
 function nextQuestion(){
+  if(filteredQuestions().length === 0){
+    currentQ = null;
+    answered = false;
+    selectedSet = new Set();
+    render();
+    return;
+  }
   if(queue.length === 0) queue = buildQueue();
   const id = queue.shift();
   currentQ = QUESTIONS.find(q => q.id === id);
@@ -1142,6 +1218,35 @@ function resetProgress(){
 
 function toggleMissed(){
   showingMissed = !showingMissed;
+  render();
+}
+
+function applyFilterChange(){
+  saveFilter(selectedCategories);
+  queue = [];
+  sessionCorrect = 0;
+  sessionSeen = 0;
+  nextQuestion();
+}
+
+function toggleCategory(cat){
+  if(selectedCategories.has(cat)) selectedCategories.delete(cat);
+  else selectedCategories.add(cat);
+  applyFilterChange();
+}
+
+function selectAllCategories(){
+  selectedCategories = new Set(allCategories());
+  applyFilterChange();
+}
+
+function clearAllCategories(){
+  selectedCategories = new Set();
+  applyFilterChange();
+}
+
+function toggleFilterPanel(){
+  showingFilter = !showingFilter;
   render();
 }
 
@@ -1218,7 +1323,7 @@ function render(selectedIdx){
     } else {
       const items = due.map(q => `
         <div class="missed-item">
-          <span>${q.topic}: ${q.q}</span>
+          <span>${q.category} — ${q.topic}: ${q.q}</span>
           <span class="wc">×${progress[q.id].wrong}</span>
         </div>
       `).join('');
@@ -1226,9 +1331,43 @@ function render(selectedIdx){
     }
   }
 
+  const cats = allCategories();
+  let filterPanelHtml = '';
+  if(showingFilter){
+    const rows = cats.map(cat => {
+      const count = QUESTIONS.filter(q => q.category === cat).length;
+      const checked = selectedCategories.has(cat) ? 'checked' : '';
+      const safeCat = cat.replace(/'/g, "\\'");
+      return `<label class="filter-row">
+        <input type="checkbox" ${checked} onchange="toggleCategory('${safeCat}')">
+        <span class="filter-label">${cat}</span>
+        <span class="filter-count">${count}</span>
+      </label>`;
+    }).join('');
+    filterPanelHtml = `<div class="missed-panel">
+      <h3>Topics to practise</h3>
+      ${rows}
+      <div class="filter-actions">
+        <button class="link-btn" onclick="selectAllCategories()">Select all</button>
+        <button class="link-btn" onclick="clearAllCategories()">Clear all</button>
+      </div>
+    </div>`;
+  }
+
+  const pool = filteredQuestions();
+  const selectedList = [...selectedCategories];
+  let statusText;
+  if(selectedList.length === 0){
+    statusText = "No topics selected — open Topics below and choose at least one to start practising.";
+  } else if(selectedList.length === cats.length){
+    statusText = `Practising all topics — ${pool.length} questions in the mix.`;
+  } else {
+    statusText = `Practising: ${selectedList.join(', ')} — ${pool.length} questions in the mix.`;
+  }
+
   app.innerHTML = `
     <header>
-      <div class="title">Module A Revision<small>Telecoms — 50 questions</small></div>
+      <div class="title">Module A Revision<small>Practice quiz</small></div>
       <div class="stats">
         <div class="stat">
           <div class="n">${sessionCorrect}/${sessionSeen}</div>
@@ -1241,14 +1380,16 @@ function render(selectedIdx){
       </div>
     </header>
 
-    <div class="demo-note">50 questions covering "Back to Basics: Telecoms" Parts 1 &amp; 2, including a few multi-select and calculation-style questions to match your specimen paper's format. More batches will be added as you share further articles.</div>
+    <div class="demo-note">${statusText}</div>
+
+    ${filterPanelHtml}
 
     ${missedPanelHtml}
 
     ${currentQ ? `
     <div class="card ${isReviewQ ? 'review-tag' : ''}">
       <div class="q-meta">
-        <span>${currentQ.topic}</span>
+        <span>${currentQ.category} — ${currentQ.topic}</span>
         <span style="display:flex; gap:8px;">
           ${fmt === 'multi' ? `<span class="badge" style="color:var(--accent);">select ${currentQ.selectCount}</span>` : ''}
           ${isReviewQ ? '<span class="badge">due for review</span>' : ''}
@@ -1259,9 +1400,14 @@ function render(selectedIdx){
     <div class="options">${optionsHtml}</div>
     ${submitHtml}
     ${feedbackHtml}
-    ` : ''}
+    ` : `
+    <div class="card">
+      <div class="q-text">No questions to show for the current topic selection. Open Topics below and pick at least one to begin.</div>
+    </div>
+    `}
 
     <div class="footer-row">
+      <button class="link-btn" onclick="toggleFilterPanel()">${showingFilter ? 'Hide topics' : 'Topics'}</button>
       <button class="link-btn" onclick="toggleMissed()">${showingMissed ? 'Hide review list' : 'View review list'}</button>
       <button class="link-btn" onclick="resetProgress()">Reset progress</button>
     </div>
