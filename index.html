@@ -5841,6 +5841,2792 @@ const SILEXPLAINED_QUESTIONS = [
 ];
 SILEXPLAINED_QUESTIONS.forEach(q => { q.category = "SIL Explained"; });
 
+const MTC_QUESTIONS = [
+  {
+    id: "mtc_01",
+    topic: "What is a metro",
+    q: "According to the IRSE textbook definition quoted in the article, what distinguishes metros from other railways?",
+    options: [
+      "They carry passengers only and run a more intense train service",
+      "They are always driverless (GoA4)",
+      "They only ever operate underground",
+      "They always share track with freight trains"
+    ],
+    correct: 0,
+    explanation: "The textbook explains that metros differ from other railways in that they carry passengers only and run a more intense train service, concentrated in cities and moving large numbers of people over relatively short distances.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What is a metro?\""
+  },
+  {
+    id: "mtc_02",
+    topic: "Metro operating characteristics",
+    q: "Why do metro trains generally offer a simpler train control design challenge than main line railways in terms of train performance variables?",
+    options: [
+      "Metro trains are usually of the same or very similar type, with similar acceleration, braking and top speed, and there are no slow-moving freight trains to consider",
+      "Metro trains never need to brake to a stand",
+      "Metro trains are exempt from Newton's laws of motion",
+      "Metro railways never have junctions or points"
+    ],
+    correct: 0,
+    explanation: "The article notes metro trains tend to have the same or very similar characteristics in acceleration, braking and top speed, and there are no slow-moving freight trains to worry about — although the physics (Newton's laws) still apply, just with different parameters.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does that mean for the train control system?\""
+  },
+  {
+    id: "mtc_03",
+    topic: "Metro passenger volumes",
+    q: "Which of the following figures does the article use to describe typical metro operating intensity?",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Headways as low as 90s with dwell times of 45s at busy interchange stations",
+      "Lines moving between 20,000 and 50,000 people per hour per direction",
+      "Trains carrying a maximum of 50 passengers to avoid overcrowding",
+      "A fixed worldwide standard headway of 3 minutes",
+      "Journey times always under 5 minutes"
+    ],
+    correct: [0, 1],
+    explanation: "The article states that metro trains can carry up to 1000 people, with headways as low as 90s and dwell times of 45s at busy interchange stations, and that many lines move between 20,000 and 50,000 people per hour per direction.",
+    reference: "Back to Basics: Metro Train Control Systems — \"So, all metro systems face the same challenges?\""
+  },
+  {
+    id: "mtc_04",
+    topic: "Inherited infrastructure challenges",
+    q: "What specific challenge does the article highlight regarding parts of the London Underground network?",
+    options: [
+      "There are no station overruns at all in some places, so trains must stop safely immediately in front of an immoveable object",
+      "All tunnels are too narrow for modern rolling stock",
+      "The network has no automatic train protection anywhere",
+      "There are no interchange stations on the network"
+    ],
+    correct: 0,
+    explanation: "The article notes that some parts of the London Underground network have no station overruns at all, with trains having to stop safely immediately in front of an immoveable object such as a station concourse or a redundant tunnel boring shield.",
+    reference: "Back to Basics: Metro Train Control Systems — \"So, all metro systems face the same challenges?\""
+  },
+  {
+    id: "mtc_05",
+    topic: "Common central sections",
+    q: "The Oslo T-bane example is used in the article to illustrate what design challenge?",
+    options: [
+      "Providing an economic and efficient solution where headways vary greatly along a route, from a 15-minute headway in the suburbs to a 2-minute headway in a common central section",
+      "Operating trains entirely without a control centre",
+      "Running freight trains alongside passenger metro services",
+      "Eliminating the need for any signalling at all in central areas"
+    ],
+    correct: 0,
+    explanation: "The Oslo T-bane is described as a high-capacity, low-headway central section fed by trains from the outskirts, requiring detailed systems engineering to economically fit and operate across headways ranging from 15 minutes to around 2 minutes.",
+    reference: "Back to Basics: Metro Train Control Systems — \"So, all metro systems face the same challenges?\""
+  },
+  {
+    id: "mtc_06",
+    topic: "Adhesion and weather",
+    q: "In the context of Singapore's MRT and similar systems, what does the article identify as being required to run at close train intervals in exposed monsoon-affected areas?",
+    options: [
+      "A clear understanding of train odometry and dynamic reduction of brake rates when low adhesion is detected by rain detectors",
+      "A permanent speed restriction of 20km/h during any rainfall",
+      "Removal of all viaduct sections from the network",
+      "Manual driving only during wet weather"
+    ],
+    correct: 0,
+    explanation: "The article explains that ensuring adequate adhesion at close headways in exposed areas requires understanding the odometry used to determine current speed and location, and dynamic reduction of brake rates when low adhesion is detected using rain detectors at stations.",
+    reference: "Back to Basics: Metro Train Control Systems — \"So, all metro systems face the same challenges?\""
+  },
+  {
+    id: "mtc_07",
+    topic: "Extreme weather effects",
+    q: "According to the article, what secondary effects can extreme weather (such as passing typhoons) have on a metro system, beyond impacting braking distances?",
+    options: [
+      "Forces on Platform Screen Doors (PSD) and trains, and tunnel ventilation forces, if the platform-train gap is not considered correctly during design",
+      "Complete failure of all electronic signalling equipment",
+      "Permanent shutdown of the affected line",
+      "No other effects — only braking distance is affected"
+    ],
+    correct: 0,
+    explanation: "The article notes that extreme weather has other impacts such as forces on PSDs and trains, which affect the platform-train gap, and that this can also arise from tunnel ventilation forces if not considered correctly during design.",
+    reference: "Back to Basics: Metro Train Control Systems — \"So, all metro systems face the same challenges?\""
+  },
+  {
+    id: "mtc_08",
+    topic: "ATP and overlaps",
+    q: "How does the article describe the relationship between Automatic Train Protection (ATP) and the overlap provided beyond a signal?",
+    options: [
+      "The overlap is designed to emergency brake a train to rest within it, and where close stopping to buffer stops or trains is required, ATP-supervised speed control on the approach can reduce the required overlap distance",
+      "ATP eliminates the need for any overlap under all circumstances",
+      "The overlap is only relevant to signals with no ATP",
+      "Overlaps are used exclusively to store spare rolling stock"
+    ],
+    correct: 0,
+    explanation: "The article explains that the overlap beyond a signal is designed to emergency brake a train to rest within it, and that ATP-supervised speed control on the approach can reduce the required overlap distance where close stopping is needed.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Do all metros have full train control systems?\""
+  },
+  {
+    id: "mtc_09",
+    topic: "CBTC development",
+    q: "How did the communications medium used by CBTC systems typically change from the earliest systems to today's systems?",
+    options: [
+      "From inductive loop systems in the track to radio communication",
+      "From satellite communication to inductive loops",
+      "From radio communication to fixed copper telephone lines",
+      "CBTC has always exclusively used radio communication"
+    ],
+    correct: 0,
+    explanation: "The article states that the communications medium of the earlier CBTC systems was typically inductive loop systems in the track, but today's systems are typically based on radio communication.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Do all metros have full train control systems?\""
+  },
+  {
+    id: "mtc_10",
+    topic: "ATS and ATR",
+    q: "What does the Automatic Train Regulation (ATR) function of the Automatic Train Supervision (ATS) system do?",
+    options: [
+      "Regulates the service to maintain or restore the timetable or desired headway, made possible by predictable and adjustable inter-station run-times",
+      "Physically drives the train between stations",
+      "Sets and locks routes at interlockings",
+      "Controls only the platform screen doors"
+    ],
+    correct: 0,
+    explanation: "With automatically driven trains producing more predictable inter-station run-times than human drivers, the ATR function of the ATS can regulate the service to maintain or restore the timetable or desired headway.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does that mean for the train control system?\""
+  },
+  {
+    id: "mtc_11",
+    topic: "ATS interfaces",
+    q: "Select TWO systems that the article identifies as typical ATS interfaces, alongside signalling and train control.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Passenger information systems",
+      "Supervisory Control and Data Acquisition (SCADA) for traction power and station equipment",
+      "Air traffic control systems",
+      "Payroll and human resources systems",
+      "Road traffic light controllers"
+    ],
+    correct: [0, 1],
+    explanation: "The article lists ATS interfaces including passenger information, maintenance management, SCADA controlling traction power and station equipment, and (increasingly) Rail Enterprise Asset Management Systems (REAMS).",
+    reference: "Back to Basics: Metro Train Control Systems — \"What is Automatic Train Supervision?\""
+  },
+  {
+    id: "mtc_12",
+    topic: "Interlocking SIL",
+    q: "According to Figure 1 and the surrounding text, what Safety Integrity Level (SIL) is the interlocking subsystem in a typical metro CBTC train control system designed to?",
+    options: [
+      "SIL 4",
+      "SIL 3",
+      "SIL 2",
+      "SIL 1"
+    ],
+    correct: 0,
+    explanation: "The interlocking is directly responsible for safe train routing and is designed to SIL 4, the same level as the ATP subsystem.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\""
+  },
+  {
+    id: "mtc_13",
+    topic: "ATO SIL",
+    q: "Why is the ATO subsystem typically defined to a lower SIL than the interlocking and ATP subsystems?",
+    options: [
+      "Because one of the goals of automation is to eliminate the errors humans introduce, and ATO operates within the safety envelope already enforced by the SIL 4 ATP",
+      "Because ATO has no safety function at all",
+      "Because ATO is not connected to any other subsystem",
+      "Because ATO only operates during maintenance"
+    ],
+    correct: 0,
+    explanation: "The article explains that ATO replaces the train operator, and since it operates within the limits already established and supervised by the SIL 4 ATP, the ATO subsystem is typically defined as SIL 2.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\""
+  },
+  {
+    id: "mtc_14",
+    topic: "Figure 1 architecture",
+    q: "In Figure 1's simplified block diagram of a typical metro train control system, which subsystem is described as being combined with the interlocking, or working with a separate ATP system?",
+    options: [
+      "The zone controller / ATP",
+      "The Platform Screen Doors Controller (PSDC)",
+      "The Train Data Management System (TDMS)",
+      "The Signalling Control Terminal (SCT)"
+    ],
+    correct: 0,
+    explanation: "The article states the interlocking may be combined with the ATP into a zone controller, or work with a separate ATP system, as shown in the Figure 1 architecture.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\" (Figure 1)"
+  },
+  {
+    id: "mtc_15",
+    topic: "Train position determination for ATP",
+    q: "Select TWO sources of information the article describes as being combined to allow accurate, continuous determination of train position and speed for CBTC-type ATP.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "A tachogenerator or speed probe, and doppler radar/accelerometer for wheel slip/slide adjustment",
+      "Absolute position references based on trackside beacons",
+      "GPS satellite positioning alone",
+      "Passenger smartphone location data",
+      "Weight sensors under the seats"
+    ],
+    correct: [0, 1],
+    explanation: "The article describes combining information such as a tachogenerator or speed probe, a doppler radar or accelerometer to adjust for wheel slip/slide or changing wheel size, and absolute position references from trackside beacons.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\""
+  },
+  {
+    id: "mtc_16",
+    topic: "Train Data Management System",
+    q: "What role does the Train Data Management System (TDMS) play in a modern CBTC metro system?",
+    options: [
+      "It interfaces the signalling and train systems for functions that support train operation but are not directly involved with train driving, such as waking/sleeping trains and configuring HVAC, lighting and door isolation for PSD operation",
+      "It calculates the interlocking's route setting logic",
+      "It is the primary radio communication link between train and trackside",
+      "It replaces the ATP subsystem entirely on fully automated lines"
+    ],
+    correct: 0,
+    explanation: "The TDMS provides an interface between signalling and train systems for functions supporting train operation that are not directly involved in driving — such as waking/sleeping trains, heating, air conditioning, lighting, damper closure for washing, and coordination of isolated doors for PSD operation.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\""
+  },
+  {
+    id: "mtc_17",
+    topic: "Trackside radio bearer",
+    q: "What does the article say about the choice of trackside radio bearer used for CBTC communication?",
+    options: [
+      "Many systems use Wi-Fi in the ISM bands but can also use 4G/5G, with some cities in China mandating 4G as it is deemed less prone to interference",
+      "Only fibre optic cable may be used, never radio",
+      "GSM-R is mandatory for all metro CBTC systems",
+      "Satellite communication is the standard bearer for CBTC"
+    ],
+    correct: 0,
+    explanation: "The article notes many CBTC systems use Wi-Fi in the ISM bands but can also use 4G/5G, with cities in China mandating 4G as it is deemed less prone to interference, and that IP-based communications can make CBTC effectively bearer-agnostic.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What does a typical metro signalling and train control system look like?\""
+  },
+  {
+    id: "mtc_18",
+    topic: "Grades of Automation",
+    q: "Which Grade of Automation (GoA) retains a full-time train operator in the cab who both sets the train in motion and stops it, but relies on ATP for protection?",
+    options: [
+      "GoA 1",
+      "GoA 2",
+      "GoA 3",
+      "GoA 4"
+    ],
+    correct: 0,
+    explanation: "Per Figure 2, GoA 1 is ATP and Train Operator, Non-automated Train Operation (NTO), where the driver both sets the train in motion and stops it manually, with ATP providing protection.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Grades of automation\" (Figure 2)"
+  },
+  {
+    id: "mtc_19",
+    topic: "GoA2 example",
+    q: "Which example does the article give of a GoA2 (Semi Automatic Train Operation) system?",
+    options: [
+      "The Central line of London Underground",
+      "The Docklands Light Railway",
+      "Line 14 of the Paris Metro",
+      "Singapore's NSEW lines"
+    ],
+    correct: 0,
+    explanation: "GoA2 railways retain a train operator in the cab but use computer systems to drive the train, with ATP required and the driver able to take over if ATO fails; the Central line of London Underground is given as an example.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Grades of automation\""
+  },
+  {
+    id: "mtc_20",
+    topic: "GoA3 and GoA4 examples",
+    q: "Match the correct examples: which railway is given as a GoA3 example, and which as a GoA4 example?",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "GoA3 — Docklands Light Railway (attended, driverless)",
+      "GoA4 — Line 14 of the Paris Metro (unattended)",
+      "GoA3 — Central line of London Underground",
+      "GoA4 — Singapore's MRT (with an operator in every cab)",
+      "GoA3 — Oslo T-bane"
+    ],
+    correct: [0, 1],
+    explanation: "The article gives the Docklands Light Railway as an example of GoA3 (Attended, Driverless Train Operation) and Paris Metro Line 14 as an example of GoA4 (Unattended Train Operation).",
+    reference: "Back to Basics: Metro Train Control Systems — \"Grades of automation\""
+  },
+  {
+    id: "mtc_21",
+    topic: "Obstruction detection at higher GoA",
+    q: "Why do GoA3 and GoA4 systems need to be designed with appropriate obstruction detection and mitigation?",
+    options: [
+      "Because there is no operator looking out of the front window to identify that the train is likely to hit, or has hit, an obstruction",
+      "Because these systems never operate in tunnels",
+      "Because obstruction detection is a legal requirement only for GoA1 and GoA2",
+      "Because GoA3/4 trains travel more slowly than GoA1/2 trains"
+    ],
+    correct: 0,
+    explanation: "With no operator looking out of the front window, GoA3 and GoA4 systems require detailed systems engineering to establish and mitigate risks associated with not having an operator to identify obstructions.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Grades of automation\""
+  },
+  {
+    id: "mtc_22",
+    topic: "Lack of a metro ETCS/CTCS standard",
+    q: "Why has no common global standard been adopted for interoperability between metro railways, unlike ETCS for main lines?",
+    options: [
+      "The lack of a requirement for interoperability between metro railways, the variation between them, how they have evolved, and the limited number of train types operating on them",
+      "Metros are too small to justify investment in standardisation",
+      "There is an international law prohibiting metro standardisation",
+      "Metro suppliers have agreed not to develop competing standards"
+    ],
+    correct: 0,
+    explanation: "The lack of requirements for interoperability, the variations between metro railways, the way they have evolved, and the limited number of train types operating on them has led to no common global standard being adopted to date.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Is there an ETCS/CTCS type system for metros?\""
+  },
+  {
+    id: "mtc_23",
+    topic: "Multi-supplier initiatives",
+    q: "Select TWO named projects/initiatives the article cites as efforts to create environments where more than one supplier can deliver metro CBTC systems based on common interfaces.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Paris's Ouragan project",
+      "New York Metro's Canarsie line project",
+      "London's Elizabeth line project",
+      "Singapore's NSEW project",
+      "Tokyo's Yamanote line project"
+    ],
+    correct: [0, 1],
+    explanation: "The article names the Ouragan project in Paris and the Canarsie line project on New York Metro as aiming to create environments in which more than one supplier can deliver current and future systems based on common interfaces.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Is there an ETCS/CTCS type system for metros?\""
+  },
+  {
+    id: "mtc_24",
+    topic: "Platform Screen Doors",
+    q: "Select TWO reasons given in the article for the use of Platform Screen Doors (PSDs) on metro systems.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Environmental reasons, ensuring station systems operate efficiently without trying to air condition tunnels",
+      "Safety, allowing trains to enter stations at full line speed (if braking distances allow) while keeping passengers away from the track",
+      "To eliminate the need for any train detection on the platform",
+      "To replace the need for an ATP system entirely",
+      "To provide additional revenue through advertising space only"
+    ],
+    correct: [0, 1],
+    explanation: "PSDs are used for environmental reasons (avoiding the need to air condition tunnels) and for safety, allowing trains to enter stations at full line speed if braking distances allow, while keeping passengers away from the track.",
+    reference: "Back to Basics: Metro Train Control Systems — \"What else is different about metros?\""
+  },
+  {
+    id: "mtc_25",
+    topic: "ALARP vs SFAIRP",
+    q: "How does the article distinguish ALARP from SFAIRP?",
+    options: [
+      "ALARP is presented as having a threshold, whereas SFAIRP does not, and forces evidence that possible, realistic and relevant hazard controls have been considered and included unless grossly disproportionate to the benefit",
+      "ALARP and SFAIRP are simply two different names for exactly the same legal test with no difference",
+      "SFAIRP applies only to rolling stock, while ALARP applies only to signalling",
+      "ALARP is a UK-only term while SFAIRP is used exclusively in Australia with no conceptual overlap"
+    ],
+    correct: 0,
+    explanation: "The article explains ALARP is presented as having a threshold, whereas SFAIRP does not and forces evidence that possible, realistic and relevant hazard controls have been considered and included, unless grossly disproportionate to the benefit.",
+    reference: "Back to Basics: Metro Train Control Systems — \"It's all about system engineering\""
+  },
+  {
+    id: "mtc_26",
+    topic: "Computer simulation for CBTC",
+    q: "Why does the article say computer simulation is the only realistic approach to determining pinch points for CBTC systems?",
+    options: [
+      "Traditional signal-to-signal type headway calculations are not applicable when multiple trains can enter a route",
+      "Computer simulation is cheaper than any other method regardless of accuracy",
+      "Regulators require simulation as a legal formality with no technical justification",
+      "CBTC systems cannot be tested on physical test tracks"
+    ],
+    correct: 0,
+    explanation: "The article states that computer simulation is the only realistic approach for CBTC systems to determine pinch points, as traditional signal-to-signal headway calculations are not applicable when multiple trains can enter a route.",
+    reference: "Back to Basics: Metro Train Control Systems — \"It's all about system engineering\""
+  },
+  {
+    id: "mtc_27",
+    topic: "Crossrail integration example",
+    q: "What did London's Crossrail (Elizabeth line) integration facility achieve during the project?",
+    options: [
+      "Full emulation, and later target hardware, of three signalling solutions and two ATP solutions were integrated in the lab with train-carried systems and PSD control equipment to significantly de-risk the complex project",
+      "It eliminated the need for any onboard ATP equipment",
+      "It replaced all lineside signals with verbal instructions",
+      "It reduced the project to a single signalling supplier before construction began"
+    ],
+    correct: 0,
+    explanation: "The article describes how full emulation, and later target hardware, of three signalling solutions and two ATP solutions on Crossrail were integrated in the lab with train-carried systems and PSD control equipment to de-risk the hugely complex project.",
+    reference: "Back to Basics: Metro Train Control Systems — \"It's all about system engineering\""
+  },
+  {
+    id: "mtc_28",
+    topic: "Greenfield vs brownfield",
+    q: "What is the key difference between 'greenfield' and 'brownfield' metro signalling projects, as described in the article?",
+    options: [
+      "Greenfield systems are provided to new railways not currently in operation, while brownfield systems are upgrades of existing railways that usually cannot be shut down completely and often require overlay/underlay migration approaches",
+      "Greenfield systems always use CBTC, while brownfield systems always use fixed block",
+      "Greenfield refers to above-ground metros and brownfield to underground metros",
+      "There is no meaningful difference; the terms are used interchangeably"
+    ],
+    correct: 0,
+    explanation: "Greenfield systems are provided to new railways not currently in operation, allowing extended trial phases without impacting services. Brownfield systems are upgrades of existing railways, which usually cannot be shut down and often require complex overlay or underlay migration of old and new systems.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Delivering metro signalling and train control systems\""
+  },
+  {
+    id: "mtc_29",
+    topic: "Obsolescence example",
+    q: "What extreme measure does the article mention some railways have taken to mitigate the risk of unavailability of key processor components from the 1980s/1990s?",
+    options: [
+      "Railways have even bought the rights to the masks for the processors",
+      "Railways have switched entirely to mechanical semaphore signalling",
+      "Railways have banned any further use of microprocessor-based safety systems",
+      "Railways have outsourced all maintenance to the original chip manufacturer permanently"
+    ],
+    correct: 0,
+    explanation: "The article notes that in some cases, railways have even bought the rights to the masks for the processors in order to mitigate the risk of unavailability of key components, as programming knowledge and assembler code faded over time.",
+    reference: "Back to Basics: Metro Train Control Systems — \"Maintaining metro signalling and train control systems\""
+  },
+  {
+    id: "mtc_30",
+    topic: "People and skills",
+    q: "Why does the article say it is harder for authorities to fully understand processor-based metro signalling systems than older relay-based systems?",
+    options: [
+      "Processor-based systems are often accepted as 'black box' type systems with proprietary software, unless the authority sets up its own lab (e.g. RATP in Paris)",
+      "Processor-based systems have no maintenance documentation at all",
+      "Processor-based systems are always outsourced to third parties with no authority involvement",
+      "Relay-based systems require no engineering knowledge whatsoever"
+    ],
+    correct: 0,
+    explanation: "With processor-based systems it is much harder for authorities to fully understand the technology they are buying unless they set up their own labs, such as RATP in Paris; skills from older relay-based systems are harder to obtain when accepting black-box proprietary software systems.",
+    reference: "Back to Basics: Metro Train Control Systems — \"People and skills\""
+  }
+];
+MTC_QUESTIONS.forEach(q => { q.category = "Metro Train Control Systems"; });
+
+const SIG_QUESTIONS = [
+  {
+    id: "sig_01",
+    topic: "Movement authority methods",
+    q: "The article describes three principal means by which movement authority information is given to a train. Select TWO of them.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Verbal instructions issued via a train radio system",
+      "Lineside (wayside) signals",
+      "Passenger request stop buttons",
+      "Timetable posters displayed at stations",
+      "Trackside speed limit signs alone"
+    ],
+    correct: [0, 1],
+    explanation: "The article describes three means of conveying movement authority: verbal instructions, lineside signals, and cab signalling.",
+    reference: "Back to Basics: Signals — \"Movement authorities\""
+  },
+  {
+    id: "sig_02",
+    topic: "Verbal instructions / dark territory",
+    q: "In which type of operational environment does the article say verbal instruction systems (sometimes called 'dark territory') are often used?",
+    options: [
+      "Low-capacity lines where a costly signalling system cannot be justified",
+      "High-speed main lines only",
+      "Metro railways operating at GoA4",
+      "Any line with more than 20 trains per hour"
+    ],
+    correct: 0,
+    explanation: "Verbal instruction systems are often used on low-capacity lines, sometimes referred to as 'dark territory', where a costly signalling system cannot be justified.",
+    reference: "Back to Basics: Signals — \"Movement authorities\""
+  },
+  {
+    id: "sig_03",
+    topic: "Why railways need signals",
+    q: "Why does the article say that driving a train is generally not a 'drive on sight' operation, unlike a road vehicle?",
+    options: [
+      "A train cannot be steered around obstructions and its braking distance can be very long — over 2.5km at 200km/h",
+      "Trains have no windows for the driver to see the track ahead",
+      "Railways have no traffic rules at all",
+      "Trains always travel below 30km/h"
+    ],
+    correct: 0,
+    explanation: "Unlike a road vehicle, a train cannot be steered around an obstruction and cannot stop quickly — a passenger train at 200km/h has a typical braking distance of over 2.5km — so, except for very low speed railways, driving is not a 'drive on sight' operation.",
+    reference: "Back to Basics: Signals — \"Why do railways need signals?\""
+  },
+  {
+    id: "sig_04",
+    topic: "Block sections",
+    q: "What is a 'block section' as described in the article?",
+    options: [
+      "The portion of track between one signal and the next, in which normally only one train is allowed at any one time",
+      "The section of track reserved exclusively for freight trains",
+      "A fixed 1km length of track used on every railway worldwide",
+      "The area immediately surrounding a level crossing"
+    ],
+    correct: 0,
+    explanation: "Railway tracks are divided into 'block' sections, and normally only one train is allowed to be in each block section at any one time; the length can vary from several kilometres to a couple of hundred metres or less on metros.",
+    reference: "Back to Basics: Signals — \"Why do railways need signals?\""
+  },
+  {
+    id: "sig_05",
+    topic: "Purpose of distant signals",
+    q: "Why are 'distant' (or 'approach') signals provided on the approach to a signal capable of displaying stop?",
+    options: [
+      "Because a stop indication may not be visible to the driver at the location where they need to start braking, so advance warning is needed to brake appropriately",
+      "To indicate the maximum permitted line speed only",
+      "To replace the need for block signals entirely",
+      "To warn drivers of upcoming level crossings only"
+    ],
+    correct: 0,
+    explanation: "Because a train takes a considerable distance to stop, a signal displaying stop may not be visible to the driver at the point they need to start slowing down, so distant signals give adequate advance warning to allow the driver to brake appropriately.",
+    reference: "Back to Basics: Signals — \"Why do railways need signals?\""
+  },
+  {
+    id: "sig_06",
+    topic: "Distant signal to stop signal distance",
+    q: "According to the article, the distance from the first distant signal to the stop signal will be based on what, plus a margin for safety?",
+    options: [
+      "The longest braking distance (under normal adhesion conditions) of all the trains authorised to use the line",
+      "The shortest braking distance of the fastest train on the line",
+      "A fixed distance of exactly 1000m regardless of train type",
+      "The distance a passenger can walk in five minutes"
+    ],
+    correct: 0,
+    explanation: "The distance from the first distant signal to the stop signal is based on the longest braking distance, under normal adhesion conditions, of all trains authorised to use the line, plus a margin for safety.",
+    reference: "Back to Basics: Signals — \"Why do railways need signals?\""
+  },
+  {
+    id: "sig_07",
+    topic: "Aspect and aspect sequence",
+    q: "How does the article define an 'aspect sequence'?",
+    options: [
+      "The aspects displayed by successive signals that a driver encounters",
+      "The order in which signal maintenance is carried out",
+      "The set of colours used on a single signal head only",
+      "The timetable order in which trains pass a signal"
+    ],
+    correct: 0,
+    explanation: "An 'aspect' is all the information presented by a signal to the driver at a particular time; the aspects displayed by successive signals that a driver encounters is called an 'aspect sequence'.",
+    reference: "Back to Basics: Signals — \"Why do railways need signals?\""
+  },
+  {
+    id: "sig_08",
+    topic: "UIC 732 colours",
+    q: "In accordance with international technical standard UIC 732, what colours does the article say most railways use for stop, proceed, and caution respectively?",
+    options: [
+      "Red, green, yellow",
+      "Red, yellow, green",
+      "Yellow, red, green",
+      "Green, yellow, red"
+    ],
+    correct: 0,
+    explanation: "Most railways use red for a stop (danger) aspect, green for proceed (clear), and yellow for caution (approach), in accordance with UIC 732.",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\""
+  },
+  {
+    id: "sig_09",
+    topic: "Speed signalling vs route signalling",
+    q: "What is the key difference between 'speed signalling' and 'route signalling' systems, as described in the article?",
+    options: [
+      "Speed signalling tells the driver how fast to proceed at a diverging junction, generally without indicating which route is set, whereas route signalling tells the driver which route is set and relies on the driver's own route knowledge for speed",
+      "Speed signalling is only used on tramways, while route signalling is only used on metros",
+      "Route signalling uses numbers on signals, while speed signalling never uses numbers",
+      "There is no meaningful functional difference between the two"
+    ],
+    correct: 0,
+    explanation: "Speed signalling systems tell a driver how fast to proceed at diverging junctions, with little or no information about which route is set. Route signalling tells the driver which route is set, and the driver is expected to know the prevailing speed for that route from route knowledge.",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\""
+  },
+  {
+    id: "sig_10",
+    topic: "Dutch speed signalling example",
+    q: "In the Dutch speed signalling system example given in the article (Figure 6), what does the illuminated numeric indicator '8' on a signal mean?",
+    options: [
+      "A maximum speed of 80km/h ahead",
+      "Platform 8 is the next stop",
+      "The signal is signal number 8 in the sequence",
+      "There are 8 minutes until the next train"
+    ],
+    correct: 0,
+    explanation: "The Dutch speed signalling system supplements its three basic aspects with illuminated numeric indicators; for instance, '8' indicates a maximum speed of 80km/h.",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\" (Figure 6)"
+  },
+  {
+    id: "sig_11",
+    topic: "Italian speed signalling example",
+    q: "In the Italian speed signalling example shown in Figure 7 of the article, what does a yellow-over-green aspect (displayed vertically) tell the driver?",
+    options: [
+      "The junction ahead is set for a diverging route that must be traversed at a speed not exceeding 30km/h",
+      "The train must stop immediately",
+      "The next signal is showing a proceed aspect at full line speed",
+      "There is a level crossing 30m ahead"
+    ],
+    correct: 0,
+    explanation: "In the Italian system, a yellow-over-green aspect tells the driver the junction ahead is set for the diverging route and must be traversed at no more than 30km/h; flashing yellow-over-green is used for higher-speed turnouts (60km/h and 100km/h).",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\" (Figure 7)"
+  },
+  {
+    id: "sig_12",
+    topic: "Route information display",
+    q: "Select TWO ways the article describes route information being conveyed to a driver on a route-signalled railway.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "A junction indicator (a 'bar' of white lights mounted above the main signal)",
+      "An illuminated alphanumeric character displayed above or alongside the main signal",
+      "A verbal announcement over the train's passenger PA system",
+      "A vibration pattern in the driver's seat",
+      "A change in the colour of the rails themselves"
+    ],
+    correct: [0, 1],
+    explanation: "Route information may take the form of a junction indicator (a bar of white lights set at an angle), an illuminated alphanumeric character, or, less commonly, a pair of signals side by side (one for each route).",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\""
+  },
+  {
+    id: "sig_13",
+    topic: "Approach release",
+    q: "What is the purpose of 'approach release' (also known as 'approach control') of junction signals on a route-signalled railway?",
+    options: [
+      "To hold the junction signal at 'stop' (or sometimes 'caution') until the train has slowed and the driver can clearly see the junction signal ahead, reducing the risk of traversing a diverging junction too fast",
+      "To automatically speed up trains approaching a junction",
+      "To disable the interlocking during peak hours",
+      "To allow trains to bypass the junction signal entirely"
+    ],
+    correct: 0,
+    explanation: "Approach release typically holds the junction signal at 'stop' with preceding signals displaying caution aspects until the train has slowed and the driver can clearly see the junction signal, reducing the risk of a driver inadvertently traversing a diverging junction too fast.",
+    reference: "Back to Basics: Signals — \"How driving information is conveyed by lineside signals\""
+  },
+  {
+    id: "sig_14",
+    topic: "Readability of a signal",
+    q: "Which of the following is NOT one of the article's three requirements for a signal to be 'readable' by a driver?",
+    options: [
+      "It provides route knowledge training to new drivers",
+      "It is clearly applicable to the driver of an approaching train and distinguishable from other nearby signals",
+      "All illuminated lights comprising the aspect are clearly visible for a sufficient length of time",
+      "It is visible under all conditions and at all times of day and night"
+    ],
+    correct: 0,
+    explanation: "Readability requires the signal to be clearly applicable and distinguishable, visible for long enough to observe, and visible under all conditions — not that it provides driver training, which is a separate knowledge requirement.",
+    reference: "Back to Basics: Signals — \"The driver's perspective\""
+  },
+  {
+    id: "sig_15",
+    topic: "Interpreting a signal",
+    q: "According to the article, what does 'interpreting' a signal require, beyond simply reading it?",
+    options: [
+      "That the aspect is one of an established set with a clearly defined meaning, that the information is unambiguous, and that the aspect is not corrupted (all relevant lights illuminated and no others)",
+      "That the driver personally maintains the signal each week",
+      "That the signal is painted a specific colour matching the railway's corporate branding",
+      "That the aspect changes automatically based on passenger numbers"
+    ],
+    correct: 0,
+    explanation: "Interpreting a signal requires the aspect to be part of an established, clearly defined set; the information to be unambiguous; and the aspect not to be corrupted, so the driver isn't misled about its meaning.",
+    reference: "Back to Basics: Signals — \"The driver's perspective\""
+  },
+  {
+    id: "sig_16",
+    topic: "Driveability of a signal",
+    q: "What does 'driveability' of a signal aspect require?",
+    options: [
+      "That the aspect forms part of a logical aspect sequence, and that any required speed reduction can be met by normal service braking given the maximum permissible approach speed, rolling stock performance, gradients and distance to the next signal",
+      "That the signal displays only red or green, never yellow",
+      "That every signal is positioned exactly 1km from the next",
+      "That the driver can override the aspect at will"
+    ],
+    correct: 0,
+    explanation: "Driveability requires the aspect to form part of a logical sequence and that any speed reduction can be achieved with normal service braking, taking into account approach speed, rolling stock performance and braking capability, gradients, and distance to the next signal.",
+    reference: "Back to Basics: Signals — \"The driver's perspective\""
+  },
+  {
+    id: "sig_17",
+    topic: "Signal sighting",
+    q: "What is 'signal sighting', as described in the article?",
+    options: [
+      "The review process, which may involve site visits and/or simulation, to ensure a driver can read a signal reliably and accurately with no unforeseen hazards",
+      "The process by which drivers are tested on colour blindness",
+      "The manufacturing process for LED signal lamps",
+      "A term used only for cab signalling, never lineside signals"
+    ],
+    correct: 0,
+    explanation: "Signal sighting (in Britain, at least) is the joint review process, possibly involving site visits or simulation systems, undertaken by signalling designers and train operators to ensure a signal aspect can be read reliably and accurately.",
+    reference: "Back to Basics: Signals — \"Positioning signals\""
+  },
+  {
+    id: "sig_18",
+    topic: "Signal positioning factors",
+    q: "Select TWO factors the article lists as needing consideration when determining the position of a signal.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Line curvature and structures (bridges, station infrastructure, overhead line equipment) that may impede visibility",
+      "The possible consequences of a train passing the signal at danger (a SPAD)",
+      "The colour scheme of nearby advertising hoardings",
+      "The driver's preferred lunch break time",
+      "The number of passengers expected at the next station"
+    ],
+    correct: [0, 1],
+    explanation: "The article lists line curvature/structures, viaducts and tunnels, nearby artificial lighting, effects of sunlight, and the possible consequences of a SPAD as factors affecting signal positioning.",
+    reference: "Back to Basics: Signals — \"Positioning signals\""
+  },
+  {
+    id: "sig_19",
+    topic: "Repeater signals",
+    q: "When are repeater signals used, and what is important to remember about them if the main signal is at 'stop'?",
+    options: [
+      "They are used where a signal's sighting time is unacceptably short and cannot be improved by relocation; if the signal is displaying 'stop', the driver must stop at the main signal, not the repeater",
+      "They are used to replace main signals entirely on high-speed lines",
+      "They automatically apply the brakes if a driver fails to acknowledge them",
+      "They are only used at level crossings"
+    ],
+    correct: 0,
+    explanation: "Repeater signals are used when the time a signal is visible is unacceptably short and it can't be relocated; they repeat some or all of the main signal's information, but if displaying 'stop', the driver is expected to stop at the main signal, not the repeater.",
+    reference: "Back to Basics: Signals — \"Positioning signals\""
+  },
+  {
+    id: "sig_20",
+    topic: "Signal identity",
+    q: "Why is each signal assigned a unique alphanumeric identity within the area of its control centre?",
+    options: [
+      "So that if a driver and signaller need to speak by radio or phone (for example, if the signal is at stop due to a failure), the identity can be used to verify the train's location",
+      "To identify which manufacturer produced the signal",
+      "For billing purposes between railway companies",
+      "It has no operational purpose, only an aesthetic one"
+    ],
+    correct: 0,
+    explanation: "The signal's unique identity, shown on a plate and on the control centre display, is used to verify a train's location when a driver and signaller need to communicate — vital for safety if the driver must be given verbal instructions to proceed.",
+    reference: "Back to Basics: Signals — \"Positioning signals\""
+  },
+  {
+    id: "sig_21",
+    topic: "Filament lamp signal design",
+    q: "According to Figure 10 and the surrounding text, what is the purpose of the lens system in front of a traditional filament (incandescent) signal lamp?",
+    options: [
+      "To produce a concentrated beam of light with intensities suitable for long, medium or short-range viewing, and a narrow divergence so the signal is seen predominantly by drivers on the applicable line",
+      "To change the colour of the lamp automatically depending on train speed",
+      "To reduce the power consumption of the lamp to zero",
+      "To project the signal aspect directly onto the driver's cab window"
+    ],
+    correct: 0,
+    explanation: "The lens system produces a concentrated beam visible up to a kilometre away in good conditions, with a narrow divergence angle so the signal is seen predominantly by drivers on the line to which it applies but less so by drivers on parallel lines.",
+    reference: "Back to Basics: Signals — \"Signal head design\" (Figure 10)"
+  },
+  {
+    id: "sig_22",
+    topic: "LED signal benefits",
+    q: "What benefit does the article identify from the use of LED technology in signal heads?",
+    options: [
+      "Heads can be more compact, lighter and reliable with a less complex lens system, and the sudden failure of a light is very infrequent since each light comprises a matrix of multiple LEDs",
+      "LED signals never need to be replaced under any circumstances",
+      "LED signals eliminate the need for any lens system at all",
+      "LED signals can display any colour simultaneously"
+    ],
+    correct: 0,
+    explanation: "LED technology enables heads to be more compact, lighter and reliable with a simpler lens system, and since each light is a matrix of multiple LEDs, a single LED failure only marginally degrades visibility, making sudden total failure very infrequent.",
+    reference: "Back to Basics: Signals — \"Signal head design\""
+  },
+  {
+    id: "sig_23",
+    topic: "Mitigating a dark signal",
+    q: "Select TWO mitigations the article describes for minimising the risk of a driver encountering an un-illuminated ('dark') signal.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Double filament lamps, one being the standby for the other",
+      "Proving within the signalling system that the signal ahead is alight before a driver is given a movement authority towards it",
+      "Painting all signal posts a bright orange colour",
+      "Reducing the number of aspects to just one colour",
+      "Removing all signals from tunnels"
+    ],
+    correct: [0, 1],
+    explanation: "Typical mitigations include double filament lamps (one as standby), proving the signal ahead is alight before giving a movement authority towards it, and restricting aspects/sequences so drivers only encounter correctly illuminated signals.",
+    reference: "Back to Basics: Signals — \"Signal head design\""
+  },
+  {
+    id: "sig_24",
+    topic: "Phantom aspects",
+    q: "What is a 'phantom aspect', as described in the article, and how is it mitigated?",
+    options: [
+      "A lamp that appears to be alight due to sunlight reflection when it is not; mitigated by hoods and lens design to minimise reflection",
+      "An aspect only visible to drivers with certain vision conditions",
+      "A test aspect used only during signal commissioning",
+      "An aspect that appears only at night due to moonlight"
+    ],
+    correct: 0,
+    explanation: "Reflection of sunlight can otherwise produce so-called 'phantom aspects' where the lamp appears to be alight but is not; signals are equipped with hoods and lenses designed to minimise this reflection.",
+    reference: "Back to Basics: Signals — \"Signal head design\""
+  },
+  {
+    id: "sig_25",
+    topic: "Signals for low-speed movements",
+    q: "What colours does the article describe as commonly used on shunting or position light signals?",
+    options: [
+      "Red for stop, and white or yellow lights (often in pairs) for authority to proceed",
+      "Only red and green, identical to main signals",
+      "Blue for stop, orange for proceed",
+      "Shunting signals never use any colour, only shapes"
+    ],
+    correct: 0,
+    explanation: "Shunting or position light signals commonly use red to denote stop, with authority to proceed indicated by white or yellow lights, often in pairs — though this is not universal practice worldwide.",
+    reference: "Back to Basics: Signals — \"Signals for low-speed movements\""
+  },
+  {
+    id: "sig_26",
+    topic: "Tramway signals",
+    q: "Why do tramways generally not need 'distant' signals, unlike main line railways?",
+    options: [
+      "Tramways operate at low speeds with sufficiently short braking distances that a tram can be brought to a stand when the driver sees a signal displaying stop",
+      "Tramways have no signals of any kind",
+      "Tramway drivers are legally exempt from obeying stop signals",
+      "Trams are physically incapable of braking suddenly"
+    ],
+    correct: 0,
+    explanation: "Tramways generally operate at low speeds with sufficiently short braking distances that a tram can be brought to a stand when the driver sees a stop signal, without needing distant signals.",
+    reference: "Back to Basics: Signals — \"Signals for low-speed movements\""
+  },
+  {
+    id: "sig_27",
+    topic: "Train-borne warning vs protection systems",
+    q: "How does the article distinguish train-borne warning systems from train-borne protection systems?",
+    options: [
+      "Warning systems alert the driver and may initiate braking if the warning is not acknowledged, after which the train is usually under driver control again; protection systems monitor speed and cause a brake application if the train is driven outside safe limits",
+      "Warning systems and protection systems are exactly the same thing under different names",
+      "Warning systems only operate at night; protection systems only operate during the day",
+      "Protection systems only exist on freight trains"
+    ],
+    correct: 0,
+    explanation: "Train-borne warning systems alert the driver to lineside signal information and may initiate braking if unacknowledged, after which the train is usually solely under driver control. Protection systems monitor speed and intervene with a brake application if the train exceeds safe limits.",
+    reference: "Back to Basics: Signals — \"How train warning and protection systems help drivers to obey lineside signals\""
+  },
+  {
+    id: "sig_28",
+    topic: "Cab display readability, interpretability, driveability",
+    q: "The article states the cab display (DMI) must be readable, interpretable and driveable, just like a lineside signal. What does 'interpretability' of the cab display require?",
+    options: [
+      "The information displayed must be clear, unambiguous and consistent with any other information available to the driver, and must make sense without needing mental computation or geo-spatial interpretation",
+      "The display must show only numeric information, never text",
+      "The display must be updated no more than once per hour",
+      "The display must be identical in every country regardless of railway"
+    ],
+    correct: 0,
+    explanation: "Interpretability of the cab display requires the information to be clear, unambiguous and consistent with other available information, and to make sense to the driver without needing mental computations or geo-spatial interpretation.",
+    reference: "Back to Basics: Signals — \"Cab signalling\""
+  },
+  {
+    id: "sig_29",
+    topic: "Head up principle",
+    q: "What is the 'head up' principle referred to in the article's discussion of cab signalling design?",
+    options: [
+      "The driver looks out of the cab window at the track ahead most of the time, glancing at the display only when necessary, so audible alerts are used when new information requires a response",
+      "The cab display is always mounted above the driver's head",
+      "The driver must keep their head raised at all times by regulation",
+      "It refers only to how trains are marshalled, not to driving technique"
+    ],
+    correct: 0,
+    explanation: "Most cab signalling systems are designed on the 'head up' principle: the driver looks out of the window most of the time, glancing at the display only when necessary, which makes audible alerts for new, response-requiring information particularly important.",
+    reference: "Back to Basics: Signals — \"Cab signalling\""
+  },
+  {
+    id: "sig_30",
+    topic: "Un-illuminated signal rule",
+    q: "What do railways' operating rules usually state a driver should do in the unlikely event of encountering an un-illuminated ('black' or 'dark') signal?",
+    options: [
+      "Treat it as displaying 'stop'",
+      "Proceed at maximum permitted speed as if it were showing a proceed aspect",
+      "Reverse the train immediately back to the previous signal",
+      "Contact the nearest station master by megaphone before proceeding"
+    ],
+    correct: 0,
+    explanation: "Railways' operating rules usually state that in the unlikely event of a driver encountering an un-illuminated signal, they should treat it as displaying 'stop'.",
+    reference: "Back to Basics: Signals — \"Signal head design\""
+  }
+];
+SIG_QUESTIONS.forEach(q => { q.category = "Signals"; });
+
+const STL_QUESTIONS = [
+  {
+    id: "stl_01",
+    topic: "Why signalling is needed",
+    q: "According to the article, why is signalling of the track layout described as critical?",
+    options: [
+      "Many trains need to use the same tracks, drivers cannot steer around other trains or obstructions, and a train's braking distance is greater than the distance the driver can see",
+      "Signalling exists purely to satisfy insurance requirements",
+      "Signalling is only needed on lines with more than one track",
+      "Signalling is required only to enforce ticket validation"
+    ],
+    correct: 0,
+    explanation: "The article states that railways require signalling because many trains need to use the same tracks, drivers cannot steer around obstructions, and braking distance exceeds the distance a driver can see; signalling must also deliver the required train capacity.",
+    reference: "Signalling the Layout — Introduction"
+  },
+  {
+    id: "stl_02",
+    topic: "Purpose and functions of signalling",
+    q: "Select TWO of the key purposes of a signalling system listed in the article.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Set up a safe route for the passage of each train over the track it is to traverse",
+      "Release the route for use by other trains after the passage of the train",
+      "Set the timetable for the whole railway",
+      "Sell tickets to passengers",
+      "Design the rolling stock livery"
+    ],
+    correct: [0, 1],
+    explanation: "The key purposes listed include setting up a safe route, authorising the movement, maintaining the route, supervising/enforcing the train within its movement authority, and releasing the route afterwards.",
+    reference: "Signalling the Layout — Section 1, Purpose of Signalling and Functions"
+  },
+  {
+    id: "stl_03",
+    topic: "Movement Authority definition",
+    q: "How does the article define a Movement Authority (MA)?",
+    options: [
+      "An authority communicated to the driver (or ATO system) by the signalling system, after checking the section of line is clear and secure, granting permission to enter a particular section of line",
+      "A document signed by the signaller before every shift",
+      "The maximum number of trains permitted on a railway per day",
+      "A physical barrier placed across the track"
+    ],
+    correct: 0,
+    explanation: "A Movement Authority is an authority communicated to the driver, or to the ATO system, by the signalling system after it has checked that the section of line is clear and secure, granting permission to enter that section.",
+    reference: "Signalling the Layout — Section 2, Movement Authority"
+  },
+  {
+    id: "stl_04",
+    topic: "MA limits",
+    q: "What TWO types of limit may be associated with a Movement Authority, according to the article?",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Speed at which the movement may proceed",
+      "Route and distance to the end of the movement authority",
+      "The colour of the driver's uniform",
+      "The number of passengers on board",
+      "The train's arrival time at its final destination only"
+    ],
+    correct: [0, 1],
+    explanation: "An MA may have limits associated with speed (favoured in \"speed\" signalling systems in continental Europe) or route and distance to the end of the MA (favoured in \"route\" signalling systems such as the UK).",
+    reference: "Signalling the Layout — Section 2, Movement Authority"
+  },
+  {
+    id: "stl_05",
+    topic: "Train separation methods",
+    q: "Which train separation method does the article describe as relying on rail traffic speeds, frequency and braking performance being such that safe operation can rely on the driver observing the track ahead is clear?",
+    options: [
+      "On-sight train control",
+      "Absolute Block working",
+      "Track circuit block working",
+      "Moving block working"
+    ],
+    correct: 0,
+    explanation: "On-sight train control, used on tramways and certain railways, relies on rail traffic speeds, frequency, and braking performance being such that safe operation can rely on the driver observing that the track ahead is clear.",
+    reference: "Signalling the Layout — Section 3.1, On-sight train control"
+  },
+  {
+    id: "stl_06",
+    topic: "Absolute Block working",
+    q: "What must signallers do under Absolute Block working before authorising a train to enter a block section?",
+    options: [
+      "Follow a strict procedure to authorise a train to enter the section and confirm that the complete train has left the previous section (e.g. by observing the tail lamp)",
+      "Radio the driver every 30 seconds throughout the journey",
+      "Wait for a fixed 10-minute interval regardless of train movements",
+      "Personally inspect the track by walking its full length"
+    ],
+    correct: 0,
+    explanation: "Under Absolute Block working, signallers at the entrance and exit of the block section must follow a strict procedure to authorise entry and confirm the complete train has left, for example by observing the tail lamp on the back of the train.",
+    reference: "Signalling the Layout — Section 3.2, Fixed block working"
+  },
+  {
+    id: "stl_07",
+    topic: "Track circuit block working",
+    q: "How does track circuit block signalling improve on absolute block signalling?",
+    options: [
+      "It divides the line into reasonably uniform, often much shorter, blocks between adjacent stop signals, increasing line capacity, using continuous train detection",
+      "It removes the need for any lineside or in-cab signals",
+      "It eliminates overlaps entirely",
+      "It only works on single-track railways"
+    ],
+    correct: 0,
+    explanation: "Track circuit block signalling divides the line into reasonably uniform, often much shorter blocks between adjacent stop signals than absolute block working, increasing capacity, and requires continuous train detection by track circuits or axle counters.",
+    reference: "Signalling the Layout — Section 3.2, Fixed block working"
+  },
+  {
+    id: "stl_08",
+    topic: "ETCS Level NTC",
+    q: "What is ETCS Level NTC used for, according to the article?",
+    options: [
+      "An ETCS-fitted train operating over a line only equipped with a National Train Control system (Class B), such as AWS/TPWS in the UK, LZB in Germany, or Crocodile/TBL in Belgium",
+      "A level used only on lines with no train protection at all",
+      "A level exclusively for freight-only railways",
+      "A level that requires moving block signalling"
+    ],
+    correct: 0,
+    explanation: "Level NTC is used by an ETCS-fitted train operating over a line equipped only with a National Train Control system (Class B), such as AWS/TPWS in the UK, LZB in Germany, and Crocodile/TBL in Belgium.",
+    reference: "Signalling the Layout — Section 3.3, European Train Control System (ETCS)"
+  },
+  {
+    id: "stl_09",
+    topic: "ETCS Level 1 vs Level 2",
+    q: "What is the key distinction the article draws between ETCS Level 1 and Level 2?",
+    options: [
+      "Level 1 provides in-cab ATP in conjunction with fixed block lineside signalling, with data passed via balises/loops; Level 2 provides fixed block signalling and in-cab displays communicating mostly via GSM-R radio, with lineside signals only needed for migration",
+      "Level 1 uses moving block, while Level 2 uses fixed block",
+      "Level 1 is only used in the UK, and Level 2 only in continental Europe",
+      "Level 1 requires no trackside equipment whatsoever"
+    ],
+    correct: 0,
+    explanation: "Level 1 provides in-cab signalling and ATP alongside fixed block lineside signalling with train detection, with data from switchable/controlled balises, loops or radio. Level 2 provides fixed block signalling and in-cab displays via mostly GSM-R radio communication, with lineside signals only needed for migration or non-ETCS trains.",
+    reference: "Signalling the Layout — Section 3.3, European Train Control System (ETCS)"
+  },
+  {
+    id: "stl_10",
+    topic: "ETCS Level 3",
+    q: "Why does the article say ETCS 'Level 3' formally became obsolete in baseline 3?",
+    options: [
+      "It was subsumed into Level 2, as the circumstances where conventional train detection isn't needed (relying on on-board position reporting and train integrity monitoring) are now covered within Level 2",
+      "Because no railway ever implemented it",
+      "Because it was replaced by a completely different technology called CBTC",
+      "Because the EU banned moving block signalling"
+    ],
+    correct: 0,
+    explanation: "Level 3 formally became obsolete in baseline 3, which subsumed it into Level 2, but the term is still frequently used to distinguish circumstances where conventional train detection is not required because reliance is placed on on-board position reporting and train integrity monitoring.",
+    reference: "Signalling the Layout — Section 3.3, European Train Control System (ETCS)"
+  },
+  {
+    id: "stl_11",
+    topic: "Moving block working",
+    q: "How does moving block working allow a following train to approach very close to the rear of a stationary preceding train, as described in the article?",
+    options: [
+      "Because the safe zone required ahead of the following train depends on its own speed, and its required braking distance decreases as its speed drops",
+      "Because moving block eliminates the need for any braking distance calculation",
+      "Because all trains are required to travel at identical fixed speeds",
+      "Because moving block only applies to stationary trains"
+    ],
+    correct: 0,
+    explanation: "In moving block working, the safe zone ahead of a following train depends on its speed and other factors affecting its braking distance; as its speed drops approaching a stationary preceding train, its required braking distance decreases, allowing it to approach closer.",
+    reference: "Signalling the Layout — Section 3.4, Moving Block working"
+  },
+  {
+    id: "stl_12",
+    topic: "CBTC characteristics",
+    q: "Select TWO characteristics the article lists as generally true of Communication Based Train Control (CBTC).",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Movement authorities are given to drivers via a display in the driving cab instead of lineside signals",
+      "Train position is determined by the train itself, via fixed position references (balises) with subsequent estimation of distance travelled by wheel odometry",
+      "CBTC requires lineside train detection at all times, with no exceptions",
+      "CBTC is standardised by a single global interoperable specification like ETCS",
+      "CBTC cannot be used on metro railways"
+    ],
+    correct: [0, 1],
+    explanation: "CBTC characteristics include ATP & ATO, movement authorities given via an in-cab display rather than lineside signals, radio communication between train and lineside, and train position determined by the train itself using balises and wheel odometry (with lineside detection normally only needed for degraded modes).",
+    reference: "Signalling the Layout — Section 3.4.1, Communication Based Train Control (CBTC)"
+  },
+  {
+    id: "stl_13",
+    topic: "Braking Distance equation",
+    q: "The article gives the equation BD = U² / (2.b) for Braking Distance on level track. A train has an initial speed U of 30 m/s and a nominal braking rate b of 0.75 m/s². What is the approximate braking distance?",
+    options: [
+      "600m",
+      "300m",
+      "900m",
+      "450m"
+    ],
+    correct: 0,
+    explanation: "BD = U²/(2.b) = 30² / (2 × 0.75) = 900 / 1.5 = 600m.",
+    reference: "Signalling the Layout — Section 4.1, Significance of Braking (Equation of BD)"
+  },
+  {
+    id: "stl_14",
+    topic: "Factors affecting braking distance",
+    q: "Select TWO factors the article lists as affecting braking distance.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Likely adhesion conditions between the train wheel and rail",
+      "Effect of a rising or falling gradient on the effective braking rate",
+      "The colour of the train's livery",
+      "The number of intermediate stations on the whole route",
+      "The signaller's shift start time"
+    ],
+    correct: [0, 1],
+    explanation: "Factors listed include permitted speed, braking rate, adhesion conditions, driver reaction time, brake build-up delay, gradient effects, wear and tear over the train's life, and passenger comfort.",
+    reference: "Signalling the Layout — Section 4.1.1, Factors affecting Braking Distance"
+  },
+  {
+    id: "stl_15",
+    topic: "Service Braking Distance vs Emergency",
+    q: "How does the article distinguish Service Braking Distance (SBD) from an Emergency Brake application distance?",
+    options: [
+      "The SBD, taking into account all normal operational factors, is used for laying out signals, whereas an emergency brake application would generally stop the train in a significantly shorter distance",
+      "Emergency braking always takes longer than service braking",
+      "SBD and emergency braking distance are always identical by regulation",
+      "SBD is only used for freight trains"
+    ],
+    correct: 0,
+    explanation: "The braking distance in normal operation, taking into account all relevant factors, is referred to as Service Braking Distance (SBD) and is used in laying out signals; an emergency brake application would generally stop the train in a significantly shorter distance.",
+    reference: "Signalling the Layout — Section 4.1.1, Factors affecting Braking Distance"
+  },
+  {
+    id: "stl_16",
+    topic: "Aspect meaning categories",
+    q: "Select TWO of the general aspect meaning categories the article lists for lineside signals.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Stop — the end of the movement authority, almost universally red or twin reds",
+      "Proceed, but prepare to stop at the next (or a subsequent) signal",
+      "Reverse the train immediately",
+      "Sound the horn continuously",
+      "Increase speed by 50% above the permitted maximum"
+    ],
+    correct: [0, 1],
+    explanation: "The article categorises aspect meanings as: stop; proceed but prepare to stop at the next/subsequent signal (route signalling); proceed but limited to a defined speed (speed signalling); proceed at maximum permitted speed; and proceed only so far as the route can visually be seen clear.",
+    reference: "Signalling the Layout — Section 5, Aspect Sequences"
+  },
+  {
+    id: "stl_17",
+    topic: "Overlaps",
+    q: "What is the purpose of an 'Overlap' beyond the end of a Movement Authority, and what happens once the train protected by it is proven to be stationary?",
+    options: [
+      "It is reserved as mitigation against driver mistakes or adhesion issues causing an overrun; once the train is proven stationary, the reservation is released, permitting use of the area by another train",
+      "It is a permanent exclusion zone that can never be released",
+      "It exists only to store spare rolling stock",
+      "It applies only to freight trains, never passenger trains"
+    ],
+    correct: 0,
+    explanation: "The overlap is reserved for one train in case it overruns, as mitigation against driver mistakes (e.g. misjudged braking, poor adhesion) or lack of attention. Once the system determines the train is stationary and no longer liable to overrun, the reservation is released for another train.",
+    reference: "Signalling the Layout — Section 6, Overlaps"
+  },
+  {
+    id: "stl_18",
+    topic: "Headway Distance formula",
+    q: "The article's Figure 5 gives the Headway Distance formula H = S + P + O + L. What does each of P and L represent?",
+    options: [
+      "P is the distance from the Stop aspect back to the first Unrestricted Aspect on its approach; L is the length of the train",
+      "P is the length of the platform; L is the length of the level crossing",
+      "P is the passenger dwell time; L is the line's maximum permitted speed",
+      "P is the power supply voltage; L is the lineside cable length"
+    ],
+    correct: 0,
+    explanation: "In H = S + P + O + L: S is sighting distance, P is the distance from the Stop aspect back to the first Unrestricted Aspect on its approach, O is the length of overlap, and L is the length of the train.",
+    reference: "Signalling the Layout — Section 7.1, Simple Headway (Figure 5)"
+  },
+  {
+    id: "stl_19",
+    topic: "Headway calculation — 3-aspect",
+    q: "For a lineside signalling system with only one cautionary aspect prior to the red (e.g. UK mainline 3-aspect, as in Figure 5), the article gives the best possible Headway as S + 2×SBD + O + L. If S = 200m, SBD = 1200m, O = 180m and L = 160m, what is the headway distance?",
+    options: [
+      "2940m",
+      "1740m",
+      "2400m",
+      "3140m"
+    ],
+    correct: 0,
+    explanation: "Headway = S + 2×SBD + O + L = 200 + (2×1200) + 180 + 160 = 200 + 2400 + 180 + 160 = 2940m.",
+    reference: "Signalling the Layout — Section 7.1, Simple Headway"
+  },
+  {
+    id: "stl_20",
+    topic: "Headway calculation — 4-aspect",
+    q: "The article notes that UK mainline 4-aspect signalling (Figure 4) achieves the best possible Headway = S + 1.5×SBD + O + L, since braking occurs over two signal sections. Using the same values as a 3-aspect system (S = 200m, SBD = 1200m, O = 180m, L = 160m), what headway distance results, and what does this show about 4-aspect signalling?",
+    options: [
+      "2340m — a shorter headway than 3-aspect, showing capacity is increased, but at the cost of more signalling infrastructure",
+      "2940m — exactly the same headway as 3-aspect signalling",
+      "4200m — a longer headway, showing 4-aspect signalling reduces capacity",
+      "1200m — headway equal to the SBD alone"
+    ],
+    correct: 0,
+    explanation: "Headway = S + 1.5×SBD + O + L = 200 + (1.5×1200) + 180 + 160 = 200 + 1800 + 180 + 160 = 2340m, shorter than the 3-aspect case (2940m). The article notes this increase in capacity comes at the cost and provision/maintenance of significantly more signalling infrastructure.",
+    reference: "Signalling the Layout — Section 7.1, Simple Headway"
+  },
+  {
+    id: "stl_21",
+    topic: "Capacity — non-stopping trains",
+    q: "Why does the article say that timetabling one stopping train between a pair of non-stopping trains 'utilises a disproportionate amount of line capacity'?",
+    options: [
+      "Because if the signalling needs to facilitate non-stopping trains, the signal spacing must always reflect the full braking distance, significantly increasing the stopping headway",
+      "Because stopping trains are always longer than non-stopping trains",
+      "Because stopping trains require a different gauge of track",
+      "Because non-stopping trains are not permitted to share a line with stopping trains under any circumstances"
+    ],
+    correct: 0,
+    explanation: "If the signalling must facilitate non-stopping trains, signal spacing must always reflect the full braking distance, so the stopping headway (time between successive trains that stop at the station) is significantly increased.",
+    reference: "Signalling the Layout — Section 7.2, Capacity constraints"
+  },
+  {
+    id: "stl_22",
+    topic: "Optimum capacity conditions",
+    q: "Under what conditions does the article say the optimum capacity, in terms of trains per hour (minimum headways), is obtained?",
+    options: [
+      "Where all trains have the same characteristics in terms of acceleration, deceleration, maximum speed and timetabled stopping patterns",
+      "Where every train has a different braking rate",
+      "Where the line has the maximum number of junctions possible",
+      "Where trains alternate between freight and passenger service every hour"
+    ],
+    correct: 0,
+    explanation: "The optimum capacity is obtained where all trains have the same characteristics in terms of acceleration, deceleration, maximum speed and timetabled stopping patterns; the best way to improve capacity measured in passengers per hour is often to run longer trains.",
+    reference: "Signalling the Layout — Section 7.2, Capacity constraints"
+  },
+  {
+    id: "stl_23",
+    topic: "Overbraking",
+    q: "What is the '50% overbraking rule' referenced by the article in the context of UK mainline signal positioning?",
+    options: [
+      "A rule limiting how much greater the actual distance between the first cautionary aspect and the stop signal can be compared with the service braking distance, to avoid drivers becoming accustomed to not braking at the caution",
+      "A rule requiring trains to brake using only 50% of their available braking force",
+      "A rule that all signals must be spaced no more than 50m apart",
+      "A regulation limiting overlaps to 50% of the block section length"
+    ],
+    correct: 0,
+    explanation: "If the actual distance between the first cautionary aspect and the stop signal is significantly greater than the minimum service braking distance, drivers may become accustomed to not braking at the caution; UK mainline practice limits this excessive overbraking with a 50% rule.",
+    reference: "Signalling the Layout — Section 9, Signal Positions"
+  },
+  {
+    id: "stl_24",
+    topic: "Overlap clear of junction",
+    q: "Why does the article recommend that a signal's overlap should generally be clear of (before) a junction, rather than extending through it?",
+    options: [
+      "If the overlap extends through the junction, the route up to that signal will lock the junction until the train has come to a proven stand, precluding other simultaneous conflicting movements — being clear of the junction is more flexible and reduces interlocking complexity",
+      "Because overlaps are legally prohibited from crossing any junction",
+      "Because junctions never require an overlap at all",
+      "Because it makes maintenance access to the junction impossible"
+    ],
+    correct: 0,
+    explanation: "If the overlap of a signal extends through a junction, the route to that signal locks the junction until the train has come to a proven stand at the protecting signal, precluding other conflicting movements; keeping the overlap limit before the junction is more flexible and reduces interlocking complexity, especially on converging junctions.",
+    reference: "Signalling the Layout — Section 9, Signal Positions"
+  },
+  {
+    id: "stl_25",
+    topic: "Platform Starter signals",
+    q: "Where should a platform starter signal usually be positioned, according to the article?",
+    options: [
+      "At or near the exit end of the platform (to minimise platform reoccupation time), or at least a train's length beyond the platform if positioned further away",
+      "Always at the entrance end of the platform, regardless of train length",
+      "Exactly halfway along the platform",
+      "As far from the platform as physically possible"
+    ],
+    correct: 0,
+    explanation: "Platform starter signals should usually be positioned at or near the exit end of the platform to minimise platform reoccupation time, or alternatively at least a train's length beyond the platform so no part of a stopped train remains within the platform.",
+    reference: "Signalling the Layout — Section 9, Signal Positions"
+  },
+  {
+    id: "stl_26",
+    topic: "Train detection resolution",
+    q: "How does the article describe the relationship between train detection sections and the 'resolution' of the signalling system's view of train positioning?",
+    options: [
+      "The number of train detection sections provides that resolution; more sections give greater resolution but come at an economic cost, and ETCS trains reporting positions can create virtual sections without trackside equipment",
+      "Train detection resolution has no relationship to the number of sections provided",
+      "Only axle counters can ever provide train detection resolution",
+      "Resolution is determined solely by the maximum line speed"
+    ],
+    correct: 0,
+    explanation: "The number of train detection sections provides the 'resolution' of the signalling system's view of train positioning; more sections give greater resolution but at economic cost, while ETCS trains reporting position can be used to create virtual sections within the interlocking without needing trackside equipment.",
+    reference: "Signalling the Layout — Section 10, Train Detection"
+  },
+  {
+    id: "stl_27",
+    topic: "Junction locking example (Figure 12/13)",
+    q: "In the article's junction locking example (Figure 12), setting a route from signal 3 to signal 5 initiates movement of 101 and 102 points to normal and reserves track sections. Which route does the article say CAN still be set at the same time, since it doesn't require the already-reserved section of line?",
+    options: [
+      "A route from signal 4 to signal 2, since this requires points 101 also to be normal but doesn't need any already-reserved line section",
+      "A route from signal 1 to signal 5",
+      "A route from signal 4 to signal 6",
+      "No other route can be set until the train clears the whole layout"
+    ],
+    correct: 0,
+    explanation: "The article explains that while setting a route from signal 3 to signal 5 prevents routes from 1 to 5 or 4 to 6 being set, a route from signal 4 to signal 2 may still be set since it does not need any of the already-reserved section of line and requires points 101 to also be normal.",
+    reference: "Signalling the Layout — Section 11, Signalling plan – implications of Junction locking (Figure 12)"
+  },
+  {
+    id: "stl_28",
+    topic: "Additional train detection at junctions",
+    q: "In the article's Figure 13, what is the purpose of adding extra train detection sections (BB, AC, CC) around the junction points, compared with the simpler arrangement in Figure 12?",
+    options: [
+      "To release the locking on points more quickly, eliminating unnecessary delay for conflicting routes, though this adds to the cost",
+      "To reduce the number of signals required on the layout",
+      "To allow trains to travel at higher speed through the junction",
+      "To eliminate the need for any interlocking at the junction"
+    ],
+    correct: 0,
+    explanation: "The article explains that unnecessary delay in releasing point locking could be eliminated by providing additional train detection sections, as shown in Figure 13, though these additional sections add to the cost — an example of balancing considerations against what is economically justified.",
+    reference: "Signalling the Layout — Section 11, Signalling plan – implications of Junction locking (Figure 13)"
+  },
+  {
+    id: "stl_29",
+    topic: "Level crossings not protected by signals",
+    q: "For level crossings that are NOT protected by signals, what must signalling the layout provide, according to the article?",
+    options: [
+      "A means to give the required minimum warning time before a train arrives at the crossing (e.g. positioning strike-in points at sufficient distance), so road users have enough time to clear the crossing",
+      "A permanent barrier that is never raised",
+      "A requirement for all trains to stop completely before crossing",
+      "No special provision is needed for unprotected crossings"
+    ],
+    correct: 0,
+    explanation: "Crossings not protected by signals continuously detect that no train is approaching to keep the road open; signalling the layout must provide the required minimum warning time before a train arrives, for example by positioning strike-in points at a sufficient distance.",
+    reference: "Signalling the Layout — Section 13, Level (Grade) Crossings"
+  },
+  {
+    id: "stl_30",
+    topic: "Summary — order of compromise",
+    q: "The article's summary of activity describes signalling the layout as a compromise of conflicting requirements, addressed in a typical order. Which comes FIRST in that order?",
+    options: [
+      "Requirements relating to the safe operation of trains, based on the sound assumption that drivers obey lineside signals — e.g. sufficient braking distances and permissible aspect sequences",
+      "Requirements relating to reliability and maintainability",
+      "Requirements relating to the relatively few occasions when drivers fail to obey lineside signals",
+      "Requirements relating purely to aesthetic appearance of signal structures"
+    ],
+    correct: 0,
+    explanation: "The article's typical order is: (1) requirements relating to safe operation assuming drivers obey lineside signals, such as braking distances and aspect sequences; (2) requirements relating to the few occasions drivers fail to obey signals, such as overbraking, overlaps and train protection; (3) requirements relating to reliability, maintainability etc.",
+    reference: "Signalling the Layout — Section 14, Summary of activity"
+  }
+];
+STL_QUESTIONS.forEach(q => { q.category = "Signalling the Layout"; });
+
+const ETCS_QUESTIONS = [
+  {
+    id: "etcs_01",
+    topic: "Origin of ETCS",
+    q: "What key objective drove the development of ETCS, according to the article?",
+    options: [
+      "The establishment of the European Single Market in 1992, which aimed to facilitate the free movement of people, goods, capital and services across national borders",
+      "A requirement from a single national government to reduce costs",
+      "The invention of GSM mobile phone technology",
+      "A decision to eliminate all lineside signals worldwide"
+    ],
+    correct: 0,
+    explanation: "ETCS was developed in response to the establishment of the European Single Market in 1992, whose objectives included facilitating the free movement of people, goods, capital and services across national borders within the EU.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"What is ETCS?\""
+  },
+  {
+    id: "etcs_02",
+    topic: "Eurostar example",
+    q: "How many different national train control systems did the original 1994 Eurostar service require, according to the article?",
+    options: [
+      "Five (TVM, KVB, TBL, TPWS and AWS)",
+      "One, unified from the start",
+      "Two",
+      "Ten"
+    ],
+    correct: 0,
+    explanation: "The 1994 Eurostar passenger train connecting Paris, Brussels and London originally had no fewer than five different train control systems: TVM, KVB, TBL, TPWS and AWS.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"What is ETCS?\""
+  },
+  {
+    id: "etcs_03",
+    topic: "TSI-CCS",
+    q: "What does TSI-CCS govern, and when was the first set of specifications published?",
+    options: [
+      "The specifications for the signalling system (Control, Command and Signalling), first published in 2000",
+      "Only rolling stock electrification standards, first published in 1992",
+      "Station architecture standards, first published in 2010",
+      "Ticketing systems, first published in 1996"
+    ],
+    correct: 0,
+    explanation: "The specifications for the signalling system are governed by the TSI for Control, Command and Signalling (TSI-CCS); the first set of specifications was published in 2000, with the most recent version, 'Baseline 4', published in July 2023.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\""
+  },
+  {
+    id: "etcs_04",
+    topic: "ERTMS components",
+    q: "ETCS is part of a wider system known as ERTMS. Select TWO other components that make up ERTMS alongside ETCS.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Track-to-train voice and data communications using GSM-R/FRMCS",
+      "The European Traffic Management Layer (ETML)",
+      "The national rail ticketing database",
+      "The rolling stock maintenance depot scheduling system",
+      "The station passenger information display network"
+    ],
+    correct: [0, 1],
+    explanation: "ERTMS includes ETCS, track-to-train voice and data communications using GSM-R/FRMCS, and is also intended to encompass a third component, the European Traffic Management Layer (ETML), though ETML remains under development with no published specifications yet.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\""
+  },
+  {
+    id: "etcs_05",
+    topic: "Onboard vs trackside standardisation",
+    q: "According to the article, why must the ETCS onboard sub-system be standardised to a much greater degree than the trackside sub-system?",
+    options: [
+      "To enable trains to operate on any ETCS-equipped route across Europe, whereas the trackside sub-system only needs to interface with the signalling and control systems within its own area of control",
+      "Because trackside equipment never needs to communicate with trains at all",
+      "Because onboard equipment is cheaper to manufacture than trackside equipment",
+      "Because only onboard equipment is subject to any TSI requirements"
+    ],
+    correct: 0,
+    explanation: "The onboard sub-system must be standardised, along with track-to-train communication protocols and media, to support interoperability and enable trains to run on any ETCS route across borders, whereas the trackside sub-system only needs to interface with systems in its own area of control.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\""
+  },
+  {
+    id: "etcs_06",
+    topic: "Black box approach",
+    q: "What does the article mean by describing ETCS system development as following a 'black box' approach?",
+    options: [
+      "Most equipment suppliers provide a complete set of onboard ETCS equipment compatible with another supplier's trackside sub-system, but interchangeability of onboard sub-system components between suppliers is not generally supported (except the STM)",
+      "All ETCS equipment must be painted black by regulation",
+      "ETCS onboard equipment records data in an aircraft-style black box for accident investigation only",
+      "No documentation exists at all for how ETCS works"
+    ],
+    correct: 0,
+    explanation: "Since there is no standardised interface between onboard sub-system internal components across suppliers, most suppliers provide a complete onboard equipment set compatible with other suppliers' trackside sub-systems, but interchangeability of onboard components themselves is not generally supported, other than via the STM.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\""
+  },
+  {
+    id: "etcs_07",
+    topic: "Eurobalise",
+    q: "What is a Eurobalise, as shown in Figure 2 of the article?",
+    options: [
+      "An inductively-coupled transponder used to send information to trains",
+      "A type of overhead line electrification support",
+      "A physical barrier used at level crossings",
+      "A backup power supply unit for signal boxes"
+    ],
+    correct: 0,
+    explanation: "Information is sent to trains using inductively-coupled transponders known as balises (Eurobalise in the ETCS context), shown in Figure 2 of the article.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\" (Figure 2)"
+  },
+  {
+    id: "etcs_08",
+    topic: "System architecture components",
+    q: "Select TWO onboard components shown in the article's Figure 3 (ETCS system architecture, from SUBSET-026).",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "BTM (Balise Transmission Module)",
+      "EURORADIO",
+      "Radio Block Centre (RBC)",
+      "PKI (Public Key Infrastructure) server",
+      "LEU (Lineside Electronic Unit)"
+    ],
+    correct: [0, 1],
+    explanation: "Figure 3 shows onboard components including BTM, LTM, EURORADIO, DMI function, Odometry, STM control function, Juridical data, and ATO On-board — RBC, PKI and LEU are trackside components.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\" (Figure 3)"
+  },
+  {
+    id: "etcs_09",
+    topic: "GSM-R and FRMCS",
+    q: "What relationship does the article describe between GSM-R and FRMCS?",
+    options: [
+      "FRMCS (Future Railway Mobile Communication System) is destined to eventually replace GSM-R, though almost all ETCS schemes implemented to date rely on GSM-R",
+      "GSM-R and FRMCS are two names for exactly the same system with no differences",
+      "FRMCS was used before GSM-R and has already been fully replaced",
+      "GSM-R is used only for ETCS Level 1, and FRMCS only for Level 2"
+    ],
+    correct: 0,
+    explanation: "The latest TSI-CCS introduced the first version of FRMCS, destined to eventually replace GSM-R (the railway industry version of public GSM), although almost all ETCS schemes implemented to date rely on GSM-R.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"System architecture\""
+  },
+  {
+    id: "etcs_10",
+    topic: "Application Level 1",
+    q: "How does ETCS Application Level 1 transmit track-to-train signalling and control data, according to the article?",
+    options: [
+      "Unidirectional track-to-train data is sent by balise",
+      "Exclusively via bidirectional GSM-R/FRMCS radio",
+      "By satellite communication only",
+      "By fibre optic cable buried alongside the track"
+    ],
+    correct: 0,
+    explanation: "Application Level 1 is described as unidirectional track-to-train data sent by balise, in contrast to Level 2 which uses GSM-R/FRMCS radio transmission.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\""
+  },
+  {
+    id: "etcs_11",
+    topic: "LEU function in Level 1",
+    q: "What is the function of a Lineside Electronic Unit (LEU) in ETCS Level 1?",
+    options: [
+      "It connects balises to the signal lamp circuits at each lineside signal, senses the signal aspect status, and combines this with known distance data to generate an ETCS Movement Authority for transmission as the train passes the balise",
+      "It replaces the need for any interlocking",
+      "It provides continuous two-way radio communication with the train",
+      "It is a component only used in Level 2 systems"
+    ],
+    correct: 0,
+    explanation: "Level 1 features balises connected to the signal lamp circuits via an LEU; the LEU senses the signal aspect status and combines this with known distance-between-signals data to generate an ETCS Movement Authority transmitted to the train as it passes the balise.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\" (Figure 4)"
+  },
+  {
+    id: "etcs_12",
+    topic: "RBC function in Level 2",
+    q: "What is the function of a Radio Block Centre (RBC) in ETCS Level 2?",
+    options: [
+      "It is a centralised computer system with information about route and track occupancy status of all blocks in its area of control, used to generate Movement Authorities transmitted to each train",
+      "It is a physical trackside barrier used at level crossings only",
+      "It is the onboard unit that displays speed to the driver",
+      "It replaces balises entirely, even for direction detection"
+    ],
+    correct: 0,
+    explanation: "Level 2 systems feature a centralised computer system known as a Radio Block Centre (RBC), which has information about route and track occupancy status of all blocks in its area of control and uses this to generate Movement Authorities for each train.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\" (Figure 5)"
+  },
+  {
+    id: "etcs_13",
+    topic: "Balise groups",
+    q: "Why are balises normally installed in groups of at least two, according to the article?",
+    options: [
+      "To enable the passing train to determine which direction it is travelling in, relative to the orientation of the balise group",
+      "To provide a backup in case one balise runs out of battery power",
+      "To allow two trains to read the same balise group simultaneously",
+      "Balises are never installed in groups; each is always installed individually"
+    ],
+    correct: 0,
+    explanation: "Balises are normally installed in groups of at least two to enable the passing train to determine which direction it is travelling in relative to the orientation of the balise group, with groups able to contain different information for each direction of travel.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\""
+  },
+  {
+    id: "etcs_14",
+    topic: "Level 0",
+    q: "What is ETCS Application Level 0 intended for, and what form of protection does it provide?",
+    options: [
+      "Lines with no form of signalling system, such as depots, sidings and goods yards; the only protection is a ceiling speed above which the brake is automatically applied",
+      "High-speed main lines only, providing full moving block protection",
+      "Cross-border routes, providing full interoperable ATP",
+      "It is not a real ETCS level, but a marketing term only"
+    ],
+    correct: 0,
+    explanation: "Level 0 is intended for use on lines with no form of signalling system, such as depots, sidings and goods yards; the only form of train protection provided is a ceiling speed above which the brake is automatically applied.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\""
+  },
+  {
+    id: "etcs_15",
+    topic: "STM function",
+    q: "What does a Specific Transmission Module (STM) do in ETCS Level NTC?",
+    options: [
+      "It receives track-to-train transmissions from legacy national train protection systems and makes use of standard ETCS functions (such as speed/distance measurement and the DMI) to replicate the behaviour of the national system concerned",
+      "It transmits GSM-R voice calls between signallers",
+      "It physically replaces the national train protection system's trackside equipment",
+      "It is mandatory equipment on every ETCS Level 2 train"
+    ],
+    correct: 0,
+    explanation: "Level NTC relies on an optional onboard component, the STM, which receives track-to-train transmissions from legacy national train protection systems and uses standard ETCS functions to replicate the national system's behaviour.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Application levels\""
+  },
+  {
+    id: "etcs_16",
+    topic: "Level 1 infill",
+    q: "Select TWO of the methods the article describes for providing 'infill' to overcome the limitation that, in Level 1, the MA can only normally be updated as a train passes the next balise group.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Euroloop infill",
+      "Radio infill",
+      "Increasing the train's maximum speed",
+      "Removing the LEU entirely",
+      "Doubling the length of every block section"
+    ],
+    correct: [0, 1],
+    explanation: "Infill can be provided by additional balise groups on the approach to each signal, by Euroloop infill, or by radio infill — all enabling an updated MA to be sent and displayed without forcing the train to brake to a stand.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS and cab signalling\""
+  },
+  {
+    id: "etcs_17",
+    topic: "Level 1 balise placement rule",
+    q: "Why must Level 1 balise groups be positioned after the normal stopping position for a signal at danger, according to the TSI rules described in the article?",
+    options: [
+      "To ensure they are not read before a signal at danger has changed to a proceed aspect, since the train would be tripped if it passed the balise group while the signal was still at danger",
+      "To reduce the manufacturing cost of the balise",
+      "Because balises can only be installed in tunnels",
+      "There is no such rule; balises may be positioned anywhere"
+    ],
+    correct: 0,
+    explanation: "The TSI contains rules about the placement of Level 1 balise groups: they must be positioned after the normal stopping position to ensure they are not read before a signal at danger has changed to proceed — the train would otherwise be tripped if it passed the balise while the signal was still at danger.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS and cab signalling\""
+  },
+  {
+    id: "etcs_18",
+    topic: "ETCS Movement Authority content",
+    q: "Select TWO pieces of information contained within an ETCS Movement Authority (MA), according to the article.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "The permitted distance the train may travel to the End of Authority (EOA)",
+      "The distance to the danger point, beyond which a derailment or collision could occur",
+      "The driver's personal identification number",
+      "The train's ticket pricing tier",
+      "The colour scheme of the next station"
+    ],
+    correct: [0, 1],
+    explanation: "The MA contains information including the permitted distance to the EOA, the permitted speed at the EOA, the presence and length of any overlap, overlap timer values, and the distance to the danger point.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS Movement Authority\""
+  },
+  {
+    id: "etcs_19",
+    topic: "Last Relevant Balise Group",
+    q: "What is the Last Relevant Balise Group (LRBG), as described in the article?",
+    options: [
+      "A known reference location on the track, usually the last balise group passed by the train, to which the distance to the End of Authority is related, and which is updated as the train proceeds",
+      "The final balise group ever installed on a given route",
+      "A balise group used only for emergency stops",
+      "The balise group closest to the Radio Block Centre building"
+    ],
+    correct: 0,
+    explanation: "The distance to the EOA is related to a known reference location defined by the identity of a specific balise group referred to as the Last Relevant Balise Group (LRBG), usually the last balise group passed by the train and updated as it proceeds.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS Movement Authority\""
+  },
+  {
+    id: "etcs_20",
+    topic: "Operating mode — Full Supervision",
+    q: "What characterises 'Full Supervision' mode, the normal operating mode in ETCS Levels 1 and 2?",
+    options: [
+      "Train speed and distance are monitored against a valid MA, and the braking system is activated if the train exceeds the permitted speed or distance limits specified in the MA",
+      "The train is driven with no protection at all",
+      "It is used only when a train is being shunted in a depot",
+      "It is the mode entered automatically whenever the DMI is powered down"
+    ],
+    correct: 0,
+    explanation: "Full Supervision is the normal operating mode in ETCS Levels 1 and 2 once the train has received a valid MA: train speed and distance are monitored, and the braking system activates if permitted speed or distance limits are exceeded.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Operating modes\""
+  },
+  {
+    id: "etcs_21",
+    topic: "Operating mode — Staff Responsible",
+    q: "When is 'Staff Responsible' (SR) mode typically used?",
+    options: [
+      "When a train is unable to obtain an MA, for example following Standby mode if the RBC cannot determine the train's location in Level 2, allowing the driver to proceed under caution via Override",
+      "When two or more trains are coupled together in a depot",
+      "Only during scheduled maintenance of the RBC",
+      "It is the default mode for all freight trains regardless of circumstance"
+    ],
+    correct: 0,
+    explanation: "Staff Responsible mode is used when a train is unable to obtain an MA, for example if the RBC cannot determine its location; the driver can select Override to proceed under caution if the signal operator cannot extend an MA, such as due to a track circuit failure.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Operating modes\""
+  },
+  {
+    id: "etcs_22",
+    topic: "Operating mode — On Sight",
+    q: "What distinguishes 'On Sight' (OS) mode from Full Supervision mode?",
+    options: [
+      "On Sight mode is used where a route is set and locked but the track ahead could be occupied by another train; it does not protect against collision with a train in the occupied route, but enforces a low ceiling speed appropriate for driving on sight",
+      "On Sight mode provides full collision protection, unlike Full Supervision",
+      "On Sight mode is used only for freight trains carrying dangerous goods",
+      "On Sight mode disables the DMI completely"
+    ],
+    correct: 0,
+    explanation: "On Sight mode is a variant of Full Supervision used, for example, in station areas where a second train has been cleared to enter an occupied platform; it does not protect against collision with the train ahead but enforces a low ceiling speed appropriate to driving on sight.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Operating modes\""
+  },
+  {
+    id: "etcs_23",
+    topic: "Operating mode — Shunting",
+    q: "How does Shunting (SH) mode differ from On Sight mode, according to the article?",
+    options: [
+      "Shunting mode supports both forward and reverse movement, whereas On Sight mode does not; both provide only a low supervised ceiling speed with no collision protection",
+      "Shunting mode provides full collision protection like Full Supervision",
+      "Shunting mode is only used on cross-border high-speed routes",
+      "Shunting mode requires the RBC to be disconnected"
+    ],
+    correct: 0,
+    explanation: "Shunting mode is intended for coupling/uncoupling or forming freight trains, typically in a depot or goods yard. Like On Sight mode, no collision protection is provided, only a low ceiling speed — but the main difference is that Shunting mode supports both forward and reverse movement.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Operating modes\""
+  },
+  {
+    id: "etcs_24",
+    topic: "ETCS braking curves",
+    q: "Select TWO of the independently calculated sets of braking curves described in the article's ETCS braking model.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "A set associated with the emergency brake, targeted at the Supervised Location (SvL)",
+      "A set based on the service brake, targeted at the End of Authority (EOA)",
+      "A set based purely on passenger comfort with no relation to speed",
+      "A set calculated only once per year for the whole network",
+      "A set used exclusively to calculate ticket prices"
+    ],
+    correct: [0, 1],
+    explanation: "There are two independently calculated sets of braking curves: one associated with the emergency brake, targeted at the Supervised Location (SvL — aligned with the end of the overlap or the Danger Point, whichever is closer), and another based on the service brake, targeted at the EOA.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS braking model\""
+  },
+  {
+    id: "etcs_25",
+    topic: "Braking curve sequence",
+    q: "According to Figure 7 of the article, which curve gives the driver the earliest warning before a service brake intervention should be initiated: the Warning curve or the Indication curve?",
+    options: [
+      "The Indication curve, which is generated at a suitable time margin prior to the Permitted curve, ahead of the Warning curve",
+      "The Warning curve, which always precedes the Indication curve",
+      "They occur simultaneously with no time margin between them",
+      "Neither curve relates to timing; both relate only to speed"
+    ],
+    correct: 0,
+    explanation: "The Indication curve is generated at a suitable time margin prior to the Permitted curve (which itself precedes the Warning curve), indicating to the driver the latest moment at which a service brake intervention should be initiated — making it the earliest of the driver-facing curves.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS braking model\" (Figure 7)"
+  },
+  {
+    id: "etcs_26",
+    topic: "Guidance curve (GUI)",
+    q: "What is the purpose of the optional Guidance curve (GUI curve) mentioned in the article?",
+    options: [
+      "It allows the vehicle to be programmed with a more progressive brake rate reflective of operational objectives, replacing the calculated Permitted curve, where headway and capacity are not critical",
+      "It is a mandatory curve used to calculate the emergency brake response on every ETCS train",
+      "It replaces the need for a Driver Machine Interface entirely",
+      "It is used only to calculate ticket refunds for delayed trains"
+    ],
+    correct: 0,
+    explanation: "Where headway and capacity are not critical objectives, it is possible to moderate the deceleration rates calculated by ETCS by applying the optional Guidance curve (GUI curve), allowing a more progressive brake rate reflective of operational objectives, replacing the calculated Permitted curve.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"ETCS braking model\""
+  },
+  {
+    id: "etcs_27",
+    topic: "ETCS headway advantage",
+    q: "How does the article say ETCS offers an advantage over conventional signalling in terms of headway, in mixed traffic scenarios?",
+    options: [
+      "ETCS uses known train information (such as brake rate) combined with trackside data to calculate a braking profile specific to each train, allowing headway to be reduced for better-braking trains without restricting slower/heavier trains such as freight on the same route",
+      "ETCS eliminates the need for any headway calculation at all",
+      "ETCS always uses a fixed headway regardless of train type",
+      "ETCS only works for freight trains, not passenger trains"
+    ],
+    correct: 0,
+    explanation: "Unlike conventional signalling, where signal spacing is based on the lowest brake rate of any authorised train, ETCS combines known train information (e.g. brake rate and response time) with trackside data to calculate a train-specific braking profile, reducing headway for better-braking trains without restricting slower or heavier trains on the same route.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Headway and capacity\""
+  },
+  {
+    id: "etcs_28",
+    topic: "Version compatibility",
+    q: "What general principle does the article describe regarding backwards compatibility of ETCS onboard equipment?",
+    options: [
+      "An onboard sub-system at version 'X+1' will generally be compatible with routes previously brought into use at version 'X', with a degree (but not guarantee) of forwards compatibility also allowed for",
+      "Every new ETCS baseline is completely incompatible with all previous versions",
+      "Trackside equipment must always be upgraded before onboard equipment, with no exceptions",
+      "Compatibility checks are performed only once per year during scheduled maintenance"
+    ],
+    correct: 0,
+    explanation: "The general principle is to support backwards compatibility, so an onboard sub-system at version 'X+1' will generally be compatible with routes previously brought into use at version 'X'; some forwards compatibility is also allowed for, though not guaranteed in every case, and a system compatibility check is performed on connection.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Version management and backwards compatibility\""
+  },
+  {
+    id: "etcs_29",
+    topic: "Packet 44",
+    q: "What is Packet 44 used for, according to the article, and what examples are given of its use in Great Britain?",
+    options: [
+      "A means of transmitting country-specific national functions transparently through the ETCS air interface; examples given are tilting train control and speedometer units of display",
+      "It is used to encrypt all GSM-R voice communications",
+      "It defines the physical dimensions of a Eurobalise",
+      "It is a reserved packet with no current or planned use"
+    ],
+    correct: 0,
+    explanation: "A country-specific user-configurable transmission mechanism has been developed using Packet 44, a means of transmitting information transparently through the ETCS air interface; examples of its use in GB include tilting train control and speedometer units of display.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Additional features\""
+  },
+  {
+    id: "etcs_30",
+    topic: "ATO and ETCS",
+    q: "According to the article, at what Grade of Automation (GoA) is ATO presently offered as an ancillary benefit of ETCS?",
+    options: [
+      "GoA 2, meaning the train is driven automatically but an operator is available to take over if required",
+      "GoA 4, fully unattended operation with no staff on board",
+      "GoA 0, fully manual on-sight operation",
+      "ATO is not currently offered with ETCS at all"
+    ],
+    correct: 0,
+    explanation: "Beyond interoperable cab-signalling and ATP, ETCS offers ancillary benefits including Automatic Train Operation (ATO), presently at Grade of Automation 2, meaning the train is driven automatically but an operator is available to take over if required.",
+    reference: "Back to Basics: European Train Control System (ETCS) — \"Additional features\""
+  }
+];
+ETCS_QUESTIONS.forEach(q => { q.category = "European Train Control System (ETCS)"; });
+
+const DEP_QUESTIONS = [
+  {
+    id: "dep_01",
+    topic: "RAMS elements",
+    q: "Dependability is composed of four elements giving the RAMS acronym. Select TWO of these elements.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Reliability — the probability that the item will deliver its required function when required",
+      "Maintainability — the ease with which an item is kept in working order or repaired",
+      "Speed — the maximum permitted line speed of the item",
+      "Capacity — the number of trains per hour the item can support",
+      "Comfort — the ride quality experienced by passengers"
+    ],
+    correct: [0, 1],
+    explanation: "RAMS is composed of Reliability, Availability, Maintainability and Safety. Security is sometimes considered separately and cuts across all four elements.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Dependability\""
+  },
+  {
+    id: "dep_02",
+    topic: "Security and RAMS",
+    q: "How does the presentation describe the relationship between Security and the four RAMS elements?",
+    options: [
+      "Security is sometimes considered separately and cuts across the four RAMS elements",
+      "Security is simply another name for Safety",
+      "Security is a subset of Maintainability only",
+      "Security has no relationship to RAMS at all"
+    ],
+    correct: 0,
+    explanation: "Security is sometimes considered separately from the four RAMS elements (Reliability, Availability, Maintainability, Safety) and cuts across all of them.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Dependability\""
+  },
+  {
+    id: "dep_03",
+    topic: "Maintenance types",
+    q: "Which type of maintenance is described as 'preventive maintenance that is only done when the item is predicted to fail or become unsafe (e.g. from remote condition monitoring data)'?",
+    options: [
+      "Predictive Maintenance",
+      "Reactive Maintenance",
+      "Renewals",
+      "Corrective Maintenance"
+    ],
+    correct: 0,
+    explanation: "Predictive Maintenance is preventive maintenance carried out only when the item is predicted to fail or become unsafe, for example based on remote condition monitoring data.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Maintenance\""
+  },
+  {
+    id: "dep_04",
+    topic: "Maintenance types",
+    q: "On what kind of items does the presentation say preventive maintenance is usually most valuable?",
+    options: [
+      "Items with moving parts in a severe environment (e.g. points machines)",
+      "Items with no moving parts in a benign environment",
+      "Items that are never used",
+      "Items covered entirely by manufacturer warranty"
+    ],
+    correct: 0,
+    explanation: "Preventive maintenance is usually most valuable on items with moving parts in a severe environment, such as points machines.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Maintenance\""
+  },
+  {
+    id: "dep_05",
+    topic: "Reliability definition",
+    q: "How is Reliability defined in the presentation?",
+    options: [
+      "The probability that the item will deliver its required function when required",
+      "The proportion of time for which the item is in a state to perform its required function",
+      "The ease with which an item is kept in working order or repaired",
+      "Freedom from unacceptable risk of harm"
+    ],
+    correct: 0,
+    explanation: "Reliability is defined as the probability that the item will deliver its required function when required — essentially, will it work when it is needed?",
+    reference: "Dependability of Railway Control & Communications Systems — \"Reliability\""
+  },
+  {
+    id: "dep_06",
+    topic: "MTBF calculation",
+    q: "Using the formula MTBF = Length of Time / Number of Failures in that time, if a population of 200 items experiences 40 failures in a year, what is the average MTBF for an individual item?",
+    options: [
+      "5 years",
+      "8 years",
+      "40 years",
+      "0.2 years"
+    ],
+    correct: 0,
+    explanation: "MTBF = 200 / 40 = 5 years, following the same method the presentation uses for its own example (120 items, 50 failures per year gives MTBF = 120/50 = 2.4 years).",
+    reference: "Dependability of Railway Control & Communications Systems — \"Reliability\""
+  },
+  {
+    id: "dep_07",
+    topic: "MTTF",
+    q: "What is MTTF, and how does the presentation say it differs from MTBF in typical usage?",
+    options: [
+      "Mean Time To Failure — a very similar measure to MTBF, but used for non-repairable systems",
+      "Mean Time To Fix — the average time taken to repair any failed item",
+      "Mean Time To Fault — used exclusively for cyber security incidents",
+      "MTTF and MTBF are always identical with no distinction in usage"
+    ],
+    correct: 0,
+    explanation: "MTTF (Mean Time To Failure) is described as a very similar measure to MTBF but is used for non-repairable systems.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Reliability\""
+  },
+  {
+    id: "dep_08",
+    topic: "Causes of poor reliability",
+    q: "Select TWO causes of poor reliability listed in the presentation.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Poor build or installation (e.g. \"nicked\" wires, stripped insulation, inherent weaknesses)",
+      "External factors (e.g. severe weather, power outage, physical damage, electromagnetic interference)",
+      "Excessive use of remote condition monitoring",
+      "Overly frequent staff competence testing",
+      "Too many redundant components"
+    ],
+    correct: [0, 1],
+    explanation: "Causes of poor reliability listed include poor design, maintenance issues not considered at the design stage, poor build/installation, poor maintenance, abusive operation, external factors, and failure to learn from past failures.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Some causes of poor Reliability\""
+  },
+  {
+    id: "dep_09",
+    topic: "Root causes — track circuits",
+    q: "According to the presentation, what typical symptom is associated with flooded or contaminated ballast, or a failed Insulated Rail Joint (IRJ), as root causes of poor track circuit reliability?",
+    options: [
+      "Track showing occupied when clear",
+      "Track showing clear when occupied",
+      "Complete loss of power to the interlocking",
+      "Excessive train speed being permitted"
+    ],
+    correct: 0,
+    explanation: "The presentation lists flooded/contaminated ballast, poor insulation of track fixings, and IRJ failure as root causes typically resulting in the symptom of the track showing occupied when it is actually clear.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Examples of root causes of poor Reliability\""
+  },
+  {
+    id: "dep_10",
+    topic: "Root causes — track circuits",
+    q: "What typical symptom does railhead contamination cause as a root cause of poor track circuit reliability?",
+    options: [
+      "Failing to detect a train (i.e. the track showing clear when a train is present)",
+      "The track circuit permanently showing occupied",
+      "Increased fibre optic attenuation",
+      "Loss of GSM-R radio coverage"
+    ],
+    correct: 0,
+    explanation: "Railhead contamination is listed as a root cause of poor track circuit reliability, with the symptom being a failure to detect a train.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Examples of root causes of poor Reliability\""
+  },
+  {
+    id: "dep_11",
+    topic: "Examples of good reliability",
+    q: "The presentation describes what a highly reliable signalling system will ideally do. Select TWO of these characteristics.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Will self-diagnose internal faults before they cause a failure of the system (e.g. remote condition monitoring)",
+      "Will cope with possible failures in other systems (e.g. power supply failures or minor interruptions)",
+      "Will never require any maintenance under any circumstances",
+      "Will always fail completely rather than degrade gracefully",
+      "Will have as many single points of failure as possible, to simplify design"
+    ],
+    correct: [0, 1],
+    explanation: "A highly reliable signalling system will ideally never fail, will self-diagnose internal faults before they cause failure, will cope with the real-world operating environment, will have few single points of failure, and will cope with failures in other systems.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Examples of Good Reliability\""
+  },
+  {
+    id: "dep_12",
+    topic: "Availability definition and formula",
+    q: "The presentation gives the formula Availability = MTTF / (MTTF + MTTR). If MTTF = 950 hours and MTTR = 50 hours, what is the availability?",
+    options: [
+      "95%",
+      "50%",
+      "99.5%",
+      "90.5%"
+    ],
+    correct: 0,
+    explanation: "Availability = MTTF / (MTTF + MTTR) = 950 / (950 + 50) = 950/1000 = 0.95 = 95%.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Availability\""
+  },
+  {
+    id: "dep_13",
+    topic: "Planned outages and availability",
+    q: "According to the presentation, how should planned outages be treated when calculating Availability?",
+    options: [
+      "Planned outages need to be counted as failure incidents",
+      "Planned outages should always be excluded from any availability calculation",
+      "Planned outages only count if they exceed 24 hours",
+      "Planned outages should be counted as part of MTBF, not MTTR"
+    ],
+    correct: 0,
+    explanation: "The presentation explicitly states that planned outages need to be counted as failure incidents when calculating availability.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Availability\""
+  },
+  {
+    id: "dep_14",
+    topic: "Effects on availability",
+    q: "Select TWO effects on availability the presentation categorises as negative.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Intrusive preventive maintenance",
+      "System out of service because of failure",
+      "Duplication of system components or back-up systems",
+      "Remote condition monitoring",
+      "Modular replacement of failed parts"
+    ],
+    correct: [0, 1],
+    explanation: "Negative effects on availability listed include intrusive preventive maintenance, taking the system out of service (planned), system out of service because of failure, and restricting train movements to safeguard staff. Duplication of components is listed as a positive effect.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Some effects on Availability\""
+  },
+  {
+    id: "dep_15",
+    topic: "Duplication and availability",
+    q: "How can duplication of system components or back-up systems improve availability, according to the presentation?",
+    options: [
+      "It can increase availability without the reliability of the individual component being increased",
+      "It always doubles the reliability of every individual component",
+      "It has no effect on availability, only on reliability",
+      "It eliminates the need for any maintenance at all"
+    ],
+    correct: 0,
+    explanation: "Duplication of system components or back-up systems is listed as a positive effect on availability, and can increase availability without the reliability of the component itself being increased.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Some effects on Availability\""
+  },
+  {
+    id: "dep_16",
+    topic: "Maintainability definition",
+    q: "How is Maintainability defined in the presentation?",
+    options: [
+      "The ease with which an item is kept in working order or repaired",
+      "The probability that an item will deliver its required function when required",
+      "Freedom from unacceptable risk of harm",
+      "The proportion of time an item is in a state to perform its required function"
+    ],
+    correct: 0,
+    explanation: "Maintainability is defined as the ease with which an item is kept in working order or repaired.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Maintainability and some issues affecting it\""
+  },
+  {
+    id: "dep_17",
+    topic: "Good maintainability",
+    q: "Select TWO characteristics of routine maintenance that a highly maintainable signalling system aims for, according to the presentation.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Non-disruptive (e.g. can be done while trains run)",
+      "Remote (at a central staffed point, or via internet from anywhere)",
+      "Requiring highly skilled specialists at every visit",
+      "Located on or near the track wherever possible",
+      "Performed as infrequently as legally required, regardless of condition"
+    ],
+    correct: [0, 1],
+    explanation: "A highly maintainable system aims for routine maintenance that is minimised, easy to do with normal tools, not highly skilled, non-disruptive, not on or near the track, and remote where possible.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Good Maintainability\""
+  },
+  {
+    id: "dep_18",
+    topic: "Safety definition — two aspects",
+    q: "The presentation describes Safety as including TWO distinct aspects. Select them.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "System Safety — the ability of the control and communications system to protect train movements at all times",
+      "Staff Safety — not exposing people who maintain, operate or install control and communications systems to danger or harm",
+      "Financial Safety — protecting the railway's revenue streams",
+      "Environmental Safety — protecting local wildlife from railway operations",
+      "Political Safety — protecting the railway from changes in government policy"
+    ],
+    correct: [0, 1],
+    explanation: "Safety includes System Safety (the ability of the control and communications system to protect train movements, including associated design, installation, maintenance and operating processes) and Staff Safety (not exposing signallers, drivers, operating, maintenance and installation staff to danger or harm).",
+    reference: "Dependability of Railway Control & Communications Systems — \"Safety\""
+  },
+  {
+    id: "dep_19",
+    topic: "Issues affecting system safety",
+    q: "Select TWO issues the presentation lists as affecting System Safety.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Train detection — no false clears with a vehicle present",
+      "Axle counters — assurance of clear track before reset",
+      "The colour of station platform signage",
+      "The design of passenger ticket barriers",
+      "The frequency of train cleaning schedules"
+    ],
+    correct: [0, 1],
+    explanation: "Issues affecting System Safety listed include interlockings, colour light signal visibility, points locking/detection/maintenance, train detection avoiding false clears, axle counters requiring assurance of clear track before reset, cables avoiding false feeds/earths, misleading indications, and hardware/software designed to fail safe.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Some issues affecting System Safety\""
+  },
+  {
+    id: "dep_20",
+    topic: "Avoiding maintenance errors",
+    q: "Select TWO measures the presentation identifies as helping to avoid maintenance errors that could cause unsafe conditions.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Design to make errors difficult (e.g. pin coding of plug-in modules)",
+      "Encapsulated checklists or prompts on mobile devices",
+      "The threat of disciplinary action after a mistake is made",
+      "Reducing the frequency of staff training to save cost",
+      "Requiring frequent reference to a large manual during every task"
+    ],
+    correct: [0, 1],
+    explanation: "Measures to avoid maintenance errors include easy-to-follow instructions, encapsulated checklists or prompts on mobile devices, staff training and competence testing, and design that makes errors difficult (e.g. pin coding of plug-in modules). The presentation states all of these are better than the threat of disciplinary action after a mistake is made.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Maintenance Errors can cause Unsafe Conditions\""
+  },
+  {
+    id: "dep_21",
+    topic: "Plug-in module coding",
+    q: "According to the presentation, what is 'better still' than colour-coding plug-in modules to prevent use of the wrong module?",
+    options: [
+      "Pin-coding of plug-in modules",
+      "Labelling modules only in text with no visual coding",
+      "Requiring two people to check every module before insertion",
+      "Removing the ability to plug modules in altogether"
+    ],
+    correct: 0,
+    explanation: "The presentation states that plug-in modules that are colour-coded are good, but pin-coded is better still, since it physically prevents use of the wrong module.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Safety\""
+  },
+  {
+    id: "dep_22",
+    topic: "Impact of reliability/availability on safety",
+    q: "Why does the presentation say that a signalling system with poor reliability or availability will worsen safety?",
+    options: [
+      "The signal operator will have to use manual procedures more often, which are inherently less safe because they are open to human error and not fully protected by the fail-safe design of the signalling system",
+      "Poor reliability automatically causes structural failure of the track",
+      "It has no effect on safety, only on train performance",
+      "Passengers become more likely to trespass on the track"
+    ],
+    correct: 0,
+    explanation: "A signalling system with poor reliability or availability requires the signal operator to use manual procedures more often to allow trains to run; being open to human error and not fully protected by fail-safe design, manual procedures are inherently less safe.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Impact on Safety of Reliability & Availability\""
+  },
+  {
+    id: "dep_23",
+    topic: "Security issues",
+    q: "Select TWO issues the presentation lists as affecting Security.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Cyber security, particularly for IP-enabled systems",
+      "Insider threats",
+      "Track circuit ballast resistance",
+      "Overlap length calculations",
+      "Signal aspect sequencing"
+    ],
+    correct: [0, 1],
+    explanation: "Security issues listed include cyber security (particularly IP-enabled systems), theft, vandalism, and insider threats.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Security and some issues affecting it\""
+  },
+  {
+    id: "dep_24",
+    topic: "Technology improving dependability",
+    q: "According to the presentation, how do axle counters improve dependability compared with track circuits?",
+    options: [
+      "They eliminate insulated block joint failures and track circuit failures from flooding or rail contamination",
+      "They require more frequent maintenance than track circuits, improving reliability data",
+      "They are always cheaper to install than track circuits",
+      "They eliminate the need for any train detection at all"
+    ],
+    correct: 0,
+    explanation: "Axle counters are given as an example of technology that improves dependability, as they eliminate insulated block joint failures and track circuit failures caused by flooding or rail contamination.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Examples of how to Improve Dependability\""
+  },
+  {
+    id: "dep_25",
+    topic: "RAMS tool — FMECA",
+    q: "What does FMECA stand for, and what does it do?",
+    options: [
+      "Failure Modes, Effects, and Criticality Analysis — a methodology to identify potential failure modes, their effects on the system, and how to avoid or mitigate them",
+      "Fault Management and Emergency Control Analysis — used only during emergency response",
+      "Fixed Maintenance Equipment Costing Assessment — a purely financial budgeting tool",
+      "Failure Mode Elimination and Cost Analysis — used only at the design freeze stage"
+    ],
+    correct: 0,
+    explanation: "FMECA (Failure Modes, Effects, and Criticality Analysis) is a methodology to identify and analyse all potential failure modes, their effects on the system, and how to avoid the failures and/or mitigate their effects.",
+    reference: "Dependability of Railway Control & Communications Systems — \"RAMS Tools for improving Dependability (1)\""
+  },
+  {
+    id: "dep_26",
+    topic: "RAMS tool — RCA",
+    q: "What technique does the presentation associate with Root Cause Analysis (RCA)?",
+    options: [
+      "Displaying root causes graphically, for example using a Fishbone or Ishikawa diagram",
+      "Calculating Mean Time Between Failures for the whole railway network",
+      "Testing staff competence at regular intervals",
+      "Measuring the ballast resistance of track circuits"
+    ],
+    correct: 0,
+    explanation: "RCA (Root Cause Analysis) is a method of problem solving used for identifying the root causes of failures and displaying them graphically, for example using a Fishbone or Ishikawa diagram.",
+    reference: "Dependability of Railway Control & Communications Systems — \"RAMS Tools for improving Dependability (1)\""
+  },
+  {
+    id: "dep_27",
+    topic: "RAMS tool — CCF",
+    q: "What is the purpose of Common Cause Failure (CCF) analysis?",
+    options: [
+      "Identifying all the ways in which a single fault can cause a system failure, even where components are duplicated to improve reliability, so a meaningful system reliability figure can be calculated",
+      "Tracking failure-related data throughout the period from manufacturing to in-service use",
+      "Reporting and analysing failures and planning corrective actions at a fault control desk",
+      "Optimising the frequency and scope of preventive maintenance interventions"
+    ],
+    correct: 0,
+    explanation: "CCF analysis identifies all the ways a single fault could cause a system failure even where components are duplicated for reliability, allowing statistical analysis to calculate a meaningful system reliability figure.",
+    reference: "Dependability of Railway Control & Communications Systems — \"RAMS Tools for improving Dependability (2)\""
+  },
+  {
+    id: "dep_28",
+    topic: "RAMS tools — DRACAS, FRACAS, RCM",
+    q: "Match the correct description: which RAMS tool 'tracks all failure related data throughout the period from manufacturing to in-service', and which 'optimises the frequency and scope of preventive maintenance interventions'?",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "DRACAS — tracks all failure related data from manufacturing to in-service",
+      "RCM — optimises the frequency and scope of preventive maintenance interventions",
+      "FTA — tracks all failure related data from manufacturing to in-service",
+      "FMECA — optimises the frequency and scope of preventive maintenance interventions",
+      "CCF — tracks all failure related data from manufacturing to in-service"
+    ],
+    correct: [0, 1],
+    explanation: "DRACAS (Data Reporting And Corrective Action System) tracks all failure-related data throughout the period from manufacturing to in-service. RCM (Reliability Centred Maintenance) optimises the frequency and scope of preventive maintenance interventions, taking account of factors such as failure modes, probability/consequence of failure, safety risk, performance risk, number of operations, and operating environment.",
+    reference: "Dependability of Railway Control & Communications Systems — \"RAMS Tools for improving Dependability (2) and (3)\""
+  },
+  {
+    id: "dep_29",
+    topic: "Remote condition monitoring examples",
+    q: "Select TWO examples the presentation gives of parameters suitable for remote condition monitoring as part of predictive maintenance.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Points slow to operate",
+      "Error rate on a data link",
+      "Passenger footfall at a station",
+      "The colour of a signal post",
+      "The number of tickets sold per day"
+    ],
+    correct: [0, 1],
+    explanation: "Examples given of remote condition monitoring data include points slow to operate, error rate on a data link, and signal lamp filament failure. Data should be transmitted to a person who can take prompt action, though this isn't possible for all railway control and communications equipment.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Remote Condition Monitoring\""
+  },
+  {
+    id: "dep_30",
+    topic: "Conclusions — whole life cost",
+    q: "What does the presentation's conclusion say about the relative scale of operations and maintenance costs compared with capital cost over a system's lifetime?",
+    options: [
+      "Operations and maintenance (including cost of failures) usually exceed the capital cost of a system over its lifetime",
+      "Capital cost always exceeds operations and maintenance cost over the system's lifetime",
+      "Operations and maintenance costs are negligible compared with capital cost",
+      "Capital cost and operations/maintenance cost are always exactly equal by regulation"
+    ],
+    correct: 0,
+    explanation: "The conclusions state that operations and maintenance (including the cost of failures) usually exceed the capital cost of a system over its lifetime, reinforcing that dependability should be designed in from the start rather than value-engineered out — with a system lifetime that can mean 40 years of regret if got wrong.",
+    reference: "Dependability of Railway Control & Communications Systems — \"Conclusions\""
+  }
+];
+DEP_QUESTIONS.forEach(q => { q.category = "Dependability (RAMS)"; });
+
+const PTS_QUESTIONS = [
+  {
+    id: "pts_01",
+    topic: "Why railways need points",
+    q: "Why does the article say railways need moveable sections of rail (points), unlike roads which have junctions with no moving parts?",
+    options: [
+      "Road vehicles can steer themselves whereas trains cannot, and railway wheels have flanges that require gaps in the rails through which they can pass",
+      "Points are only needed because trains are heavier than road vehicles",
+      "Points exist purely to allow trains to reverse direction",
+      "Roads never have junctions of any kind"
+    ],
+    correct: 0,
+    explanation: "Road vehicles can steer themselves while trains cannot and need guiding; also, railway wheels have flanges running inside the rail, so points need moveable rail sections both to guide the train and to provide gaps for the flanges to pass through.",
+    reference: "Back to Basics: Points, Part One — \"What are points and why do railways need them?\""
+  },
+  {
+    id: "pts_02",
+    topic: "Division of responsibility",
+    q: "On most railways, how is responsibility for points typically divided between the track engineer and the signal engineer?",
+    options: [
+      "The track (permanent way) engineer is responsible for the points trackwork, while the signal engineer provides and controls the means of moving the points and ensures they are in the required position before a train passes",
+      "The signal engineer is responsible for all trackwork including rail and sleepers",
+      "The track engineer is responsible for the entire interlocking",
+      "There is no division of responsibility; a single 'points engineer' role exists on every railway"
+    ],
+    correct: 0,
+    explanation: "On most railways, the points trackwork is the responsibility of the track engineer, while the signal engineer is responsible for providing and controlling (via the signalling system) the means of moving the points, and ensuring they are correctly positioned before a train passes.",
+    reference: "Back to Basics: Points, Part One — \"What are points and why do railways need them?\""
+  },
+  {
+    id: "pts_03",
+    topic: "Facing and trailing direction",
+    q: "What is the difference between a train travelling over a set of points in the 'facing' direction versus the 'trailing' direction?",
+    options: [
+      "Facing is when a train diverges from the straight route ahead onto another line or stays on the straight route; trailing is the opposite direction, where two lines converge and become one",
+      "Facing only ever occurs at speeds below 30km/h; trailing occurs at any speed",
+      "Facing points are always locked; trailing points are never locked",
+      "There is no meaningful difference between the two terms"
+    ],
+    correct: 0,
+    explanation: "Facing movement is when a train traverses points diverging from (or staying on) the straight route ahead; trailing movement is the opposite direction where two lines converge into one. Many points are used for both facing and trailing movements.",
+    reference: "Back to Basics: Points, Part One — \"What are points and why do railways need them?\" (Figure 2)"
+  },
+  {
+    id: "pts_04",
+    topic: "Figure 3 — components of points",
+    q: "In Figure 3 of the article, what are 'switch rails' (also known as blades or tongues)?",
+    options: [
+      "The movable rail sections which guide the train along the straight or diverging route, tapered at their tips to fit closely against the stock rail",
+      "The outer, non-moving running rails for the straight and diverging routes",
+      "The part of the track layout where the switch rails converge",
+      "Short sections of rail alongside the stock rail to guide wheels through the common crossing"
+    ],
+    correct: 0,
+    explanation: "Switch rails (also known as blades or tongues) are the movable rail sections that guide the train along the straight or diverging route, tapered at their tips to fit closely against the adjacent stock rail.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\" (Figure 3)"
+  },
+  {
+    id: "pts_05",
+    topic: "Figure 3 — common crossing",
+    q: "What is the 'common crossing' (also known as a 'Frog' or 'Vee' crossing)?",
+    options: [
+      "The part of the track layout where the switch rails converge, of necessity with a gap in the rails so wheel flanges can pass through",
+      "The point at which the two switch rails first begin to diverge",
+      "The non-moving section of rail connecting the switch rails to the closure rails",
+      "The demarcation point between the movable switch rails and fixed closure rails"
+    ],
+    correct: 0,
+    explanation: "The common crossing (Frog or Vee crossing) is where the switch rails converge, necessarily with a gap in the rails so wheel flanges can pass through — a gap that can create problems, particularly on long turnouts.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\" (Figure 3)"
+  },
+  {
+    id: "pts_06",
+    topic: "Check rails and wing rails",
+    q: "What is the function of 'check rails' (also known as guard rails), and what are the similar rails forming part of the common crossing itself called?",
+    options: [
+      "Check rails are positioned alongside the stock rail to ensure wheels follow the correct route through the common crossing; the similar rails forming part of the common crossing are called wing rails",
+      "Check rails are used only to hold the sleepers in place; there are no equivalent rails at the common crossing",
+      "Check rails and wing rails are two names for exactly the same component in exactly the same location",
+      "Check rails are only fitted on curved track, never at a common crossing"
+    ],
+    correct: 0,
+    explanation: "Check rails (guard rails) are short sections of rail alongside the stock rail ensuring wheels follow the correct route through the common crossing (frog); similar rails alongside and forming part of the common crossing are known as wing rails.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\" (Figure 3)"
+  },
+  {
+    id: "pts_07",
+    topic: "Stretcher bars",
+    q: "What is the purpose of stretcher bars, and what determines how many are provided?",
+    options: [
+      "They maintain the correct distance between the two switch rails throughout their length; the number provided is governed by the length of the switch rails, which in turn is determined by the maximum permitted speed on the diverging route",
+      "They connect the common crossing to the closure rails and are fitted on every railway worldwide without exception",
+      "They are used only to support the weight of the point machine",
+      "They electrically insulate the switch rails from the stock rails"
+    ],
+    correct: 0,
+    explanation: "Stretcher bars are provided at intervals between the two switch rails to maintain the correct distance between them; the number provided is governed by the length of the switch rails, itself determined by the maximum permitted speed of trains taking the diverging route. Note that many countries' railways do not use stretcher bars at all.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\" (Figure 3)"
+  },
+  {
+    id: "pts_08",
+    topic: "Normal and reverse terminology",
+    q: "Where does the terminology 'normal' and 'reverse' for point positions originate, according to the article?",
+    options: [
+      "From the days of mechanical lever signal boxes, where a lever was in its 'normal' position when not pulled, and 'reverse' when it had been pulled",
+      "From nautical terminology adapted for railway use",
+      "From a 1980s international standard specifically written for points terminology",
+      "From the direction relative to magnetic north"
+    ],
+    correct: 0,
+    explanation: "The 'normal' and 'reverse' terminology dates from mechanical lever signal boxes, where a lever was said to be in its normal position when not pulled, and reverse position when it had been pulled. Alternative terms used elsewhere include left/right, positive/negative, and direct/diverted.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\""
+  },
+  {
+    id: "pts_09",
+    topic: "Supporting elements — Figure 4",
+    q: "What are 'slide chairs', as shown in Figure 4 of the article?",
+    options: [
+      "Chairs where the switch rails move, which support both the stock rail and switch rail and provide a flat surface (often greased, fitted with plastic inserts, or rollers) over which the switch rails move laterally",
+      "A type of extended sleeper used only on high-speed turnouts",
+      "The electrical contacts used to detect the position of the switch rails",
+      "A component found only on hydraulically-operated points"
+    ],
+    correct: 0,
+    explanation: "Slide chairs are located where the switch rails move; they support both the stock rail and switch rail and provide a flat surface — usually greased, fitted with plastic inserts, or with rollers — over which the switch rails move laterally.",
+    reference: "Back to Basics: Points, Part One — \"The basic design of points\" (Figure 4)"
+  },
+  {
+    id: "pts_10",
+    topic: "Operational hazard — points not fully positioned",
+    q: "What is the typical consequence of points not being fully in the correct position for a facing movement, versus a trailing movement?",
+    options: [
+      "For facing movements this is likely to result in derailment; for trailing movements derailment is unlikely, but damage may occur to the points or associated trackside equipment",
+      "Both facing and trailing movements are equally likely to result in derailment in this scenario",
+      "This hazard has no real-world consequence for either direction",
+      "For facing movements it causes damage only; for trailing movements it always causes derailment"
+    ],
+    correct: 0,
+    explanation: "Points not fully in the correct position are likely to result in derailment for facing movements, while for trailing movements derailment is unlikely but damage may occur to the points or trackside equipment.",
+    reference: "Back to Basics: Points, Part One — \"Operational hazards associated with points\""
+  },
+  {
+    id: "pts_11",
+    topic: "Operational hazard — excessive speed",
+    q: "Why is excessive speed identified as a hazard specifically associated with points, given that most points have one position involving a relatively tight radius curve?",
+    options: [
+      "There is generally no super-elevation (cant) on the diverging route through the points to help the train negotiate the curve, unlike plain line curved track",
+      "Points are always built with reverse cant, actively working against the train",
+      "Excessive speed is only a hazard on facing movements, never trailing",
+      "Points have no speed restriction associated with them under any circumstances"
+    ],
+    correct: 0,
+    explanation: "Excessive speed may result in derailment because the diverging route through points generally has no super-elevation (cant), unlike curved plain line track, making it harder for the train to negotiate the curve at speed.",
+    reference: "Back to Basics: Points, Part One — \"Operational hazards associated with points\""
+  },
+  {
+    id: "pts_12",
+    topic: "Operational hazards — risk controls",
+    q: "Select TWO correct pairings of a points-related hazard with how the article says its risk is principally controlled.",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Points not fully/incorrectly positioned — controlled principally through the signalling system",
+      "Broken and worn rails — controlled principally through track inspection and maintenance",
+      "Excessive speed — controlled principally by increasing the width of the common crossing",
+      "Track gauge incorrect — controlled principally by removing all check rails",
+      "Points moving as a train passes over them — has no available control measure"
+    ],
+    correct: [0, 1],
+    explanation: "The first three hazards (points not correctly/oppositely positioned, points moving under a train) are controlled principally through the signalling system. Excessive speed is controlled by a speed restriction reinforced by signalling controls. Track gauge and broken/worn rails are controlled principally through track inspection and maintenance.",
+    reference: "Back to Basics: Points, Part One — \"Operational hazards associated with points\""
+  },
+  {
+    id: "pts_13",
+    topic: "Three signalling functions of points",
+    q: "According to Table 1 in the article, what are the three basic signalling functions fulfilled jointly by the interlocking and trackside equipment for a set of points?",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Move the points to the required position for the passage of a train",
+      "Check that the points are in the correct position",
+      "Paint the points a standard colour for visibility",
+      "Set the train timetable for the route",
+      "Calculate the train's fuel consumption over the points"
+    ],
+    correct: [0, 1],
+    explanation: "Table 1 lists three functions: move the points to the required position, check that the points are in the correct position, and prevent the points moving until the whole train has passed safely (locking).",
+    reference: "Back to Basics: Points, Part One — \"The role of signalling in point operation\" (Table 1)"
+  },
+  {
+    id: "pts_14",
+    topic: "Manually operated points",
+    q: "Why is the distance from a signal box to a mechanically worked set of points typically limited to around 200-300 metres?",
+    options: [
+      "Because of the weight and effort required to move the rodding and points via the points lever",
+      "Because of a legal maximum distance set by international regulation",
+      "Because rodding cannot physically be manufactured longer than 300 metres",
+      "Because points beyond 300 metres are always electrically powered instead"
+    ],
+    correct: 0,
+    explanation: "Because of the weight and effort required to move the rodding and points via the mechanical points lever, the distance from a signal box to a mechanically worked set of points is typically limited to around 200-300 metres.",
+    reference: "Back to Basics: Points, Part One — \"Point operating mechanisms\" — \"Manually operated points\""
+  },
+  {
+    id: "pts_15",
+    topic: "Point machine — lock stretcher bar",
+    q: "In a power-operated point machine, what is the 'lock stretcher bar', as shown in Figure 7?",
+    options: [
+      "A single rod (with a bar linking the two switch rail tips) ensuring both switch rails move in synchronism",
+      "The rod used solely to detect the open switch rail",
+      "A bar used only to physically lock the point machine housing shut",
+      "A term used only for hydraulic clamp lock installations, never electric point machines"
+    ],
+    correct: 0,
+    explanation: "The point machine is connected to the switch rail tips either by two rods (one per blade) or by a single rod and a bar linking the two tips, ensuring they move in synchronism; this bar is commonly known as a 'lock stretcher bar'.",
+    reference: "Back to Basics: Points, Part One — \"Point operating mechanisms\" — \"Power operated points\" (Figure 7)"
+  },
+  {
+    id: "pts_16",
+    topic: "Clamp lock",
+    q: "How does a hydraulic clamp lock differ from a conventional electric point machine, according to the article?",
+    options: [
+      "It has a hydraulic power pack instead of an electric motor, with hydraulic rams (jacks) positioned between the sleepers to drive the switch rails between normal and reverse",
+      "It has no moving parts whatsoever",
+      "It can only be used on points that never require locking",
+      "It is powered exclusively by compressed air"
+    ],
+    correct: 0,
+    explanation: "The clamp lock (with other similar devices known as chair locks, claw locks and ground locks) has a hydraulic power pack instead of an electric motor, using hydraulic rams positioned between the sleepers to drive the switch rails.",
+    reference: "Back to Basics: Points, Part One — \"Point operating mechanisms\" — \"Power operated points\""
+  },
+  {
+    id: "pts_17",
+    topic: "In-sleeper mechanism",
+    q: "What is the benefit of an 'in sleeper' (or 'in bearer') point operating mechanism?",
+    options: [
+      "There is little or no equipment above sleeper level, making it easier to undertake mechanised track maintenance without risk of damage to the equipment",
+      "It eliminates the need for any detection circuit",
+      "It is the only mechanism type that can be used on high-speed turnouts",
+      "It removes the need for a stretcher bar of any kind"
+    ],
+    correct: 0,
+    explanation: "The in-sleeper (in-bearer) mechanism contains all the machinery within a box or trough taking the place of a conventional sleeper, meaning little or no equipment sits above sleeper level, making mechanised track maintenance easier without risk of damage to the equipment.",
+    reference: "Back to Basics: Points, Part One — \"Point operating mechanisms\" — \"Power operated points\""
+  },
+  {
+    id: "pts_18",
+    topic: "Detection tolerances",
+    q: "What typical tolerances does the article give for the gap between the switch and stock rails, on the closed side and the open side respectively, on a standard gauge railway?",
+    options: [
+      "No more than ~5mm on the closed switch rail side, and at least ~115mm on the open switch rail side",
+      "No more than ~50mm on the closed side, and at least ~5mm on the open side",
+      "Exactly 0mm on both sides, with zero tolerance permitted",
+      "No more than ~500mm on the closed side, with no requirement on the open side"
+    ],
+    correct: 0,
+    explanation: "The permissible gap on the closed switch rail side must typically be no more than ~5mm, and on the open switch rail side at least ~115mm, though these figures may vary by country and point/mechanism type.",
+    reference: "Back to Basics: Points, Part One — \"Checking that points are correctly positioned\" — \"Detection tolerances\""
+  },
+  {
+    id: "pts_19",
+    topic: "Open switch rail accidents",
+    q: "What did the Kingham (1966) and Grayrigg (2007) accidents in Britain have in common, according to the article?",
+    options: [
+      "Both involved an insufficient open switch rail gap, causing continual battering by the backs of wheels that fatigued the rail and fittings, leading to fractures and derailment",
+      "Both were caused entirely by signaller error with no equipment fault",
+      "Both involved a level crossing barrier failure",
+      "Neither accident involved points at all"
+    ],
+    correct: 0,
+    explanation: "Both accidents involved an insufficient open switch rail gap; continual battering by the backs of wheels caused the open switch rail and fittings to fatigue, resulting in fractures that led to derailment. The condition of the stretcher bars was implicated in both.",
+    reference: "Back to Basics: Points, Part One — \"Checking that points are correctly positioned\" — \"Detection tolerances\""
+  },
+  {
+    id: "pts_20",
+    topic: "Why points are locked",
+    q: "What did the Board of Trade's 1892 requirements state about facing points used by passenger trains?",
+    options: [
+      "All facing points must be fitted with facing-point locks, to ensure they are in their proper position before signals are lowered and to prevent the signalman shifting them while a train is passing over them",
+      "Facing points were banned entirely from all passenger railways",
+      "Facing points required no locking, only trailing points did",
+      "Facing points could only be operated by two signallers simultaneously"
+    ],
+    correct: 0,
+    explanation: "The Board of Trade's 1892 requirements stated that to ensure points are in their proper position before signals are lowered, and to prevent the signalman shifting them while a train passes over them, all facing points must be fitted with facing-point locks.",
+    reference: "Back to Basics: Points, Part One — \"Locking the points in position\" — \"Why do we lock points?\""
+  },
+  {
+    id: "pts_21",
+    topic: "Wigan 1873 accident",
+    q: "What caused the fatal 1873 accident at Wigan station, in which 13 people died when points moved under an express train?",
+    options: [
+      "The excessive speed of the train, not the action of the signalman",
+      "A signaller deliberately moving the points under the train",
+      "A power failure that caused the interlocking to fail entirely",
+      "A collision with a stationary freight train"
+    ],
+    correct: 0,
+    explanation: "The 1873 Wigan accident, which killed 13 people, resulted from the points moving under the train not through the action of the signalman but because of the excessive speed of the train; it brought to the fore the need to fit locks to facing points.",
+    reference: "Back to Basics: Points, Part One — \"Locking the points in position\" — \"Why do we lock points?\""
+  },
+  {
+    id: "pts_22",
+    topic: "Mechanical facing point lock",
+    q: "In a mechanical facing point lock (Figure 9), how does the lock engage, and how many slots does the lock stretcher bar have?",
+    options: [
+      "The signaller pulls a separate FPL lever, driving the lock rod into one of two slots in the lock stretcher bar — one slot for normal, one for reverse",
+      "The lock automatically engages using the same lever used to move the points, with only one slot provided",
+      "The lock stretcher bar has no slots; it is a solid bar with no moving lock rod",
+      "The lock is engaged by a hydraulic ram in all mechanical point installations"
+    ],
+    correct: 0,
+    explanation: "In a mechanical facing point lock, the signaller pulls the FPL lever — a separate lever from the one used to move the points — connected via rodding to the lock rod, driving it into one of the two slots cut into the lock stretcher bar (one for normal, one for reverse).",
+    reference: "Back to Basics: Points, Part One — \"How points are locked\" (Figure 9)"
+  },
+  {
+    id: "pts_23",
+    topic: "Clamp lock mechanism",
+    q: "How does the locking mechanism of a clamp lock work?",
+    options: [
+      "A G-shaped lock arm (or claw) attached by a pivot to the inside of each switch rail is forced up by the hydraulic rams so the free end fits tightly against the outside of the stock rail, physically clamping the switch and stock rails together",
+      "It uses a simple padlock attached directly to the switch rail",
+      "It relies solely on the weight of the rails to prevent movement, with no active locking device",
+      "It uses an electromagnet to hold the switch rail in place"
+    ],
+    correct: 0,
+    explanation: "In a clamp lock, a G-shaped lock arm (claw) is attached by a pivot to the inside of each switch rail; the hydraulic rams move the switch rails and lock arms so the free end of the lock arm on the closed switch side is forced up to fit tightly against the outside of the stock rail, physically clamping the rails together.",
+    reference: "Back to Basics: Points, Part One — \"How points are locked\" (Figures 10 and 11)"
+  },
+  {
+    id: "pts_24",
+    topic: "Sequence of point machine operation",
+    q: "In the article's typical sequence of operations for a point machine moving points from normal to reverse, what happens immediately as the point lock begins to disengage?",
+    options: [
+      "The normal detection circuit is forced to break, even though the switches are still in the normal position at that stage",
+      "The reverse detection circuit is immediately energised",
+      "The motor is instantly switched off",
+      "The interlocking automatically sets a route over the points"
+    ],
+    correct: 0,
+    explanation: "As soon as the point lock starts to disengage (step 2 of the sequence), the normal detection circuit is forced to break — even though the switches themselves are still in the normal position at that stage.",
+    reference: "Back to Basics: Points, Part One — \"How points are locked\""
+  },
+  {
+    id: "pts_25",
+    topic: "Facing point lock tolerances",
+    q: "The article describes a trade-off in setting the facing point lock gap tolerance. What are the typical values for the gap at which the lock must engage, and the gap at which it must fail to engage?",
+    options: [
+      "The lock can still engage at a gap of ~1.5mm, but must fail to engage at a gap of ~3.5mm — a trade-off between safety and reliability",
+      "The lock must always engage regardless of gap size, with no tolerance at all",
+      "The lock engages at 15mm and fails at 35mm",
+      "There is no relationship between gap size and lock engagement"
+    ],
+    correct: 0,
+    explanation: "Points are adjusted so that with a small gap (typically 1.5mm) the lock can still engage, but with a larger gap (typically 3.5mm) the lock must fail to engage — checked using a facing point lock gauge. This tolerance represents a trade-off between safety and reliability.",
+    reference: "Back to Basics: Points, Part One — \"Facing point lock tolerances\""
+  },
+  {
+    id: "pts_26",
+    topic: "Electrical power for points",
+    q: "What typical voltage and peak current does the article describe for many point operating mechanisms?",
+    options: [
+      "Typically 120V (sometimes as low as 24V), with a peak current requirement of as much as 12A",
+      "Always exactly 400V AC three-phase with no exceptions",
+      "Always 12V DC, similar to a car battery",
+      "Typically 11kV, the same as local distribution networks"
+    ],
+    correct: 0,
+    explanation: "Many point operating mechanisms use relatively low voltages, typically 120V (though as low as 24V may be encountered), with a peak current requirement of as much as 12A when the points begin to move.",
+    reference: "Back to Basics: Points, Part Two — \"Electrical power for moving points\""
+  },
+  {
+    id: "pts_27",
+    topic: "Higher voltage point operation",
+    q: "Why do some countries use higher voltages, up to 400V AC (sometimes three-phase), to power point operating mechanisms?",
+    options: [
+      "To enable the points to be powered directly from the interlocking at much greater distances",
+      "Higher voltage has no practical benefit and is used only by historical accident",
+      "It is required to prevent snow build-up around the points",
+      "It eliminates the need for any local trackside power source ever"
+    ],
+    correct: 0,
+    explanation: "In some countries, higher voltages (up to 400V AC, sometimes three-phase) are used to power operating mechanisms, enabling the points to be powered directly from the interlocking at much greater distances than lower-voltage systems allow.",
+    reference: "Back to Basics: Points, Part Two — \"Electrical power for moving points\""
+  },
+  {
+    id: "pts_28",
+    topic: "Manual operation under failure",
+    q: "How are power-operated points designed to be moved manually if it is not possible to move them under power?",
+    options: [
+      "Using a rotary handle or lever to emulate the operation of the electric motor (albeit slowly), or to pump hydraulic fluid for hydraulically operated mechanisms",
+      "By physically lifting the rail using a crowbar",
+      "There is no means of manually operating power-operated points; they must be replaced if power fails",
+      "By connecting a portable generator directly to the switch rails"
+    ],
+    correct: 0,
+    explanation: "Point operating mechanisms are designed so they can be operated manually using a rotary handle or lever to emulate the electric motor's operation (albeit slowly), or by pumping hydraulic fluid for hydraulically operated mechanisms.",
+    reference: "Back to Basics: Points, Part Two — \"Moving power-operated points under failure conditions\""
+  },
+  {
+    id: "pts_29",
+    topic: "Manual handle security",
+    q: "Why is the manual operating handle, where removable, kept securely in a trackside cabinet or off-site rather than left attached to the point machine?",
+    options: [
+      "To avoid the risk of an unauthorised person attempting to operate the machine with potentially catastrophic results, and inserting the handle disconnects the electrical supply to prevent it inadvertently re-starting under power",
+      "To prevent it from rusting in wet weather",
+      "It has no safety purpose; it is purely for convenience",
+      "To comply with a requirement that all tools be stored centrally regardless of safety implications"
+    ],
+    correct: 0,
+    explanation: "Where the handle is removable and inserted into the machine, this disconnects the electrical supply so power operation cannot inadvertently re-start (which could injure the operator); keeping the handle secured off-site or in a cabinet avoids the risk of an unauthorised person operating the machine with potentially catastrophic results.",
+    reference: "Back to Basics: Points, Part Two — \"Moving power-operated points under failure conditions\""
+  },
+  {
+    id: "pts_30",
+    topic: "Time of operation",
+    q: "What typical time does the article give for a point machine to move a set of points, and why does this matter operationally?",
+    options: [
+      "Typically ~3-5 seconds (some as fast as 1-2 seconds); faster point operation allows a route to be set more quickly, which can have a measurable impact on capacity on busy railways",
+      "Typically 30-60 seconds, with no operational significance",
+      "Exactly 10 seconds on every railway worldwide by international standard",
+      "Points move instantaneously with zero measurable time"
+    ],
+    correct: 0,
+    explanation: "A point machine can typically move a set of points in around 3-5 seconds (some operate in as little as 1-2 seconds, while long turnouts may take longer). The faster points can move, the more quickly a route can be set, which can measurably affect capacity on busy railways.",
+    reference: "Back to Basics: Points, Part Two — \"Time of operation\""
+  },
+  {
+    id: "pts_31",
+    topic: "Trailable points — run-through",
+    q: "What is a 'run-through', and how do trailable points and their operating mechanisms respond to one?",
+    options: [
+      "A run-through occurs when a train passes through points in the trailing direction without authority while they are set and locked in the opposite position; trailable points are designed so the sideways pressure of the wheels unlocks the points and releases the closed switch rail to open",
+      "A run-through is a type of scheduled maintenance activity with no relation to trailability",
+      "Trailable points cannot experience a run-through by design",
+      "A run-through only occurs on points with no locking mechanism fitted at all"
+    ],
+    correct: 0,
+    explanation: "A run-through occurs when a train passes through points in the trailing direction without authority, with the points locked in the opposite position — risking damage or derailment. Trailable points are designed so the sideways pressure of the wheels on the open switch rail unlocks the points, releasing the closed switch rail so it can open for the wheel flanges.",
+    reference: "Back to Basics: Points, Part Two — \"Trailable points\""
+  },
+  {
+    id: "pts_32",
+    topic: "Resettable vs non-resettable trailable points",
+    q: "What is the difference between 'resettable' and 'non-resettable' trailable points, as described in the article?",
+    options: [
+      "Resettable points can be restored to normal operation after a run-through without attendance on-site; non-resettable points require on-site intervention",
+      "Resettable points are always more expensive and less safe than non-resettable points",
+      "Non-resettable points can never be used again after a single run-through",
+      "The terms refer only to how frequently the points require routine maintenance"
+    ],
+    correct: 0,
+    explanation: "Trailable points may be 'resettable', meaning they can be restored to normal operation after a run-through without on-site attendance, or 'non-resettable', meaning on-site intervention is required.",
+    reference: "Back to Basics: Points, Part Two — \"Trailable points\""
+  },
+  {
+    id: "pts_33",
+    topic: "Passive trailable points on trams",
+    q: "How do 'passive' trailable points, used on some tram networks and low-speed railways, differ from powered trailable points?",
+    options: [
+      "They have no operating mechanism or lock, and are spring-loaded or fitted with a non-powered hydraulic piston so they lie in one position until wheel flanges push the switches to the required position, returning afterwards",
+      "They are always more expensive to install than powered points",
+      "They can never be traversed in the facing direction",
+      "They require constant electrical power to remain in position"
+    ],
+    correct: 0,
+    explanation: "Passive trailable points have no operating mechanism or lock; they are spring-loaded or use a non-powered hydraulic piston to lie in one position, and wheel flanges push the switches to the required position for a trailing move opposite the natural lie, with the mechanism returning them afterwards. Speed restrictions apply, particularly for facing movements since there is no FPL.",
+    reference: "Back to Basics: Points, Part Two — \"Trailable points\""
+  },
+  {
+    id: "pts_34",
+    topic: "Back-drives / supplementary drives",
+    q: "Why does the article say that even points with relatively low diverging route speeds are usually fitted with one or more 'back-drives' (supplementary drives)?",
+    options: [
+      "Because rail is heavy (typically 60kg/m) and switch rails can be very long, so relying on the operating mechanism at the tips alone might not maintain the correct gauge along the whole switch rail length",
+      "Back-drives are purely decorative and have no functional purpose",
+      "Back-drives are required only to power signal lamps near the points",
+      "Back-drives are used exclusively to prevent snow accumulation"
+    ],
+    correct: 0,
+    explanation: "Since switch rail weight is considerable (typically 60kg/m) and can be very long, back-drives (assemblies of cranks and rodding, or alternatives like torsion bars or supplementary hydraulic rams) connect the switch tips to a further position along the switch, transmitting the operating mechanism's motion so the whole switch rail moves in unison.",
+    reference: "Back to Basics: Points, Part Two — \"Supplementary operating mechanisms\""
+  },
+  {
+    id: "pts_35",
+    topic: "Supplementary operating mechanisms on long turnouts",
+    q: "Why might a long turnout require supplementary point operating mechanisms (auxiliary actuators) positioned part-way along the switch rail, in addition to back-drives?",
+    options: [
+      "A single point operating mechanism may not have sufficient power to move the whole switch, or the switches may bend along their length rather than fully moving to the required position",
+      "Supplementary mechanisms are required purely for aesthetic reasons on high-speed lines",
+      "They are needed only to provide additional lighting along the turnout",
+      "Long turnouts never require any equipment beyond the single mechanism at the switch tips"
+    ],
+    correct: 0,
+    explanation: "On long turnouts, a single point operating mechanism may lack sufficient power to move the whole switch, or the switches may bend rather than fully move; supplementary point operating mechanisms (auxiliary actuators), controlled from the interlocking, are positioned part-way along the switch rail and move simultaneously with the mechanism at the tips.",
+    reference: "Back to Basics: Points, Part Two — \"Supplementary operating mechanisms\""
+  },
+  {
+    id: "pts_36",
+    topic: "Swing nose crossings",
+    q: "Why is a 'swing nose' crossing used on very long points?",
+    options: [
+      "The greater the length of a set of points, the smaller the angle at the common crossing and the longer the unsupported gap for wheels; a swing nose moves sideways to close this gap for whichever route is set, avoiding an unacceptably large gap and a frog too slender to support the wheels",
+      "A swing nose crossing exists purely to reduce noise, with no safety function",
+      "A swing nose crossing is only used where axle loads are unusually light",
+      "A swing nose crossing removes the need for a common crossing altogether"
+    ],
+    correct: 0,
+    explanation: "On very long points, the angle at the common crossing becomes small and the unsupported gap for wheels becomes unacceptably large, with the frog too slender to support the wheels. A swing nose crossing moves sideways to close the gap for the route set, with its own operating mechanism working in synchronism with the rest of the points under interlocking control; swing noses are also used on shorter turnouts with heavy axle loads to minimise damage and noise.",
+    reference: "Back to Basics: Points, Part Two — \"Swing nose crossings\" (Figures 5 and 6)"
+  },
+  {
+    id: "pts_37",
+    topic: "Other switch and crossing layouts",
+    q: "Select TWO options the article identifies as being available to the track engineer where there is insufficient space to accommodate the points required for all movements (e.g. near large terminal stations).",
+    format: "multi",
+    selectCount: 2,
+    options: [
+      "Fixed diamond crossings, which have no moving parts",
+      "Slip switches (also known as double, puzzle, or compound switches)",
+      "Removing all junctions from the station approach entirely",
+      "Restricting all trains to a single fixed speed through the station",
+      "Replacing all points with catch points"
+    ],
+    correct: [0, 1],
+    explanation: "Options listed for space-constrained junctions include fixed diamond crossings (no moving parts), switch diamonds (movable elbows, functionally equivalent to a fixed diamond but with moving parts), and slip switches (double/puzzle/compound switches).",
+    reference: "Back to Basics: Points, Part Two — \"Other switch and crossing layouts\""
+  },
+  {
+    id: "pts_38",
+    topic: "Track circuit insulation in points",
+    q: "Why must components such as point rods, soleplates and stretcher bars be designed with insulators?",
+    options: [
+      "Because they provide an electrical path between the rails, which would otherwise make a track circuit through the points show permanently occupied",
+      "To prevent the components from rusting",
+      "Insulators are only required where axle counters, not track circuits, are used",
+      "To reduce the weight of the points assembly"
+    ],
+    correct: 0,
+    explanation: "Point rods, soleplates and stretcher bars provide an electrical path between the rails, which would make a track circuit through the points show permanently occupied unless these components are designed with insulators — which are fitted as standard regardless of whether track circuits or axle counters are used for detection.",
+    reference: "Back to Basics: Points, Part Two — \"Track circuit insulation in points\""
+  },
+  {
+    id: "pts_39",
+    topic: "Trap points and flank protection",
+    q: "What is the function of trap points typically provided at the exits of sidings and passing loops, and what is the interlocking feature called when other points (e.g. a crossover) are set by the interlocking to provide the same effect?",
+    options: [
+      "Trap points bring an overrunning train or vehicle safely to a stand (or in some designs derail it) rather than let it pass onto the main line; when other points are used by the interlocking for the same purpose, this is called flank protection",
+      "Trap points are used only to increase line capacity, with no safety function",
+      "Trap points and flank protection are unrelated concepts with no connection",
+      "Trap points are always designed to derail a train, never to bring it safely to a stand"
+    ],
+    correct: 0,
+    explanation: "Trap points, usually operated in synchronism with the corresponding main line points, are provided so that if a train or vehicle inadvertently passes them, it comes to a stand (or in some designs is derailed) rather than passing onto the main line where a collision could occur. Where possible, points provided for other purposes (e.g. a crossover) are set by the interlocking to give the same trapping protection — an interlocking feature known as flank protection.",
+    reference: "Back to Basics: Points, Part Two — \"Points for avoiding collisions\""
+  },
+  {
+    id: "pts_40",
+    topic: "Catch points vs trap points",
+    q: "How does the article distinguish catch points from trap points, and why were catch points historically provided on steep inclines?",
+    options: [
+      "Catch points were provided on steep inclines when railway vehicles were unbraked, to derail vehicles that ran back down a gradient after a train split in two, avoiding collision with another train; they were generally not worked by the signalman or interlocking, unlike trap points",
+      "Catch points and trap points are always identical in function and installed in identical locations",
+      "Catch points are a modern innovation found only on high-speed railways",
+      "Catch points are used exclusively to prevent trains exceeding the maximum permitted speed"
+    ],
+    correct: 0,
+    explanation: "Although the terms trap points and catch points are often used interchangeably, historically catch points were provided on steep inclines in the days of unbraked vehicles: if a train split in two while climbing, the back portion would run back down the gradient, and the catch points would derail it to avoid collision with another train. Catch points were generally not worked by the signalman or interlocking — the switch blades were moved by the wheels of the ascending train and returned to the derail position afterwards, so they were only installed on uni-directional lines.",
+    reference: "Back to Basics: Points, Part Two — \"Points for avoiding collisions\""
+  }
+];
+PTS_QUESTIONS.forEach(q => { q.category = "Points"; });
+
 // Combine all topic batches into one master list. To add a new topic batch
 // later, define its array the same way as TELECOMS_QUESTIONS above, tag it
 // with a category, then add it to the list below.
@@ -5859,7 +8645,13 @@ const QUESTIONS = [
   ...SYSMGMT_QUESTIONS,
   ...INTERFACES_QUESTIONS,
   ...MAINTENANCE_QUESTIONS,
-  ...SILEXPLAINED_QUESTIONS
+  ...SILEXPLAINED_QUESTIONS,
+  ...MTC_QUESTIONS,
+  ...SIG_QUESTIONS,
+  ...STL_QUESTIONS,
+  ...ETCS_QUESTIONS,
+  ...DEP_QUESTIONS,
+  ...PTS_QUESTIONS
 ];
 
 
