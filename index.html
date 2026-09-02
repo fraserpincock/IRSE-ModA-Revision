@@ -65,7 +65,10 @@
   }
   .stats{
     display:flex;
-    gap:14px;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    row-gap:6px;
   }
   .stat{
     text-align:right;
@@ -328,6 +331,71 @@
     margin-top:4px;
     border-top:1px solid var(--border);
   }
+  .filter-row.revisit-row{
+    border-top:1px dashed var(--border);
+    margin-top:6px;
+    padding-top:14px;
+  }
+  .filter-row.revisit-row .filter-label{
+    color:var(--review);
+    font-weight:600;
+  }
+
+  .bookmark-btn{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1;
+    cursor:pointer;
+    padding:0;
+  }
+  .bookmark-btn:hover{ color:var(--accent); }
+  .bookmark-btn.active{ color:var(--review); }
+
+  .stats-row{
+    padding:10px 0;
+    border-top:1px solid var(--border);
+  }
+  .stats-row:first-child{ border-top:none; }
+  .stats-row-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:10px;
+    font-size:13px;
+    margin-bottom:6px;
+  }
+  .stats-row-top .cat-name{ font-weight:600; }
+  .stats-row-top .cat-count{
+    font-family:'Overpass Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .stats-bar-track{
+    height:5px;
+    background:var(--border);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:6px;
+  }
+  .stats-bar-fill{
+    height:100%;
+    background:var(--muted);
+  }
+  .stats-row.weak .stats-bar-fill{ background:var(--incorrect); }
+  .stats-row.mid .stats-bar-fill{ background:var(--review); }
+  .stats-row.strong .stats-bar-fill{ background:var(--correct); }
+  .acc-label{
+    font-family:'Overpass Mono', monospace;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .acc-label.weak{ color:var(--incorrect); }
+  .acc-label.mid{ color:var(--review); }
+  .acc-label.strong{ color:var(--correct); }
 </style>
 </head>
 <body>
@@ -8660,25 +8728,58 @@ const QUESTIONS = [
 const STORAGE_KEY = "irse-moduleA-progress-v1";
 const FILTER_KEY = "irse-moduleA-filter-v1";
 
+// Virtual "topic" that isn't a real category — it's a live filter over
+// bookmarked questions and questions ever answered incorrectly.
+const REVISIT_CATEGORY = "\u2605 To be revisited";
+
+// Light Leitner-style spaced repetition: box 0 = just missed / brand new,
+// each correct answer promotes to the next box (longer gap before it's due
+// again), any incorrect answer drops straight back to box 0.
+const SRS_INTERVALS_MS = [
+  0,                      // box 0: due immediately (new / just got it wrong)
+  1 * 24 * 60 * 60 * 1000,  // box 1: 1 day
+  3 * 24 * 60 * 60 * 1000,  // box 2: 3 days
+  7 * 24 * 60 * 60 * 1000,  // box 3: 1 week
+  16 * 24 * 60 * 60 * 1000, // box 4: 16 days
+  35 * 24 * 60 * 60 * 1000  // box 5: 35 days (mastered, still resurfaces eventually)
+];
+
+function freshProgress(){
+  return { wrong:0, seen:0, box:0, nextDue:0, bookmarked:false, lastResult:null };
+}
+
 function allCategories(){
   return [...new Set(QUESTIONS.map(q => q.category))];
+}
+// Real topics plus the virtual "to be revisited" filter, for the Topics panel.
+function filterableCategories(){
+  return [...allCategories(), REVISIT_CATEGORY];
+}
+function needsRevisit(q){
+  const p = progress[q.id];
+  return !!p && (p.bookmarked || p.wrong > 0);
 }
 function loadFilter(){
   try{
     const raw = localStorage.getItem(FILTER_KEY);
     if(raw){
       const arr = JSON.parse(raw);
-      const valid = arr.filter(c => allCategories().includes(c));
+      const validSet = new Set(filterableCategories());
+      const valid = arr.filter(c => validSet.has(c));
       if(valid.length) return new Set(valid);
     }
   }catch(e){}
-  return new Set(allCategories()); // default: everything selected
+  return new Set(allCategories()); // default: every real topic selected, revisit off
 }
 function saveFilter(set){
   try{ localStorage.setItem(FILTER_KEY, JSON.stringify([...set])); }catch(e){}
 }
 function filteredQuestions(){
-  return QUESTIONS.filter(q => selectedCategories.has(q.category));
+  return QUESTIONS.filter(q => {
+    if(selectedCategories.has(q.category)) return true;
+    if(selectedCategories.has(REVISIT_CATEGORY) && needsRevisit(q)) return true;
+    return false;
+  });
 }
 
 function loadProgress(){
@@ -8687,7 +8788,7 @@ function loadProgress(){
     if(raw) return JSON.parse(raw);
   }catch(e){}
   const fresh = {};
-  QUESTIONS.forEach(q => fresh[q.id] = { wrong:0, correctStreak:0, seen:0 });
+  QUESTIONS.forEach(q => fresh[q.id] = freshProgress());
   return fresh;
 }
 function saveProgress(p){
@@ -8695,7 +8796,18 @@ function saveProgress(p){
 }
 
 let progress = loadProgress();
-QUESTIONS.forEach(q => { if(!progress[q.id]) progress[q.id] = { wrong:0, correctStreak:0, seen:0 }; });
+QUESTIONS.forEach(q => {
+  if(!progress[q.id]){
+    progress[q.id] = freshProgress();
+  } else {
+    // Migrate any progress saved by an older version of this app.
+    const p = progress[q.id];
+    if(p.box === undefined) p.box = 0;
+    if(p.nextDue === undefined) p.nextDue = p.seen > 0 ? 0 : 0;
+    if(p.bookmarked === undefined) p.bookmarked = false;
+    if(p.lastResult === undefined) p.lastResult = null;
+  }
+});
 
 let sessionCorrect = 0;
 let sessionSeen = 0;
@@ -8704,8 +8816,11 @@ let currentQ = null;
 let answered = false;
 let showingMissed = false;
 let showingFilter = false;
+let showingStats = false;
+let showingBookmarks = false;
 let selectedSet = new Set();
 let selectedCategories = loadFilter();
+let lastSelectedIdx = null;
 
 function shuffle(arr){
   const a = arr.slice();
@@ -8716,8 +8831,36 @@ function shuffle(arr){
   return a;
 }
 
+// A question is "due" once its scheduled review time has passed. Never
+// counts brand-new (unseen) questions.
+function isDue(q){
+  const p = progress[q.id];
+  return !!p && p.seen > 0 && p.nextDue <= Date.now();
+}
 function dueForReview(){
-  return filteredQuestions().filter(q => progress[q.id].wrong > 0 && progress[q.id].correctStreak < 2);
+  return filteredQuestions().filter(isDue);
+}
+function bookmarkedQuestions(){
+  return QUESTIONS.filter(q => progress[q.id] && progress[q.id].bookmarked);
+}
+function coverageCount(){
+  return QUESTIONS.filter(q => progress[q.id] && progress[q.id].seen > 0).length;
+}
+function topicStats(){
+  return allCategories().map(cat => {
+    const qs = QUESTIONS.filter(q => q.category === cat);
+    let attempted = 0, seenTotal = 0, wrongTotal = 0;
+    qs.forEach(q => {
+      const p = progress[q.id];
+      if(p && p.seen > 0){
+        attempted++;
+        seenTotal += p.seen;
+        wrongTotal += p.wrong;
+      }
+    });
+    const accuracy = seenTotal > 0 ? Math.round(((seenTotal - wrongTotal) / seenTotal) * 100) : null;
+    return { cat, attempted, total: qs.length, accuracy };
+  });
 }
 
 // Returns a copy of the question with its options in a random order, so the
@@ -8759,6 +8902,7 @@ function nextQuestion(){
     currentQ = null;
     answered = false;
     selectedSet = new Set();
+    lastSelectedIdx = null;
     render();
     return;
   }
@@ -8767,6 +8911,7 @@ function nextQuestion(){
   currentQ = withShuffledOptions(QUESTIONS.find(q => q.id === id));
   answered = false;
   selectedSet = new Set();
+  lastSelectedIdx = null;
   sessionSeen++;
   render();
 }
@@ -8774,13 +8919,15 @@ function nextQuestion(){
 function recordAnswer(isCorrect){
   const p = progress[currentQ.id];
   p.seen++;
+  p.lastResult = isCorrect ? 'correct' : 'incorrect';
   if(isCorrect){
     sessionCorrect++;
-    p.correctStreak++;
+    p.box = Math.min((p.box || 0) + 1, SRS_INTERVALS_MS.length - 1);
   } else {
     p.wrong++;
-    p.correctStreak = 0;
+    p.box = 0;
   }
+  p.nextDue = Date.now() + SRS_INTERVALS_MS[p.box];
   progress[currentQ.id] = p;
   saveProgress(progress);
   answered = true;
@@ -8788,9 +8935,21 @@ function recordAnswer(isCorrect){
 
 function selectOption(idx){
   if(answered) return;
+  lastSelectedIdx = idx;
   const isCorrect = idx === currentQ.correct;
   recordAnswer(isCorrect);
   render(idx);
+}
+
+// Bookmarking is independent of correct/incorrect and works both before and
+// after the question has been answered.
+function toggleBookmark(){
+  if(!currentQ) return;
+  const p = progress[currentQ.id];
+  p.bookmarked = !p.bookmarked;
+  progress[currentQ.id] = p;
+  saveProgress(progress);
+  render(lastSelectedIdx);
 }
 
 function toggleOption(idx){
@@ -8813,19 +8972,33 @@ function submitMulti(){
 }
 
 function resetProgress(){
+  if(!confirm('Reset all progress, including bookmarks and topic stats? This cannot be undone.')) return;
   progress = {};
-  QUESTIONS.forEach(q => progress[q.id] = { wrong:0, correctStreak:0, seen:0 });
+  QUESTIONS.forEach(q => progress[q.id] = freshProgress());
   saveProgress(progress);
   sessionCorrect = 0;
   sessionSeen = 0;
   queue = [];
   showingMissed = false;
+  showingStats = false;
+  showingBookmarks = false;
+  lastSelectedIdx = null;
   nextQuestion();
+}
+
+function toggleStatsPanel(){
+  showingStats = !showingStats;
+  render(lastSelectedIdx);
+}
+
+function toggleBookmarksPanel(){
+  showingBookmarks = !showingBookmarks;
+  render(lastSelectedIdx);
 }
 
 function toggleMissed(){
   showingMissed = !showingMissed;
-  render();
+  render(lastSelectedIdx);
 }
 
 function applyFilterChange(){
@@ -8843,7 +9016,7 @@ function toggleCategory(cat){
 }
 
 function selectAllCategories(){
-  selectedCategories = new Set(allCategories());
+  selectedCategories = new Set(filterableCategories());
   applyFilterChange();
 }
 
@@ -8854,14 +9027,15 @@ function clearAllCategories(){
 
 function toggleFilterPanel(){
   showingFilter = !showingFilter;
-  render();
+  render(lastSelectedIdx);
 }
 
 // ---------- RENDER ----------
-function render(selectedIdx){
+function render(selectedIdx = lastSelectedIdx){
   const app = document.getElementById('app');
   const due = dueForReview();
-  const isReviewQ = currentQ && progress[currentQ.id].wrong > 0 && progress[currentQ.id].correctStreak < 2;
+  const isReviewQ = currentQ && isDue(currentQ);
+  const isBookmarked = currentQ && !!progress[currentQ.id].bookmarked;
   const fmt = currentQ && currentQ.format === 'multi' ? 'multi' : 'single';
 
   let optionsHtml = '';
@@ -8938,14 +9112,66 @@ function render(selectedIdx){
     }
   }
 
-  const cats = allCategories();
+  const bookmarks = bookmarkedQuestions();
+  let bookmarksPanelHtml = '';
+  if(showingBookmarks){
+    if(bookmarks.length === 0){
+      bookmarksPanelHtml = `<div class="missed-panel"><h3>Bookmarked questions</h3><div class="empty-note">No bookmarks yet — tap the star on a question to save it here.</div></div>`;
+    } else {
+      const items = bookmarks.map(q => `
+        <div class="missed-item"><span>${q.category} — ${q.topic}: ${q.q}</span></div>
+      `).join('');
+      bookmarksPanelHtml = `<div class="missed-panel"><h3>Bookmarked questions (${bookmarks.length})</h3>${items}</div>`;
+    }
+  }
+
+  let statsPanelHtml = '';
+  if(showingStats){
+    const sorted = topicStats().slice().sort((a, b) => {
+      if(a.accuracy === null && b.accuracy === null) return 0;
+      if(a.accuracy === null) return 1;
+      if(b.accuracy === null) return -1;
+      return a.accuracy - b.accuracy;
+    });
+    const weakest = sorted.filter(s => s.accuracy !== null && s.accuracy < 70).slice(0, 3);
+    const covCount = coverageCount();
+    const covPct = QUESTIONS.length ? Math.round((covCount / QUESTIONS.length) * 100) : 0;
+    const rows = sorted.map(s => {
+      let tier = 'unattempted';
+      let label = 'Not started';
+      if(s.accuracy !== null){
+        label = s.accuracy + '% correct';
+        tier = s.accuracy < 70 ? 'weak' : (s.accuracy < 90 ? 'mid' : 'strong');
+      }
+      return `<div class="stats-row ${tier}">
+        <div class="stats-row-top">
+          <span class="cat-name">${s.cat}</span>
+          <span class="cat-count">${s.attempted}/${s.total} attempted</span>
+        </div>
+        <div class="stats-bar-track"><div class="stats-bar-fill" style="width:${s.accuracy ?? 0}%"></div></div>
+        <div class="acc-label ${tier}">${label}</div>
+      </div>`;
+    }).join('');
+    const weakestLine = weakest.length
+      ? `<div class="empty-note" style="margin-bottom:10px;">Weakest so far: ${weakest.map(w => `${w.cat} (${w.accuracy}%)`).join(', ')}</div>`
+      : '';
+    statsPanelHtml = `<div class="missed-panel">
+      <h3>Topic breakdown</h3>
+      <div class="empty-note" style="margin-bottom:10px;">Coverage: ${covCount}/${QUESTIONS.length} questions seen overall (${covPct}%)</div>
+      ${weakestLine}
+      ${rows}
+    </div>`;
+  }
+
+  const cats = filterableCategories();
   let filterPanelHtml = '';
   if(showingFilter){
     const rows = cats.map(cat => {
-      const count = QUESTIONS.filter(q => q.category === cat).length;
+      const isRevisit = cat === REVISIT_CATEGORY;
+      const count = isRevisit ? QUESTIONS.filter(needsRevisit).length : QUESTIONS.filter(q => q.category === cat).length;
       const checked = selectedCategories.has(cat) ? 'checked' : '';
       const safeCat = cat.replace(/'/g, "\\'");
-      return `<label class="filter-row">
+      return `<label class="filter-row ${isRevisit ? 'revisit-row' : ''}">
         <input type="checkbox" ${checked} onchange="toggleCategory('${safeCat}')">
         <span class="filter-label">${cat}</span>
         <span class="filter-count">${count}</span>
@@ -8962,14 +9188,20 @@ function render(selectedIdx){
   }
 
   const pool = filteredQuestions();
+  const realCats = allCategories();
   const selectedList = [...selectedCategories];
+  const selectedRealTopics = selectedList.filter(c => c !== REVISIT_CATEGORY);
+  const revisitOn = selectedCategories.has(REVISIT_CATEGORY);
   let statusText;
   if(selectedList.length === 0){
     statusText = "No topics selected — open Topics below and choose at least one to start practising.";
-  } else if(selectedList.length === cats.length){
+  } else if(selectedRealTopics.length === realCats.length && !revisitOn){
     statusText = `Practising all topics — ${pool.length} questions in the mix.`;
   } else {
-    statusText = `Practising: ${selectedList.join(', ')} — ${pool.length} questions in the mix.`;
+    const parts = [];
+    if(selectedRealTopics.length) parts.push(selectedRealTopics.join(', '));
+    if(revisitOn) parts.push(REVISIT_CATEGORY);
+    statusText = `Practising: ${parts.join(', ')} — ${pool.length} questions in the mix.`;
   }
 
   app.innerHTML = `
@@ -8984,6 +9216,10 @@ function render(selectedIdx){
           <div class="n">${due.length}</div>
           <div class="l">due for review</div>
         </div>
+        <div class="stat">
+          <div class="n">${coverageCount()}/${QUESTIONS.length}</div>
+          <div class="l">seen overall</div>
+        </div>
       </div>
     </header>
 
@@ -8991,15 +9227,20 @@ function render(selectedIdx){
 
     ${filterPanelHtml}
 
+    ${statsPanelHtml}
+
     ${missedPanelHtml}
+
+    ${bookmarksPanelHtml}
 
     ${currentQ ? `
     <div class="card ${isReviewQ ? 'review-tag' : ''}">
       <div class="q-meta">
         <span>${currentQ.category} — ${currentQ.topic}</span>
-        <span style="display:flex; gap:8px;">
+        <span style="display:flex; gap:10px; align-items:center;">
           ${fmt === 'multi' ? `<span class="badge" style="color:var(--accent);">select ${currentQ.selectCount}</span>` : ''}
           ${isReviewQ ? '<span class="badge">due for review</span>' : ''}
+          <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark()" title="${isBookmarked ? 'Remove bookmark' : 'Bookmark this question'}">${isBookmarked ? '\u2605' : '\u2606'}</button>
         </span>
       </div>
       <div class="q-text">${currentQ.q}</div>
@@ -9015,7 +9256,9 @@ function render(selectedIdx){
 
     <div class="footer-row">
       <button class="link-btn" onclick="toggleFilterPanel()">${showingFilter ? 'Hide topics' : 'Topics'}</button>
-      <button class="link-btn" onclick="toggleMissed()">${showingMissed ? 'Hide review list' : 'View review list'}</button>
+      <button class="link-btn" onclick="toggleStatsPanel()">${showingStats ? 'Hide stats' : 'Stats'}</button>
+      <button class="link-btn" onclick="toggleMissed()">${showingMissed ? 'Hide review list' : `Due for review (${due.length})`}</button>
+      <button class="link-btn" onclick="toggleBookmarksPanel()">${showingBookmarks ? 'Hide bookmarks' : `Bookmarks (${bookmarks.length})`}</button>
       <button class="link-btn" onclick="resetProgress()">Reset progress</button>
     </div>
   `;
