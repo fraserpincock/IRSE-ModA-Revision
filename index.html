@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Module A Revision — Demo</title>
+<title>Module A Revision</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;600;700&family=Overpass+Mono:wght@400;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -171,6 +171,19 @@
   .option.dim{
     opacity:0.45;
   }
+  .option.selected{
+    border-color:var(--accent);
+    background:rgba(79,166,158,0.14);
+  }
+  .option.missed{
+    border-color:var(--review);
+    background:var(--review-bg);
+  }
+  .option.missed .letter{ color:var(--review); }
+  .submit-btn[disabled]{
+    opacity:0.35;
+    cursor:default;
+  }
 
   .feedback{
     border-radius:6px;
@@ -289,127 +302,728 @@
 <div class="app" id="app"></div>
 
 <script>
-// ---------- DEMO QUESTION BANK ----------
-// Placeholder content only — generic railway signalling knowledge, not
-// sourced from any specific reading list. Swap this array out for the
-// real question bank once it's generated from your 25 documents.
+// ---------- QUESTION BANK: BATCH 1 — TELECOMS ----------
+// Generated from: "Back to Basics: Telecoms Part 1" (IRSE News #270, Oct 2020)
+// and "Back to Basics: Telecoms Part 2" (IRSE News #271, Nov 2020).
+// Written in original wording — not copied from the source article.
 const QUESTIONS = [
   {
-    id: "q1",
-    topic: "Interlocking",
-    q: "What is the primary purpose of signal interlocking?",
+    id: "tc_p1_01",
+    topic: "Operational telecoms",
+    q: "Which of the following is NOT one of the four roles of operational telecoms described for a railway?",
     options: [
-      "To prevent conflicting or unsafe combinations of signal and point settings from being established",
-      "To reduce the electrical power drawn by the signalling system",
-      "To automatically clean signal lenses on a scheduled basis",
-      "To synchronise passenger information displays with train arrivals"
-    ],
-    correct: 0,
-    explanation: "Interlocking exists to enforce safe sequencing: it physically or logically prevents a signaller from setting routes or signals that would conflict, such as clearing two signals for movements that could collide.",
-    reference: "Demo content — replace with your reading-list reference"
-  },
-  {
-    id: "q2",
-    topic: "Aspects",
-    q: "In a UK four-aspect signalling system, what does a single yellow aspect indicate?",
-    options: [
-      "Proceed at maximum line speed",
-      "Stop and do not pass the signal",
-      "Be prepared to stop at the next signal, which is showing a red aspect",
-      "Proceed with caution, expecting the next signal to be double yellow"
+      "Facilitating normal day-to-day voice and data communications, including support for signalling and electrification",
+      "Facilitating quick communications in the event of a problem or hazard",
+      "Providing commercial passenger internet access as the primary purpose of the network",
+      "Providing bearer services so other systems can communicate where and when required"
     ],
     correct: 2,
-    explanation: "A single yellow aspect warns the driver that the next signal ahead is at danger (red), giving one signal section's worth of braking distance to stop.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "The article sets out four operational roles: day-to-day voice/data support (including signalling and electrification), rapid communication during a hazard, communication for those attending an accident, and bearer services for other systems. Passenger internet is a separate, secondary use, not one of these four.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Role of operational telecoms\""
   },
   {
-    id: "q3",
-    topic: "Points protection",
-    q: "What is the function of a trap point?",
+    id: "tc_p1_02",
+    topic: "Voice protocol",
+    q: "Why do railways typically require an operational instruction given by radio or phone to be read back by the receiver?",
     options: [
-      "To increase the speed limit through a junction",
-      "To derail or divert an unauthorised movement away from a protected line",
-      "To provide an additional passing loop for freight trains",
-      "To measure axle load on passing trains"
+      "To satisfy data protection legislation",
+      "To reduce the load on the voice channel",
+      "To confirm the instruction has been correctly understood, since a misinterpretation could lead to a hazardous situation",
+      "To automatically log the caller's GPS location"
+    ],
+    correct: 2,
+    explanation: "A voice protocol requiring messages to be repeated back exists because an incorrect understanding of an operational message can lead to the wrong action being taken, potentially creating a hazard.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Role of operational telecoms\""
+  },
+  {
+    id: "tc_p1_03",
+    topic: "Lineside telephones",
+    q: "How is a typical analogue lineside telephone normally powered?",
+    options: [
+      "By a local battery housed in the telephone case",
+      "Over the copper pair itself, at around 50V DC, known as Central Battery working",
+      "By a dedicated mains supply run to every telephone location",
+      "By induction from the nearby traction current"
     ],
     correct: 1,
-    explanation: "Trap points are a protective device: if a train passes a signal at danger or runs away, the trap point derails it clear of the protected route rather than allowing a collision.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "Lineside telephones are normally powered over the copper circuit from the far end at roughly 50V DC — referred to as Central Battery (CB) working — so no local power source is needed at the phone itself.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communications by telephone\""
   },
   {
-    id: "q4",
-    topic: "Track circuits",
-    q: "What does a track circuit primarily detect?",
+    id: "tc_p1_04",
+    topic: "Copper cable",
+    q: "Which statement correctly describes the relationship between telecoms and signalling copper cables?",
     options: [
-      "The presence of a train or broken rail within a defined section of track",
-      "The gradient of the track over a given section",
-      "The ambient temperature of the rail",
-      "The scheduled timetable adherence of a train"
+      "A telecoms cable can be used to carry DC signalling circuits, but a conventional signalling cable is not built to carry telecoms circuits",
+      "The two cable types are fully interchangeable, since both use twisted pairs",
+      "Signalling cables require a higher insulation resistance than telecoms cables",
+      "Telecoms cables cannot be used for any signalling-related purpose"
     ],
     correct: 0,
-    explanation: "A track circuit uses the rails themselves as part of an electrical circuit; a train's axles (or a broken rail) short or break the circuit, which the signalling system interprets as occupation.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "Telecoms cables use twisted pairs and can carry DC signalling circuits, but conventional signalling cables are designed only for DC and lack the twisted-pair construction telecoms circuits need — so the reverse isn't true. Telecoms cable also needs a much higher insulation resistance (several megohms) than a DC signalling circuit requires.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Copper cable\""
   },
   {
-    id: "q5",
-    topic: "Safety principles",
-    q: "What does the 'fail-safe' design principle mean in the context of signalling systems?",
+    id: "tc_p1_05",
+    topic: "Fibre cables",
+    q: "Which two tools are described as essential for installing and fault-finding on fibre optic cable?",
     options: [
-      "The system is guaranteed never to fail under any circumstance",
-      "On failure, the system reverts to its most restrictive, least permissive state",
-      "The system automatically repairs itself without human intervention",
-      "Failures are logged but do not affect train movements"
+      "A crimping tool and a multimeter",
+      "A fusion splicer and an Optical Time Domain Reflectometer (OTDR)",
+      "A patch panel and a spectrum analyser",
+      "A cable jointer and an insulation resistance tester"
     ],
     correct: 1,
-    explanation: "Fail-safe design means that when a fault occurs, the system defaults to the safest condition available — typically showing a red (danger) aspect — rather than a permissive one.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "A fusion splicer heats and welds two fibre ends together, while an OTDR sends light pulses down the fibre and measures the reflections to locate joints, poor connections, or breaks.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Fibre cables\""
   },
   {
-    id: "q6",
-    topic: "Operations",
-    q: "What does the term 'SPAD' refer to in UK railway operations?",
+    id: "tc_p1_06",
+    topic: "Concentrators",
+    q: "What is the main function of a \"concentrator\" at a signal box?",
     options: [
-      "Signal Placement and Design",
-      "Signal Passed At Danger",
-      "Speed Protection and Detection",
-      "Signaller Performance Assessment Data"
+      "It amplifies the electrical power delivered to lineside telephone circuits",
+      "It provides the operator interface through which the signaller answers and originates calls to lineside phones and other connected lines",
+      "It converts UHF radio traffic into a GSM-R data stream",
+      "It stores CCTV footage for the station"
     ],
     correct: 1,
-    explanation: "A SPAD occurs when a train passes a signal displaying a stop (danger) aspect without authority, and is treated as a significant safety event requiring investigation.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "The concentrator is the signaller's interface to all the connected phone lines — it shows which line is calling and lets the signaller answer or originate a call by selecting the relevant line.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Concentrators\""
   },
   {
-    id: "q7",
-    topic: "Train protection",
-    q: "What is the main function of TPWS (Train Protection & Warning System)?",
+    id: "tc_p1_07",
+    topic: "UHF radio",
+    q: "Which of these best describes UHF radios as typically used for railway station management and shunting?",
     options: [
-      "To provide onboard entertainment systems for passengers",
-      "To automatically apply the brakes if a train approaches a signal at danger too fast, or passes it without authority",
-      "To manage ticket validation on board",
-      "To control platform screen doors at stations"
+      "Full duplex, allowing simultaneous talking and listening",
+      "Normally simplex, so the user presses a button to talk and releases it to listen",
+      "Restricted exclusively to the GSM-R frequency bands",
+      "Licence-exempt because of their short range"
     ],
     correct: 1,
-    explanation: "TPWS is a train protection overlay that intervenes to apply the brakes automatically in situations such as excessive approach speed to a red signal or a SPAD, reducing the consequences of driver error.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "UHF radios used for station management, shunting, and engineering work are normally simplex, requiring a press-to-talk button, and are subject to strict voice protocol as a licence condition.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\""
   },
   {
-    id: "q8",
-    topic: "Signalling authority",
-    q: "What does a calling-on signal typically authorise?",
+    id: "tc_p1_08",
+    topic: "GSM-R",
+    q: "What does \"REC\" refer to as an enhanced facility on a GSM-R network?",
     options: [
-      "Unrestricted movement at full line speed",
-      "A cautious movement into a section that may already be occupied, at low speed and driver's caution",
-      "A train to reverse direction on a running line",
-      "A shunting movement to couple wagons only, never applicable to passenger trains"
+      "Radio Emergency Coverage, a tunnel signal-strength measurement",
+      "Railway Emergency Call, allowing rapid alerting of trains in a hazardous situation",
+      "Remote Equipment Control, used for SCADA monitoring",
+      "Recorded Evidence Channel, used for accident investigation"
     ],
     correct: 1,
-    explanation: "A calling-on signal (or subsidiary aspect) permits a train to proceed cautiously, at low speed, into a section that may be occupied — used for example when joining another train or entering a partially occupied platform.",
-    reference: "Demo content — replace with your reading-list reference"
+    explanation: "REC (Railway Emergency Call) is one of the enhanced facilities GSM-R adds on top of the standard 2G platform, alongside call prioritisation, location- and function-dependent addressing, group calls, and data services.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\""
+  },
+  {
+    id: "tc_p1_09",
+    topic: "GSM-R",
+    q: "What are the uplink and downlink frequency bands harmonised for GSM-R across Europe?",
+    options: [
+      "Uplink 876–880MHz, downlink 921–925MHz",
+      "Uplink 900MHz, downlink 1800MHz, shared with public GSM",
+      "Uplink 450MHz, downlink 900MHz",
+      "Uplink 2.4GHz, downlink 5GHz"
+    ],
+    correct: 0,
+    explanation: "GSM-R has dedicated, harmonised spectrum across Europe: 876–880MHz for uplink (mobile transmission) and 921–925MHz for downlink (mobile reception), with only 19 frequencies available in total.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\", Figure 1"
+  },
+  {
+    id: "tc_p1_10",
+    topic: "Radio in tunnels",
+    q: "Why might a leaky feeder (radiating cable) be chosen over free-space antenna propagation for radio coverage inside a tunnel?",
+    options: [
+      "It is always cheaper to install per metre than any antenna solution",
+      "It gives a consistent, predictable level of attenuation that isn't disturbed by passing trains",
+      "It removes the need for any base stations along the route",
+      "It automatically boosts available bandwidth as more trains enter the tunnel"
+    ],
+    correct: 1,
+    explanation: "A leaky feeder radiates signal along its whole length through gaps in its outer conductor, giving predictable, consistent attenuation — unlike free-space propagation, which can be significantly disturbed by a train occupying the tunnel.",
+    reference: "Back to Basics: Telecoms Part 1 — tunnel radio coverage section"
+  },
+  {
+    id: "tc_p1_11",
+    topic: "Transmission (E1/PMux)",
+    q: "In a Primary Multiplexer (PMux) using a 2Mbit/s E1 data stream, how many timeslots does the stream contain, and what is timeslot 0 normally used for?",
+    options: [
+      "24 timeslots; timeslot 0 carries only speech",
+      "32 timeslots; timeslot 0 is used for synchronisation and alarms",
+      "8 timeslots; timeslot 0 is reserved for ETCS data",
+      "64 timeslots; timeslot 0 is unused"
+    ],
+    correct: 1,
+    explanation: "An E1 stream has 32 timeslots. Timeslot 0 carries synchronisation and alarm information, timeslot 16 is normally used for channel-associated signalling, and the remaining 30 timeslots (64kbit/s each) carry speech or data.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Primary layers and primary multiplexers\""
+  },
+  {
+    id: "tc_p1_12",
+    topic: "IP networking",
+    q: "Why would a live voice call on a railway IP network typically use UDP rather than TCP?",
+    options: [
+      "UDP guarantees delivery of every packet, which voice quality requires",
+      "UDP tolerates small gaps in delivery and doesn't request retransmission, which suits time-critical traffic",
+      "UDP always provides more bandwidth than TCP",
+      "UDP encrypts the payload by default, unlike TCP"
+    ],
+    correct: 1,
+    explanation: "Voice and video are time-critical but can tolerate small gaps without the listener noticing, so UDP is used: it assembles packets in order but simply discards anything missing or corrupt rather than requesting retransmission, which TCP does for applications like email where every byte must arrive intact.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Internet Protocol (IP) networks\""
+  },
+  {
+    id: "tc_p1_13",
+    topic: "MPLS",
+    q: "What capability does Multi-Protocol Label Switching (MPLS) add on top of a standard IP network?",
+    options: [
+      "It removes the need for routers entirely",
+      "It provides guaranteed Quality of Service and VPN capability by making the connectionless IP network connection-orientated",
+      "It automatically converts all traffic into TCP packets",
+      "It removes the need for an IP header on each packet"
+    ],
+    correct: 1,
+    explanation: "MPLS attaches a label to each packet to establish a virtual path, giving better latency for time-critical traffic (because label switching happens in hardware) and enabling VPN and Class of Service capability — effectively making the connectionless IP network behave in a connection-orientated way.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Multi-Protocol Label Switching (MPLS)\""
+  },
+  {
+    id: "tc_p1_14",
+    topic: "Electrification interference",
+    q: "According to the ITU limits referenced in the article, what is the maximum voltage the article gives as permitted to be induced in telecoms copper cables under normal (non-fault) conditions?",
+    options: [
+      "25V RMS",
+      "60V RMS",
+      "230V RMS",
+      "430V RMS"
+    ],
+    correct: 1,
+    explanation: "The ITU limit quoted is 60V RMS under normal conditions, rising to 430V RMS under system fault conditions — the 430V figure is the fault-condition limit, not the normal-condition one, making it a common point of confusion.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Electrification, interference and immunisation\""
+  },
+  {
+    id: "tc_p2_01",
+    topic: "Public address (PA)",
+    q: "Which of the following is one of the four key requirements of a good PA system described in the article?",
+    options: [
+      "Maximum possible loudness at all times, regardless of the surrounding environment",
+      "Intelligibility — described as one of the most important requirements, and an area where many systems fall short",
+      "Exclusive use of live announcements, with pre-recorded messages never permitted",
+      "A single fixed volume setting that never adjusts to background noise"
+    ],
+    correct: 1,
+    explanation: "The four requirements are loudness (at an appropriate level, not simply maximum), intelligibility, naturalness (pre-recorded announcements sounding like live ones), and reliability. Intelligibility is specifically flagged as an area many systems get wrong.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Public Address (PA)\""
+  },
+  {
+    id: "tc_p2_02",
+    topic: "CCTV specification",
+    q: "In CCTV camera specification, what does an \"IP65\" rating describe, and how does this differ from other uses of \"IP\" in telecoms?",
+    options: [
+      "It refers to Internet Protocol version 65 and is unrelated to the camera housing",
+      "It is an Ingress Protection rating describing resistance to solid objects and water — a different meaning of \"IP\" from Internet Protocol",
+      "It refers to the camera's internal processor clock speed",
+      "It refers to the image resolution of the camera in pixels"
+    ],
+    correct: 1,
+    explanation: "Ingress Protection (IP) ratings describe how well an enclosure resists solid objects and water — cameras are typically specified at IP34 internally and IP65 externally. This is a different use of the letters \"IP\" from Internet Protocol, and the article specifically flags the potential confusion.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Cameras\""
+  },
+  {
+    id: "tc_p2_03",
+    topic: "CCTV storage",
+    q: "What retention period does the article give as typical for CCTV recordings before automatic deletion, unless footage is marked for retention?",
+    options: [
+      "24 hours",
+      "7 days",
+      "31 days",
+      "12 months"
+    ],
+    correct: 2,
+    explanation: "Recordings are typically kept for around 31 days to support post-incident investigation, after which they're automatically deleted unless specifically marked for retention.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Video storage\""
+  },
+  {
+    id: "tc_p2_04",
+    topic: "Train connectivity",
+    q: "What is the function of a Digital On-Board Repeater (D-OBR) on a train?",
+    options: [
+      "It provides a dedicated satellite uplink for passenger Wi-Fi",
+      "It amplifies and re-radiates external mobile operator signals inside the train via ceiling-mounted antennas, giving devices without Wi-Fi a usable signal",
+      "It converts the GSM-R signal into a public Wi-Fi hotspot",
+      "It stores CCTV footage locally until the train reaches a station with connectivity"
+    ],
+    correct: 1,
+    explanation: "A D-OBR is an active multi-band repeater that picks up external 2G/3G/4G mobile signals and re-radiates them inside the train, improving reception for passengers' own mobile phones even without a Wi-Fi service present.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Internet connection for trains\""
+  },
+  {
+    id: "tc2_01",
+    topic: "Lineside telephones",
+    q: "When a user lifts a lineside telephone handset to place a call, what electrical event on the line does the far end detect?",
+    options: [
+      "A 600\u03a9 loop is placed on the pair, allowing current to flow which the far end detects",
+      "A 25Hz ringing tone is sent toward the far end",
+      "The pair's insulation resistance rises sharply",
+      "A sequence of multi-frequency tones is transmitted automatically before the handset is lifted"
+    ],
+    correct: 0,
+    explanation: "Lifting the handset places a 600\u03a9 loop on the pair, allowing loop current (dependent on the circuit's resistance) to flow and be detected at the far end — which then either routes the call directly or returns dial tone for the user to enter a number.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communications by telephone\""
+  },
+  {
+    id: "tc2_02",
+    topic: "Lineside telephones",
+    q: "What AC ringing current does the article give as typical for ringing a lineside telephone, and at what frequency?",
+    options: [
+      "12V at 50Hz",
+      "75V at 25Hz",
+      "230V at 50Hz",
+      "110V at 60Hz"
+    ],
+    correct: 1,
+    explanation: "A typical ringing current of around 75V at 25Hz is applied and interrupted to give the distinctive ringing cadence, until the handset is lifted and the loop is applied.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communications by telephone\""
+  },
+  {
+    id: "tc2_03",
+    topic: "Copper cable",
+    format: "multi",
+    selectCount: 2,
+    q: "Select TWO measures described in the article for protecting copper telecoms cable pairs from environmental or electrical effects.",
+    options: [
+      "A moisture barrier and petroleum jelly to prevent water ingress",
+      "An earthed screening conductor, which has generally replaced older steel armour for traction immunisation",
+      "A pressurised nitrogen gas fill inside the sheath",
+      "A colour-coding system used purely for cosmetic identification",
+      "A built-in satellite receiver within the cable sheath"
+    ],
+    correct: [0, 1],
+    explanation: "Copper pairs are normally protected by a moisture barrier and petroleum jelly against water ingress. Some older cables used a steel armoured layer against traction interference, but this is now normally provided by a separate earthed screening conductor instead.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Copper cable\""
+  },
+  {
+    id: "tc2_04",
+    topic: "Copper cable",
+    q: "What technique does the article describe for reducing crosstalk between pairs within a multi-pair copper telecoms cable?",
+    options: [
+      "Twisting each pair together and arranging pairs in colour-coded layers so each can be identified",
+      "Running all pairs in parallel, untwisted, to save length",
+      "Increasing the ringing voltage applied to the cable",
+      "Removing the insulating sheath to improve heat dissipation"
+    ],
+    correct: 0,
+    explanation: "Each pair is twisted together to reduce crosstalk from other circuits, and in cables with many pairs these are arranged in colour-coded layers so individual pairs and their conductors can be identified.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Copper cable\""
+  },
+  {
+    id: "tc2_05",
+    topic: "Fibre cables",
+    q: "Which wavelength does the article associate with the single mode fibre that superseded early multimode graded-index cable, offering improved attenuation and bandwidth?",
+    options: [
+      "850nm",
+      "1060nm",
+      "1310nm",
+      "2400nm"
+    ],
+    correct: 2,
+    explanation: "Single mode fibre using 1310 nanometre wavelength quickly superseded early multimode graded-index cable, offering improved attenuation and bandwidth — though multimode remains cheaper and is still used for short-haul applications such as within buildings.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Fibre cables\""
+  },
+  {
+    id: "tc2_06",
+    topic: "Fibre cables",
+    q: "What installation precaution does the article specifically warn is necessary when working with trackside fibre cable?",
+    options: [
+      "Avoiding running the cable close to the ballast",
+      "Taking care not to bend the fibre cable too tightly around corners",
+      "Never coiling spare cable onto a drum",
+      "Avoiding cables with a Kevlar central strength member"
+    ],
+    correct: 1,
+    explanation: "Care has to be taken during design and installation not to bend the fibre cable too tightly around corners — the Kevlar strength member and drum-coiling of spare length are both normal, unproblematic features of fibre cable design.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Fibre cables\""
+  },
+  {
+    id: "tc2_07",
+    topic: "Concentrators",
+    q: "Which type of concentrator technology does the article compare to systems used in money markets?",
+    options: [
+      "Key and lamp panels",
+      "Touch-screen telephone systems, known as 'dealer boards'",
+      "Rotary dial exchanges",
+      "Analogue Central Battery boards"
+    ],
+    correct: 1,
+    explanation: "Some modern concentrators are based on touch-screen telephone systems similar to those used in money markets, known as 'dealer boards' — one of several concentrator technologies mentioned alongside key-and-lamp panels and computer-based IP concentrators.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Concentrators\""
+  },
+  {
+    id: "tc2_08",
+    topic: "Concentrators",
+    q: "What is the purpose of fitting a signaller's concentrator handset with a press-to-talk button on some railways?",
+    options: [
+      "So the driver hears only what the signaller says into that handset, and not conversations on other lines",
+      "To increase the incoming call volume automatically",
+      "To automatically record every conversation for legal purposes",
+      "To prevent the signaller answering more than one call per shift"
+    ],
+    correct: 0,
+    explanation: "A press-to-talk button on the signaller's handset stops the driver from overhearing conversations taking place on other lines, so they only hear what is deliberately said to them.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Concentrators\""
+  },
+  {
+    id: "tc2_09",
+    topic: "Transmission systems",
+    q: "Beyond roughly what separation between a signal box and a phone does the article say a transmission system will be needed to extend the circuit?",
+    options: [
+      "1.5km (1 mile)",
+      "5km (3 miles)",
+      "15km (10 miles)",
+      "50km (30 miles)"
+    ],
+    correct: 2,
+    explanation: "If the signal box and phone are separated by an appreciable distance — the article gives an example of over 15km (10 miles) — a transmission system is needed to extend the circuit rather than running it directly.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Concentrators\""
+  },
+  {
+    id: "tc2_10",
+    topic: "UHF radio",
+    q: "What is the purpose of a confidence tone transmitted by some UHF radios used by shunters?",
+    options: [
+      "To confirm the radio's battery is sufficiently charged",
+      "To let the driver know the shunter still wishes them to continue, without the shunter needing to keep repeating the instruction",
+      "To alert the signaller that a radio channel is in use",
+      "To synchronise the radio's internal clock with the GSM-R network"
+    ],
+    correct: 1,
+    explanation: "A confidence tone gives the driver ongoing reassurance that the shunter still wants the movement to continue; without it, the shunter would otherwise have to keep repeating the instruction to confirm this.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\""
+  },
+  {
+    id: "tc2_11",
+    topic: "GSM-R",
+    format: "multi",
+    selectCount: 2,
+    q: "GSM-R supports both location-dependent and functional-dependent addressing. Select TWO examples of these addressing types given in the article.",
+    options: [
+      "Contacting the signaller who controls the section of line the train is on",
+      "Contacting the driver of a specific train number",
+      "Broadcasting simultaneously to every train on the network",
+      "Automatically routing calls based on the time of day",
+      "Selecting a call route based on the caller's job grade"
+    ],
+    correct: [0, 1],
+    explanation: "Location-dependent addressing routes a call based on where the train is (e.g. to the signaller controlling that section), while functional-dependent addressing routes it based on a role or identity, such as a specific train number.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\""
+  },
+  {
+    id: "tc2_12",
+    topic: "GSM-R",
+    q: "Why does the handover zone between GSM-R base stations need to increase as the maximum line speed increases?",
+    options: [
+      "To reduce the total number of base stations required along the route",
+      "Because handover takes time, and a faster train leaves less time to complete it before needing the next connection",
+      "Because higher speeds require additional frequency channels to be allocated",
+      "It is a requirement specific to ETCS Level 3 only"
+    ],
+    correct: 1,
+    explanation: "Handover between base stations must occur robustly so as not to interrupt a call. Since handover takes a certain amount of time, the zone over which it happens has to be larger at higher line speeds — for example, care is needed as a train enters a tunnel to ensure there's time for a handover to complete.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice communication by radio\""
+  },
+  {
+    id: "tc2_13",
+    topic: "Radio in tunnels",
+    q: "According to the article, roughly how far can a 450MHz tunnel-mounted aerial provide coverage in a single bore tunnel compared with a double track tunnel?",
+    options: [
+      "About 500m in a single bore tunnel, up to 1.5km in a double track tunnel",
+      "About 5km regardless of tunnel type",
+      "About 100m in a single bore, 200m in a double track tunnel",
+      "Coverage at 450MHz is unaffected by whether the tunnel is single or double bore"
+    ],
+    correct: 0,
+    explanation: "At 450MHz, coverage from a tunnel-mounted aerial reaches around 500m in a single bore tunnel, but around 1.5km in a double track tunnel; at the higher 900MHz band this extends to around 2km or more for double track tunnels.",
+    reference: "Back to Basics: Telecoms Part 1 — tunnel radio coverage section"
+  },
+  {
+    id: "tc2_14",
+    topic: "Transmission (PMux)",
+    q: "Which type of PMux interface card does the article specifically identify as used to support SSI signalling data?",
+    options: [
+      "Subscriber card",
+      "Exchange card",
+      "G703 data interface",
+      "ISDN interface"
+    ],
+    correct: 2,
+    explanation: "The G703 data interface card is specifically listed as the one used for SSI, alongside other card types such as Subscriber (for lineside phones), Exchange (for the concentrator), and V24/X21 for lower speed data.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Primary layers and primary multiplexers\""
+  },
+  {
+    id: "tc2_15",
+    topic: "Transmission (calculation)",
+    q: "A PMux samples an analogue speech channel every 125 microseconds and converts each sample into an 8-bit value. What resulting bit rate does this give for the channel?",
+    options: [
+      "8kbit/s",
+      "32kbit/s",
+      "64kbit/s",
+      "128kbit/s"
+    ],
+    correct: 2,
+    explanation: "Sampling every 125\u03bcs corresponds to 8,000 samples per second (1 / 125\u03bcs = 8kHz). At 8 bits per sample, that's 8 \u00d7 8,000 = 64,000 bits per second — 64kbit/s, matching the standard capacity of one E1 timeslot.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Primary layers and primary multiplexers\""
+  },
+  {
+    id: "tc2_16",
+    topic: "Transmission systems",
+    q: "How does the article distinguish the core network layer of a transmission network from the access layer?",
+    options: [
+      "The core layer has relatively few, high-speed nodes configured in a diverse manner; the access layer has frequent nodes located where services are needed, e.g. base stations or signal boxes",
+      "The core layer carries only voice traffic, while the access layer carries only data",
+      "The access layer always has fewer nodes than the core layer",
+      "There is no meaningful difference between the two layers"
+    ],
+    correct: 0,
+    explanation: "The core layer is built from relatively few nodes connected by high-speed, diversely-routed links, while the access layer has frequent nodes situated wherever services are actually required, such as at base stations or signal boxes.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Transmission systems\""
+  },
+  {
+    id: "tc2_17",
+    topic: "Data / ETCS",
+    q: "Why did early circuit-switched implementations of ETCS data cause problems in areas where many trains needed the network at once?",
+    options: [
+      "They required a constant data connection to be held for the whole journey, which didn't scale when many trains tried to access the network simultaneously",
+      "They used too little bandwidth per train to be functional under any circumstances",
+      "They were entirely incompatible with GSM-R",
+      "They required a satellite link that was unavailable in most areas"
+    ],
+    correct: 0,
+    explanation: "Because early ETCS needed a permanent circuit-switched connection for the whole journey, dense areas with many trains competing for the network caused congestion. Some GSM-R networks have since been enhanced with GPRS to make more efficient, packet-based use of the available bandwidth.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Data\""
+  },
+  {
+    id: "tc2_18",
+    topic: "Data / CBTC",
+    q: "Which alternative radio systems does the article mention some metros using instead of GSM-R for cab-based (CBTC) signalling, particularly where the line is in tunnel?",
+    options: [
+      "TETRA or Wi-Fi",
+      "Bluetooth or Zigbee",
+      "AM or FM broadcast radio",
+      "Satellite phone systems only"
+    ],
+    correct: 0,
+    explanation: "Metros using Communications Based Train Control (CBTC) may adopt TETRA or even Wi-Fi as an alternative to GSM-R, particularly in tunnels where external interference can be more easily controlled.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Data\""
+  },
+  {
+    id: "tc2_19",
+    topic: "SCADA",
+    q: "What does the article identify as the primary railway application of SCADA systems?",
+    options: [
+      "Interlocking logic within a signalling system",
+      "Control of electric traction systems over wide areas",
+      "Passenger information displays",
+      "Provision of on-train Wi-Fi"
+    ],
+    correct: 1,
+    explanation: "While SCADA-capable equipment may also monitor ancillary systems such as lifts, escalators, ventilation, and drainage, the primary railway application is control of electric traction systems over wide areas. The article notes that signalling telemetry, despite performing a similar function, is not traditionally classed as SCADA.",
+    reference: "Back to Basics: Telecoms Part 1 — \"SCADA Systems\""
+  },
+  {
+    id: "tc2_20",
+    topic: "VoIP",
+    q: "Why can VoIP potentially offer better sound quality than a traditional circuit-switched telephone exchange, according to the article?",
+    options: [
+      "High speed codecs convert voice into IP packets without needing the normal 4kHz frequency filtering",
+      "VoIP telephones always use a higher ringing voltage",
+      "VoIP always uses a dedicated fibre connection for every call",
+      "VoIP removes the need for any power supply at the telephone"
+    ],
+    correct: 0,
+    explanation: "Because VoIP uses high-speed codecs rather than the standard 4kHz frequency filtering of a circuit-switched line, it can offer exceptionally good sound quality — though this is subject to loading on the IP network, which is why a high Quality of Service (QoS) network is required for VoIP.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Voice Over IP (VoIP)\""
+  },
+  {
+    id: "tc2_21",
+    topic: "IP standards",
+    q: "Which organisation does the article identify as setting the design standards for IP and the internet, in contrast to the ITU which governs traditional telecoms networks?",
+    options: [
+      "IEEE",
+      "IETF (Internet Engineering Task Force)",
+      "ISO",
+      "3GPP"
+    ],
+    correct: 1,
+    explanation: "IP and internet standards are administered by the IETF, a consortium of users, academics, and manufacturers — unlike traditional telecoms networks, which follow international standards set by the ITU.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Protocol layers\""
+  },
+  {
+    id: "tc2_22",
+    topic: "Network management",
+    q: "What benefit does the article associate with Software-Defined Networks (SDN)?",
+    options: [
+      "Dynamic, efficient network configuration and alarm management, making network management more like cloud computing",
+      "The complete elimination of routers from the network",
+      "A guarantee of zero packet loss under any load",
+      "Automatic conversion of all IP traffic into circuit-switched format"
+    ],
+    correct: 0,
+    explanation: "SDN enables more dynamic and efficient network configuration and alarm management, moving network management closer to a cloud-computing style of operation than traditional approaches.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Management of a telecoms network\""
+  },
+  {
+    id: "tc2_23",
+    topic: "Fibre capacity",
+    q: "Which technology does the article describe as a way to significantly increase installed fibre capacity by overlaying many wavelengths of light onto the same fibre?",
+    options: [
+      "MPLS",
+      "CWDM or DWDM (wavelength division multiplexing)",
+      "SDH ring protection",
+      "VoIP trunking"
+    ],
+    correct: 1,
+    explanation: "Coarse or Dense Wavelength Division Multiplexing uses between 18 and 160 wavelengths of light over a single mode fibre, allowing many transmission links to be overlaid on the same physical fibre to significantly increase capacity.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Increasing capacity\""
+  },
+  {
+    id: "tc2_24",
+    topic: "Electrification interference",
+    q: "What is the function of a booster transformer in a 25kV AC traction system, as described in the article?",
+    options: [
+      "It increases the traction voltage available to the train",
+      "It 'sucks' the return current out of the rails into a separate return conductor, creating an opposing electric field that helps cancel interference in the catenary",
+      "It converts AC traction current to DC for use by telecoms equipment",
+      "It regulates train speed through the affected section"
+    ],
+    correct: 1,
+    explanation: "A booster transformer is used at intervals of roughly 3km to draw the return current out of the rails and into a separate conductor mounted near catenary height, creating an opposing phase that helps cancel the interference effect — though currents within an occupied section still need to be addressed.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Electrification, interference and immunisation\""
+  },
+  {
+    id: "tc2_25",
+    topic: "Electrification interference",
+    format: "multi",
+    selectCount: 3,
+    q: "Select THREE of the mitigation measures the article lists for reducing the effects of traction power supplies on lineside telecoms services.",
+    options: [
+      "Limiting the lengths of copper cable section",
+      "Providing an earthed screening cable in the cable route",
+      "Replacing longer-distance copper cabling with a fibre optic system",
+      "Increasing the traction current to reduce induced noise",
+      "Removing all lineside telephones from the affected route",
+      "Running telecoms cable directly alongside the traction cables for convenience"
+    ],
+    correct: [0, 1, 2],
+    explanation: "The article's list of mitigations includes limiting copper cable section lengths, ensuring a robust balance-to-earth interface, positioning the cable route carefully relative to the traction cables, providing an earthed screening cable, and replacing longer-distance copper with fibre.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Electrification, interference and immunisation\""
+  },
+  {
+    id: "tc2_26",
+    topic: "Electrification interference",
+    q: "What does psophometric noise weighting represent, and why does the article say it matters more for telephony than the raw noise voltage?",
+    options: [
+      "It weights noise the same as human-perceived levels of noise, so it reflects what a listener would actually notice",
+      "It is a measure of the physical vibration transmitted through the cable sheath",
+      "It applies only to fibre optic systems, not copper",
+      "It has no particular relevance to telephone circuits"
+    ],
+    correct: 0,
+    explanation: "Psophometric noise is weighted the same as human-perceived levels of noise, making it more meaningful for telephony than a raw voltage figure, since it better reflects the noise a listener would actually notice on a call.",
+    reference: "Back to Basics: Telecoms Part 1 — \"Electrification, interference and immunisation\""
+  },
+  {
+    id: "tc2_27",
+    topic: "Public address (PA)",
+    q: "By roughly how much can a glass shelter attenuate sound, a factor the article notes as relevant to station PA design?",
+    options: [
+      "About 2dB",
+      "About 10dB",
+      "About 25dB",
+      "About 50dB"
+    ],
+    correct: 2,
+    explanation: "Glass shelters can attenuate sound by approximately 25dB, which the sound design engineer needs to account for alongside other acoustic factors such as reflection, refraction, and absorption around the station.",
+    reference: "Back to Basics: Telecoms Part 2 — PA acoustic environment section"
+  },
+  {
+    id: "tc2_28",
+    topic: "Public address (PA)",
+    q: "Which UK legislation does the article cite as requiring station operators to take reasonable steps not to discriminate against people with reduced mobility, relevant to PA coverage?",
+    options: [
+      "The Health and Safety at Work Act 1974",
+      "The UK Equality Act 2010",
+      "The Data Protection Act 1998",
+      "The Railways Act 1993"
+    ],
+    correct: 1,
+    explanation: "Alongside European PRM (Persons with Reduced Mobility) regulations requiring PA coverage in all public station areas, the article cites the UK Equality Act 2010 as requiring station operators to take reasonable steps to avoid discriminating against people with reduced mobility.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Loudness and intelligibility\""
+  },
+  {
+    id: "tc2_29",
+    topic: "Passenger information displays",
+    q: "Why does the article recommend that passenger information displays use both upper- and lower-case text rather than all capitals?",
+    options: [
+      "Upper- and lower-case text is easier to read, the same reason most road signs use this convention",
+      "All-capital text draws significantly more electrical power",
+      "Lower-case characters are cheaper to manufacture on LED boards",
+      "Upper-case text cannot represent a train's destination correctly"
+    ],
+    correct: 0,
+    explanation: "It's easier to read upper- and lower-case text than all capitals, which is why most road signs use this convention — the article notes displays should ideally use the train company's font with proper descenders, for example on letters like 'y' and 'g'.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Passenger (or Customer) Information Displays\""
+  },
+  {
+    id: "tc2_30",
+    topic: "CCTV / station systems",
+    q: "What role does a Station Management System (SMS) play, according to the article?",
+    options: [
+      "It is the focal point for station operations, gathering information from and providing control of systems such as CCTV, PA, and customer information displays",
+      "It replaces the need for a signaller at the station",
+      "It is solely a ticketing and revenue system",
+      "It manages CCTV only, with no integration to PA or CIS"
+    ],
+    correct: 0,
+    explanation: "The SMS integrates and controls the station's various individual systems — CCTV, public address, customer information, and alarm systems — from one user-friendly environment, and is usually interfaced with the fire alarm system so relevant cameras automatically display to the operator when an alarm activates.",
+    reference: "Back to Basics: Telecoms Part 2 — Station Management Systems section"
+  },
+  {
+    id: "tc2_31",
+    topic: "CCTV specification",
+    format: "multi",
+    selectCount: 2,
+    q: "Select TWO true statements about analogue CCTV cameras, as described in the article.",
+    options: [
+      "They can still transmit high definition pictures, making them suitable for various surveillance needs",
+      "They have a cyber security advantage because physical access to the cable is needed to breach or damage the connection",
+      "They always provide more features than IP-based CCTV systems",
+      "They require an Internet Protocol (IP) address to operate",
+      "The article states they are no longer used on any railway due to cost"
+    ],
+    correct: [0, 1],
+    explanation: "Despite the shift to IP CCTV, analogue cameras remain in use on many older systems: they can still deliver high definition pictures, and their cable connections offer a cyber security advantage since physically accessing the cable is needed to breach or damage the signal.",
+    reference: "Back to Basics: Telecoms Part 2 — CCTV camera transmission section"
+  },
+  {
+    id: "tc2_32",
+    topic: "CCTV specification",
+    q: "What is the purpose of the ONVIF (Open Network Video Interface Forum) specification mentioned in relation to CCTV design?",
+    options: [
+      "It defines the video compression codec used for long-term storage",
+      "It standardises how IP-based physical security products from different manufacturers can communicate, aiding interoperability",
+      "It sets a legally mandated minimum camera resolution",
+      "It is a proprietary standard used by only one manufacturer"
+    ],
+    correct: 1,
+    explanation: "ONVIF is an open industry forum defining how IP-based security products can communicate with each other, helping interoperability between products from different suppliers and avoiding being locked into one manufacturer's proprietary solution.",
+    reference: "Back to Basics: Telecoms Part 2 — \"Control system\""
   }
 ];
 
 // ---------- STATE / PERSISTENCE ----------
-const STORAGE_KEY = "irse-moduleA-demo-progress-v1";
+const STORAGE_KEY = "irse-moduleA-progress-v1";
 
 function loadProgress(){
   try{
@@ -433,6 +1047,7 @@ let queue = [];
 let currentQ = null;
 let answered = false;
 let showingMissed = false;
+let selectedSet = new Set();
 
 function shuffle(arr){
   const a = arr.slice();
@@ -468,16 +1083,14 @@ function nextQuestion(){
   const id = queue.shift();
   currentQ = QUESTIONS.find(q => q.id === id);
   answered = false;
+  selectedSet = new Set();
   sessionSeen++;
   render();
 }
 
-function selectOption(idx){
-  if(answered) return;
-  answered = true;
+function recordAnswer(isCorrect){
   const p = progress[currentQ.id];
   p.seen++;
-  const isCorrect = idx === currentQ.correct;
   if(isCorrect){
     sessionCorrect++;
     p.correctStreak++;
@@ -487,7 +1100,33 @@ function selectOption(idx){
   }
   progress[currentQ.id] = p;
   saveProgress(progress);
+  answered = true;
+}
+
+function selectOption(idx){
+  if(answered) return;
+  const isCorrect = idx === currentQ.correct;
+  recordAnswer(isCorrect);
   render(idx);
+}
+
+function toggleOption(idx){
+  if(answered) return;
+  if(selectedSet.has(idx)){
+    selectedSet.delete(idx);
+  } else if(selectedSet.size < currentQ.selectCount){
+    selectedSet.add(idx);
+  }
+  render();
+}
+
+function submitMulti(){
+  if(answered) return;
+  if(selectedSet.size !== currentQ.selectCount) return;
+  const isCorrect = currentQ.correct.length === selectedSet.size &&
+    currentQ.correct.every(x => selectedSet.has(x));
+  recordAnswer(isCorrect);
+  render();
 }
 
 function resetProgress(){
@@ -511,9 +1150,13 @@ function render(selectedIdx){
   const app = document.getElementById('app');
   const due = dueForReview();
   const isReviewQ = currentQ && progress[currentQ.id].wrong > 0 && progress[currentQ.id].correctStreak < 2;
+  const fmt = currentQ && currentQ.format === 'multi' ? 'multi' : 'single';
 
   let optionsHtml = '';
-  if(currentQ){
+  let submitHtml = '';
+  let correctNow = false;
+
+  if(currentQ && fmt === 'single'){
     optionsHtml = currentQ.options.map((opt, i) => {
       let cls = 'option';
       let disabled = '';
@@ -528,14 +1171,39 @@ function render(selectedIdx){
         <span class="letter">${letter}</span><span>${opt}</span>
       </button>`;
     }).join('');
+    correctNow = selectedIdx === currentQ.correct;
+  } else if(currentQ && fmt === 'multi'){
+    optionsHtml = currentQ.options.map((opt, i) => {
+      let cls = 'option';
+      let disabled = '';
+      const isSelected = selectedSet.has(i);
+      const isCorrectOpt = currentQ.correct.includes(i);
+      if(answered){
+        disabled = 'disabled';
+        if(isSelected && isCorrectOpt) cls += ' correct';
+        else if(isSelected && !isCorrectOpt) cls += ' incorrect';
+        else if(!isSelected && isCorrectOpt) cls += ' missed';
+        else cls += ' dim';
+      } else if(isSelected){
+        cls += ' selected';
+      }
+      const letter = String.fromCharCode(65+i);
+      return `<button class="${cls}" ${disabled} onclick="toggleOption(${i})">
+        <span class="letter">${letter}</span><span>${opt}</span>
+      </button>`;
+    }).join('');
+    if(!answered){
+      const canSubmit = selectedSet.size === currentQ.selectCount;
+      submitHtml = `<button class="next-btn submit-btn" ${canSubmit ? '' : 'disabled'} onclick="submitMulti()">Check answer (${selectedSet.size}/${currentQ.selectCount} selected)</button>`;
+    }
+    correctNow = currentQ.correct.length === selectedSet.size && currentQ.correct.every(x => selectedSet.has(x));
   }
 
   let feedbackHtml = '';
   if(answered){
-    const correct = selectedIdx === currentQ.correct;
     feedbackHtml = `
-      <div class="feedback ${correct ? 'ok' : 'no'}">
-        <div class="verdict">${correct ? 'Correct' : 'Incorrect'}</div>
+      <div class="feedback ${correctNow ? 'ok' : 'no'}">
+        <div class="verdict">${correctNow ? 'Correct' : 'Incorrect'}</div>
         <div class="explanation">${currentQ.explanation}</div>
         <div class="reference">${currentQ.reference}</div>
       </div>
@@ -560,7 +1228,7 @@ function render(selectedIdx){
 
   app.innerHTML = `
     <header>
-      <div class="title">Module A Revision<small>Practice quiz — demo</small></div>
+      <div class="title">Module A Revision<small>Telecoms — 50 questions</small></div>
       <div class="stats">
         <div class="stat">
           <div class="n">${sessionCorrect}/${sessionSeen}</div>
@@ -573,7 +1241,7 @@ function render(selectedIdx){
       </div>
     </header>
 
-    <div class="demo-note">This is a working prototype with placeholder questions, not real exam content. It shows how selection, feedback, explanations and the review queue behave — the real version would use questions generated from your reading list.</div>
+    <div class="demo-note">50 questions covering "Back to Basics: Telecoms" Parts 1 &amp; 2, including a few multi-select and calculation-style questions to match your specimen paper's format. More batches will be added as you share further articles.</div>
 
     ${missedPanelHtml}
 
@@ -581,11 +1249,15 @@ function render(selectedIdx){
     <div class="card ${isReviewQ ? 'review-tag' : ''}">
       <div class="q-meta">
         <span>${currentQ.topic}</span>
-        ${isReviewQ ? '<span class="badge">due for review</span>' : ''}
+        <span style="display:flex; gap:8px;">
+          ${fmt === 'multi' ? `<span class="badge" style="color:var(--accent);">select ${currentQ.selectCount}</span>` : ''}
+          ${isReviewQ ? '<span class="badge">due for review</span>' : ''}
+        </span>
       </div>
       <div class="q-text">${currentQ.q}</div>
     </div>
     <div class="options">${optionsHtml}</div>
+    ${submitHtml}
     ${feedbackHtml}
     ` : ''}
 
